@@ -2,7 +2,7 @@
 
 Ein klickbarer Prototyp der Wein- & Bier-App. Er zeigt den Weg vom ersten Start über das geführte Tasting bis zum Notizbuch, zum eigenen Geschmacksprofil und zum Abo. Ein Schalter oben wechselt zwischen Wein und Bier.
 
-Zum Ausprobieren einfach die Seite öffnen. Am Handy läuft die App-Ansicht im Vollbild. Am Computer öffnet sich die Web-Ansicht für Premium-Nutzer. Über „App-Ansicht“ oben rechts sieht man dort auch die App in einem Handy-Rahmen. Mit `?app` am Ende der Adresse zeigt die Seite immer die App.
+Zum Ausprobieren einfach die Seite öffnen: https://glumf.github.io/Tasting-Prototyp/ Am Handy läuft die App-Ansicht im Vollbild. Am Computer öffnet sich die Web-Ansicht für Premium-Nutzer. Über „App-Ansicht“ oben rechts sieht man dort auch die App in einem Handy-Rahmen. Mit `?app` am Ende der Adresse zeigt die Seite immer die App.
 
 App-Name, Hersteller, Preise und Texte sind Platzhalter.
 
