@@ -1,0 +1,9 @@
+{
+  "name": "tasting-prototyp-werkzeuge",
+  "private": true,
+  "description": "Schriften für den Bau des Klick-Prototyps",
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
+    "@fontsource/fraunces": "^5.2.0"
+  }
+}

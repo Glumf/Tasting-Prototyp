@@ -1,0 +1,209 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-25T12:40:00Z"
+  },
+  "title": "Wein- & Bier-App Entwurf",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Prototyp.dc.html": {
+      "x": -470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "0 · Klick-Prototyp (alles zusammen)",
+      "is_interactive": true
+    },
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1 · Erster Start",
+      "is_interactive": true
+    },
+    "Geschmacksfrage.dc.html": {
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1b · Erfahrung und Geschmacksfrage",
+      "is_interactive": true
+    },
+    "Start.dc.html": {
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "2 · Start (Wein)",
+      "is_interactive": true
+    },
+    "StartBier.dc.html": {
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "2b · Start (Bier)",
+      "is_interactive": true
+    },
+    "Schnellnotiz.dc.html": {
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "2c · Schnell notieren",
+      "is_interactive": true
+    },
+    "Verkosten.dc.html": {
+      "x": 2350,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "3 · Verkosten starten",
+      "is_interactive": true
+    },
+    "Empfehlungen.dc.html": {
+      "x": 2820,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "3b · Empfiehl mir was",
+      "is_interactive": true
+    },
+    "Nase.dc.html": {
+      "x": 3290,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "4 · Tasting: Nase",
+      "is_interactive": true
+    },
+    "GaumenBier.dc.html": {
+      "x": 3760,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "4b · Tasting: Geschmack (Bier)",
+      "is_interactive": true
+    },
+    "Aufloesung.dc.html": {
+      "x": 4230,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "5 · Auflösung",
+      "is_interactive": true
+    },
+    "Notizbuch.dc.html": {
+      "x": 4700,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "6 · Notizbuch",
+      "is_interactive": true
+    },
+    "Geschmack.dc.html": {
+      "x": 5170,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "7 · Mein Geschmack",
+      "is_interactive": true
+    },
+    "Profil.dc.html": {
+      "x": 5640,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "8 · Profil",
+      "is_interactive": true
+    },
+    "Premium.dc.html": {
+      "x": 6110,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "8b · Premium",
+      "is_interactive": true
+    },
+    "Web.dc.html": {
+      "x": 0,
+      "y": 1324,
+      "w": 1440,
+      "h": 900,
+      "title": "0b · Web-Ansicht am Rechner (Premium)",
+      "is_interactive": true,
+      "expand": "fill"
+    },
+    "Farben-Kellerei.dc.html": {
+      "x": 0,
+      "y": 2548,
+      "w": 880,
+      "h": 560,
+      "title": "Farben · Kellerei (aktuell)"
+    },
+    "Farben-Schiefer.dc.html": {
+      "x": 960,
+      "y": 2548,
+      "w": 880,
+      "h": 560,
+      "title": "Farben · Schiefer"
+    },
+    "Farben-Landgut.dc.html": {
+      "x": 1920,
+      "y": 2548,
+      "w": 880,
+      "h": 560,
+      "title": "Farben · Landgut"
+    }
+  },
+  "order": [
+    "Prototyp.dc.html",
+    "Main.dc.html",
+    "Geschmacksfrage.dc.html",
+    "Start.dc.html",
+    "StartBier.dc.html",
+    "Schnellnotiz.dc.html",
+    "Verkosten.dc.html",
+    "Empfehlungen.dc.html",
+    "Nase.dc.html",
+    "GaumenBier.dc.html",
+    "Aufloesung.dc.html",
+    "Notizbuch.dc.html",
+    "Geschmack.dc.html",
+    "Profil.dc.html",
+    "Premium.dc.html",
+    "Web.dc.html",
+    "Farben-Kellerei.dc.html",
+    "Farben-Schiefer.dc.html",
+    "Farben-Landgut.dc.html"
+  ],
+  "notes": {
+    "title": {
+      "x": -470,
+      "y": -300,
+      "text": "Wein- & Bier-App · Klick-Prototyp und Hauptbildschirme",
+      "kind": "title1",
+      "maxW": 6970
+    },
+    "web": {
+      "x": 0,
+      "y": 1024,
+      "text": "Web-Ansicht am Rechner",
+      "kind": "title1",
+      "maxW": 1440
+    },
+    "farben": {
+      "x": 0,
+      "y": 2248,
+      "text": "Farbwelten · Wein und Bier, hell und dunkel",
+      "kind": "title1",
+      "maxW": 2800
+    }
+  },
+  "designSystems": []
+}

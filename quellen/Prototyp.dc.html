@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Klick-Prototyp</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; display: flex; flex-direction: column; font-family: 'Atkinson Hyperlegible', sans-serif; background: {{c.bg}}; color: {{c.ink}}">
+
+<sc-if value="{{is.main}}" hint-placeholder-val="{{ false }}">
+<div style="flex: none; display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 8px">
+  <div style="display: flex; align-items: center; gap: 8px">
+    <span style="width: 34px; height: 34px; border-radius: 17px; background: {{c.primary}}; display: flex; align-items: center; justify-content: center">
+      <sc-if value="{{is.wein}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-.6 5.5a4.4 4.4 0 0 1-8.8 0z"></path><path d="M12 13v8"></path><path d="M8 21h8"></path></svg></sc-if>
+      <sc-if value="{{is.bier}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path d="M15 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path><path d="M5 8a3 3 0 0 1 5-2 3 3 0 0 1 5 2"></path></svg></sc-if>
+    </span>
+    <span style="font-weight: 700; font-size: 15px">[App-Name]</span>
+  </div>
+  <div role="group" aria-label="Wein oder Bier" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; width: 150px; padding: 3px; border-radius: 14px; background: {{c.seg}}">
+    <button type="button" aria-pressed="{{pressWein}}" onClick="{{toWein}}" style="font: inherit; font-size: 15px; height: 38px; border: 0; border-radius: 11px; cursor: pointer; {{segWein}}">Wein</button>
+    <button type="button" aria-pressed="{{pressBier}}" onClick="{{toBier}}" style="font: inherit; font-size: 15px; height: 38px; border: 0; border-radius: 11px; cursor: pointer; {{segBier}}">Bier</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.welcome}}" hint-placeholder-val="{{ true }}">
+<div style="flex: 1; min-height: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column">
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: center">
+    <div style="display: flex; gap: 10px">
+      <span style="width: 64px; height: 64px; border-radius: 32px; background: {{cw.primary}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-.6 5.5a4.4 4.4 0 0 1-8.8 0z"></path><path d="M12 13v8"></path><path d="M8 21h8"></path></svg></span>
+      <span style="width: 64px; height: 64px; border-radius: 32px; background: {{cb.primary}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path d="M15 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path><path d="M5 8a3 3 0 0 1 5-2 3 3 0 0 1 5 2"></path></svg></span>
+    </div>
+    <span style="margin-top: 24px; font-size: 15px; font-weight: 700; color: {{c.muted}}">[App-Name]</span>
+    <h1 style="margin: 6px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 38px; line-height: 44px">Schmecken lernen, Schluck für Schluck.</h1>
+    <p style="margin: 14px 0 0; font-size: 17px; line-height: 26px; color: {{c.muted}}">Halte fest, was dir schmeckt, lass dich durch Verkostungen führen und entdecke, was dir als Nächstes gefallen könnte. Für Wein und Bier.</p>
+    <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: center; gap: 12px"><span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: {{c.soft}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"></path><path d="M9 8h6"></path><path d="M9 12h4"></path></svg></span><span style="font-size: 16px; font-weight: 700">Notizbuch für jede Flasche</span></div>
+      <div style="display: flex; align-items: center; gap: 12px"><span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: {{c.soft}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg></span><span style="font-size: 16px; font-weight: 700">Geführtes Tasting zum Mitmachen</span></div>
+      <div style="display: flex; align-items: center; gap: 12px"><span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: {{c.soft}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 3 20.5 9 17.5 19 6.5 19 3.5 9"></polygon><polygon points="12 8 16 11 14.5 15.5 9.5 15.5 8 11"></polygon></svg></span><span style="font-size: 16px; font-weight: 700">Dein Geschmack, der mitwächst</span></div>
+    </div>
+  </div>
+  <label style="display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; line-height: 20px"><input type="checkbox" checked="{{s.ageOk}}" onChange="{{toggleAge}}" style="flex: none; width: 22px; height: 22px; margin: 0; accent-color: {{c.primary}}">Ich bin mindestens 18 Jahre alt.</label>
+  <sc-if value="{{s.ageErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 13px; color: {{c.danger}}">Bitte bestätige zuerst dein Alter.</span></sc-if>
+  <button type="button" onClick="{{startOnboard}}" style="margin-top: 10px; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Los geht's</button>
+</div>
+</sc-if>
+
+<sc-if value="{{is.onboard}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column">
+  <div style="display: flex; align-items: center; justify-content: space-between; height: 32px">
+    <span style="font-weight: 700; font-size: 15px">[App-Name]</span>
+    <span style="font-size: 14px; color: {{c.muted}}">Frage {{quizNo}} von 4</span>
+  </div>
+  <h1 style="margin: 16px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">Wie gut kennst du dich aus?</h1>
+  <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Danach richtet sich, wie viel die App erklärt. Du kannst das jederzeit ändern.</p>
+  <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px">
+    <sc-for list="{{levels}}" as="l" hint-placeholder-count="3">
+    <button type="button" aria-pressed="{{l.pressed}}" onClick="{{l.pick}}" style="font: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 16px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{l.ring}}"><span style="font-weight: 700; font-size: 17px">{{l.name}}</span><span style="font-size: 14px; line-height: 19px; color: {{c.muted}}">{{l.sub}}</span></button>
+    </sc-for>
+  </div>
+  <h2 style="margin: 22px 0 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 21px; line-height: 26px">Kurze Geschmacksfrage</h2>
+  <p style="margin: 4px 0 0; font-size: 16px">{{quizQ.q}}</p>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px">
+    <sc-for list="{{quizOpts}}" as="o" hint-placeholder-count="2">
+    <button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 16px; font-weight: 700; height: 54px; border-radius: 14px; cursor: pointer; {{o.st}}">{{o.label}}</button>
+    </sc-for>
+  </div>
+  <p style="margin: 10px 0 0; font-size: 13px; line-height: 18px; color: {{c.muted}}">Aus den Antworten entsteht dein erstes Geschmacksprofil, ganz ohne Fachwissen.</p>
+  <button type="button" onClick="{{nextQuiz}}" style="margin-top: auto; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">{{quizBtn}}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{is.home}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 4px 20px 20px">
+  <h1 style="margin: 8px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">{{D.homeTitle}}</h1>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px">
+    <button type="button" onClick="{{goBegin}}" style="font: inherit; text-align: left; display: flex; flex-direction: column; gap: 6px; padding: 16px; min-height: 116px; border: 0; border-radius: 20px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg><span style="margin-top: auto; font-weight: 700; font-size: 18px">Verkosten</span><span style="font-size: 13px; line-height: 17px; opacity: 0.85">Geführt, Schritt für Schritt</span></button>
+    <button type="button" onClick="{{openQuick}}" style="font: inherit; text-align: left; display: flex; flex-direction: column; gap: 6px; padding: 16px; min-height: 116px; border-radius: 20px; border: 1.5px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg><span style="margin-top: auto; font-weight: 700; font-size: 18px">Schnell notieren</span><span style="font-size: 13px; line-height: 17px; color: {{c.muted}}">Foto, Sterne, fertig</span></button>
+  </div>
+  <sc-if value="{{is.free}}" hint-placeholder-val="{{ true }}">
+  <button type="button" onClick="{{openPay}}" style="margin-top: 10px; width: 100%; font: inherit; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: 16px; border: 1.5px dashed {{c.primary}}; background: {{c.soft}}; color: {{c.ink}}; cursor: pointer"><span style="font-size: 14px; text-align: left">Ohne Werbung, mit Cloud und Web-Ansicht</span><span style="flex: none; font-weight: 700; font-size: 14px; color: {{c.primaryText}}">Premium holen</span></button>
+  </sc-if>
+
+  <h2 style="margin: 22px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Empfehlung der Woche</h2>
+  <div style="margin-top: 8px; padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; line-height: 24px">{{rec0.name}}</span><span style="flex: none; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{rec0.tag}}</span></div>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 21px; color: {{c.muted}}">{{rec0.why}}</p>
+    <button type="button" onClick="{{rec0.start}}" style="margin-top: 12px; font: inherit; font-weight: 700; font-size: 15px; height: 44px; padding: 0 16px; border-radius: 22px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Damit verkosten</button>
+  </div>
+
+  <h2 style="margin: 22px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Lern-Häppchen</h2>
+  <div style="margin-top: 8px; padding: 16px; border-radius: 20px; background: {{c.soft}}">
+    <span style="font-weight: 700; font-size: 16px">{{D.lesson.title}}</span>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px">{{D.lesson.text}}</p>
+  </div>
+
+  <h2 style="margin: 22px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Zuletzt verkostet</h2>
+  <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
+    <sc-for list="{{recent}}" as="e" hint-placeholder-count="3">
+    <button type="button" onClick="{{e.open}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
+      <span style="flex: none; width: 44px; height: 52px; border-radius: 10px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="26" height="44" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{e.hex}}"></path></svg></span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">{{e.name}}</span><span style="font-size: 13px; color: {{c.muted}}">{{e.maker}} · {{e.date}}</span></span>
+      <span style="flex: none; font-size: 14px; letter-spacing: 1px"><span style="color: {{c.star}}">{{e.on}}</span><span style="color: {{c.off}}">{{e.off}}</span></span>
+    </button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.begin}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{goHome}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">Verkosten · {{D.label}}</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 20px">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">Was hast du im Glas?</h1>
+    <div role="group" aria-label="Woher kommt die Flasche?" style="margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}">
+      <button type="button" aria-pressed="{{pressOwn}}" onClick="{{tabOwn}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{segOwn}}">Ich habe gerade da</button>
+      <button type="button" aria-pressed="{{pressRec}}" onClick="{{tabRec}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{segRec}}">Empfiehl mir was</button>
+    </div>
+
+    <sc-if value="{{is.tabOwn}}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{is.notRecognized}}" hint-placeholder-val="{{ true }}">
+      <button type="button" onClick="{{snap}}" style="margin-top: 14px; width: 100%; font: inherit; height: 168px; border-radius: 20px; border: 2px dashed {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; cursor: pointer"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg><span style="font-weight: 700; font-size: 16px">Etikett fotografieren (Vorschau)</span><span style="font-size: 13px; color: {{c.muted}}">Die App liest Name und Jahrgang vom Etikett</span></button>
+      </sc-if>
+      <sc-if value="{{is.recognized}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: 14px; padding: 16px; border-radius: 20px; border: 2px solid {{c.primary}}; background: {{c.surface}}">
+        <span style="font-size: 13px; font-weight: 700; color: {{c.primaryText}}">Erkannt</span>
+        <div style="margin-top: 6px; display: flex; align-items: center; gap: 12px">
+          <span style="flex: none; width: 52px; height: 64px; border-radius: 12px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="32" height="54" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{snapB.hex}}"></path></svg></span>
+          <span style="display: flex; flex-direction: column"><span style="font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px">{{snapB.name}}</span><span style="font-size: 14px; color: {{c.muted}}">{{snapB.maker}} · {{snapB.meta}}</span></span>
+        </div>
+        <div style="margin-top: 14px; display: flex; gap: 8px">
+          <button type="button" onClick="{{snapB.start}}" style="flex: 1; font: inherit; font-weight: 700; font-size: 16px; height: 48px; border: 0; border-radius: 24px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Tasting starten</button>
+          <button type="button" onClick="{{unsnap}}" style="font: inherit; font-size: 15px; height: 48px; padding: 0 16px; border-radius: 24px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Doch nicht</button>
+        </div>
+      </div>
+      </sc-if>
+      <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Oder aus der Liste wählen</h2>
+      <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-radius: 14px; background: {{c.surface}}; border: 1px solid {{c.border}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><span style="font-size: 15px; color: {{c.muted}}">{{D.searchHint}}</span></div>
+      <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{bottles}}" as="b" hint-placeholder-count="3">
+        <button type="button" onClick="{{b.start}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
+          <span style="flex: none; width: 44px; height: 52px; border-radius: 10px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="26" height="44" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{b.hex}}"></path></svg></span>
+          <span style="flex: 1; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">{{b.name}}</span><span style="font-size: 13px; color: {{c.muted}}">{{b.maker}} · {{b.meta}}</span></span>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{is.tabRec}}" hint-placeholder-val="{{ false }}">
+      <p style="margin: 14px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Passend zu deinem Geschmack. Die Vorschläge findest du im Handel, danach startest du damit das Tasting.</p>
+      <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{recs}}" as="r" hint-placeholder-count="3">
+        <div style="padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-family: 'Fraunces', serif; font-weight: 600; font-size: 19px">{{r.name}}</span><span style="flex: none; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{r.tag}}</span></div>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 20px; color: {{c.muted}}">{{r.why}}</p>
+          <button type="button" onClick="{{r.start}}" style="margin-top: 10px; font: inherit; font-weight: 700; font-size: 15px; height: 44px; padding: 0 16px; border-radius: 22px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Damit verkosten</button>
+        </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.step}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; justify-content: space-between; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{prevStep}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-size: 14px; color: {{c.muted}}">Schritt {{stepNo}} von 5 · {{levelName}}</span>
+    <button type="button" aria-label="{{speakLabel}}" aria-pressed="{{pressSpeak}}" onClick="{{toggleSpeak}}" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; {{speakSt}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{speakInk}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg></button>
+  </div>
+  <div style="flex: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; padding: 12px 20px 0">
+    <sc-for list="{{progress}}" as="p" hint-placeholder-count="5"><span style="height: 6px; border-radius: 3px; background: {{p.bg}}"></span></sc-for>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 14px 20px 16px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; border-radius: 14px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <span style="flex: none; width: 34px; height: 40px; border-radius: 8px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="20" height="34" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{B.hex}}"></path></svg></span>
+      <span style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 14px">{{B.name}}</span><span style="font-size: 12px; color: {{c.muted}}">{{B.maker}} · {{B.meta}}</span></span>
+    </div>
+    <h1 style="margin: 16px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">{{stepTitle}}</h1>
+    <sc-if value="{{speaking}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; margin-top: 8px; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">Wird vorgelesen …</span></sc-if>
+    <p style="margin: 8px 0 0; font-size: 16px; line-height: 24px; {{hintSt}}">{{hint}}</p>
+
+    <sc-if value="{{st.look}}" hint-placeholder-val="{{ true }}">
+      <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">Farbe</h2>
+      <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{lookColors}}" as="o" hint-placeholder-count="5">
+        <button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px; border-radius: 14px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{o.ring}}"><span style="width: 36px; height: 36px; border-radius: 18px; background: {{o.hex}}; border: 1px solid rgba(0, 0, 0, 0.12)"></span>{{o.label}}</button>
+        </sc-for>
+      </div>
+      <sc-for list="{{lookRows}}" as="row" hint-placeholder-count="1">
+      <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">{{row.label}}</h2>
+      <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{row.opts}}" as="o" hint-placeholder-count="2"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; padding: 0 16px; border-radius: 22px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+      </div>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{st.nose}}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{toggleTimer}}" style="margin-top: 14px; font: inherit; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 22px; cursor: pointer; {{timerSt}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path></svg>{{timerLabel}}</button>
+      <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">{{aromaHead}}</h2>
+      <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{aromaList}}" as="a" hint-placeholder-count="8"><button type="button" aria-pressed="{{a.pressed}}" onClick="{{a.pick}}" style="font: inherit; font-size: 15px; height: 44px; padding: 0 14px; border-radius: 22px; cursor: pointer; {{a.st}}">{{a.label}}</button></sc-for>
+      </div>
+      <p style="margin: 10px 0 0; font-size: 13px; color: {{c.muted}}">{{aromaCount}}</p>
+    </sc-if>
+
+    <sc-if value="{{st.palate}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{axes}}" as="ax" hint-placeholder-count="4">
+        <div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-weight: 700; font-size: 16px">{{ax.label}}</span><span style="font-size: 13px; color: {{c.muted}}">{{ax.lo}} bis {{ax.hi}}</span></div>
+          <div role="group" aria-label="{{ax.label}}" style="margin-top: 6px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+            <sc-for list="{{ax.opts}}" as="o" hint-placeholder-count="5"><button type="button" aria-label="{{o.aria}}" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border-radius: 12px; cursor: pointer; {{o.st}}">{{o.n}}</button></sc-for>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{st.finish}}" hint-placeholder-val="{{ false }}">
+      <sc-for list="{{finRows}}" as="row" hint-placeholder-count="1">
+      <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">{{row.label}}</h2>
+      <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{row.opts}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 16px; height: 52px; border-radius: 14px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+      </div>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{st.verdict}}" hint-placeholder-val="{{ false }}">
+      <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">Wie hat es dir geschmeckt?</h2>
+      <div role="group" aria-label="Sterne" style="margin-top: 6px; display: flex; gap: 4px">
+        <sc-for list="{{stars}}" as="t" hint-placeholder-count="5"><button type="button" aria-label="{{t.aria}}" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="width: 48px; height: 48px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="{{t.fill}}" stroke="{{t.stroke}}" stroke-width="1.6" stroke-linejoin="round"><polygon points="12 3 14.8 9 21 9.6 16.2 13.8 17.7 20 12 16.7 6.3 20 7.8 13.8 3 9.6 9.2 9"></polygon></svg></button></sc-for>
+      </div>
+      <h2 style="margin: 14px 0 0; font-size: 15px; font-weight: 700">Würdest du ihn wieder trinken?</h2>
+      <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{faces}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 48px; border-radius: 14px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+      </div>
+      <label style="display: block; margin-top: 14px; font-size: 15px; font-weight: 700">Notiz (freiwillig)
+        <textarea rows="3" placeholder="{{D.notePh}}" style="display: block; box-sizing: border-box; width: 100%; margin-top: 6px; padding: 12px; border-radius: 14px; border: 1.5px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; font: inherit; font-weight: 400; font-size: 15px; resize: none"></textarea>
+      </label>
+    </sc-if>
+  </div>
+  <div style="flex: none; padding: 10px 20px 20px; border-top: 1px solid {{c.border}}">
+    <button type="button" onClick="{{nextStep}}" style="width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">{{nextLabel}}</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.result}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{backToVerdict}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">Auflösung</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 16px">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">{{B.name}}</h1>
+    <span style="font-size: 14px; color: {{c.muted}}">{{B.maker}} · {{B.meta}}</span>
+    <div style="margin-top: 14px; padding: 16px; border-radius: 20px; background: {{c.soft}}">
+      <span style="font-weight: 700; font-size: 16px">{{insight.head}}</span>
+      <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px">{{insight.text}}</p>
+      <p style="margin: 8px 0 0; font-size: 15px; line-height: 22px">{{B.fact}}</p>
+    </div>
+    <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Du und das typische Profil</h2>
+    <div style="margin-top: 8px; display: flex; gap: 16px; font-size: 13px; color: {{c.muted}}"><span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 8px; border-radius: 4px; background: {{c.primary}}"></span>Du</span><span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 8px; border-radius: 4px; background: {{c.off}}"></span>Typisch</span></div>
+    <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 12px">
+      <sc-for list="{{cmp}}" as="r" hint-placeholder-count="4">
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 15px"><span style="font-weight: 700">{{r.label}}</span><span style="color: {{c.muted}}">{{r.verdict}}</span></div>
+        <div style="margin-top: 6px; height: 10px; border-radius: 5px; background: {{c.seg}}"><div style="height: 10px; border-radius: 5px; width: {{r.you}}; background: {{c.primary}}"></div></div>
+        <div style="margin-top: 4px; height: 10px; border-radius: 5px; background: {{c.seg}}"><div style="height: 10px; border-radius: 5px; width: {{r.typ}}; background: {{c.off}}"></div></div>
+      </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-weight: 700">Deine Bewertung</span><span style="font-size: 18px; letter-spacing: 2px"><span style="color: {{c.star}}">{{resStars.on}}</span><span style="color: {{c.off}}">{{resStars.off}}</span></span></div>
+  </div>
+  <div style="flex: none; padding: 10px 20px 20px; border-top: 1px solid {{c.border}}">
+    <button type="button" onClick="{{saveTasting}}" style="width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Im Notizbuch speichern</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.journal}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 4px 20px 20px">
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-top: 8px">
+    <div><h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">Notizbuch</h1><span style="font-size: 14px; color: {{c.muted}}">{{journalCount}}</span></div>
+    <div role="group" aria-label="Ansicht" style="display: flex; gap: 2px; padding: 3px; border-radius: 12px; background: {{c.seg}}">
+      <button type="button" aria-label="Raster" aria-pressed="{{pressGrid}}" onClick="{{viewGrid}}" style="width: 44px; height: 38px; border: 0; border-radius: 9px; display: flex; align-items: center; justify-content: center; cursor: pointer; {{segGrid}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1"></rect><rect x="13" y="4" width="7" height="7" rx="1"></rect><rect x="4" y="13" width="7" height="7" rx="1"></rect><rect x="13" y="13" width="7" height="7" rx="1"></rect></svg></button>
+      <button type="button" aria-label="Liste" aria-pressed="{{pressList}}" onClick="{{viewList}}" style="width: 44px; height: 38px; border: 0; border-radius: 9px; display: flex; align-items: center; justify-content: center; cursor: pointer; {{segList}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12"></path><path d="M8 12h12"></path><path d="M8 18h12"></path><path d="M4 6h.01"></path><path d="M4 12h.01"></path><path d="M4 18h.01"></path></svg></button>
+    </div>
+  </div>
+  <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-radius: 14px; background: {{c.surface}}; border: 1px solid {{c.border}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><span style="font-size: 15px; color: {{c.muted}}">Hatte ich den schon? Suchen …</span></div>
+  <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap">
+    <sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="font: inherit; font-size: 14px; height: 40px; padding: 0 14px; border-radius: 20px; cursor: pointer; {{f.st}}">{{f.label}}</button></sc-for>
+  </div>
+  <sc-if value="{{is.gridView}}" hint-placeholder-val="{{ true }}">
+  <div style="margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <sc-for list="{{entries}}" as="e" hint-placeholder-count="4">
+    <button type="button" onClick="{{e.open}}" style="font: inherit; text-align: left; display: flex; flex-direction: column; padding: 0; border-radius: 18px; overflow: hidden; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
+      <span style="height: 120px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="58" height="100" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{e.hex}}"></path></svg></span>
+      <span style="padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700; font-size: 15px">{{e.name}}</span><span style="font-size: 12px; color: {{c.muted}}">{{e.maker}} · {{e.date}}</span><span style="font-size: 14px; letter-spacing: 1px"><span style="color: {{c.star}}">{{e.on}}</span><span style="color: {{c.off}}">{{e.off}}</span></span></span>
+    </button>
+    </sc-for>
+  </div>
+  </sc-if>
+  <sc-if value="{{is.listView}}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px">
+    <sc-for list="{{entries}}" as="e" hint-placeholder-count="4">
+    <button type="button" onClick="{{e.open}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
+      <span style="flex: none; width: 44px; height: 52px; border-radius: 10px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="26" height="44" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{e.hex}}"></path></svg></span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">{{e.name}}</span><span style="font-size: 13px; color: {{c.muted}}">{{e.maker}} · {{e.date}} · {{e.face}}</span></span>
+      <span style="flex: none; font-size: 14px; letter-spacing: 1px"><span style="color: {{c.star}}">{{e.on}}</span><span style="color: {{c.off}}">{{e.off}}</span></span>
+    </button>
+    </sc-for>
+  </div>
+  </sc-if>
+  <sc-if value="{{is.noEntries}}" hint-placeholder-val="{{ false }}"><p style="margin: 16px 0 0; font-size: 15px; color: {{c.muted}}">Keine Verkostung passt zu diesem Filter.</p></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{is.detail}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{goJournal}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">Notizbuch</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 20px">
+    <div style="height: 200px; border-radius: 24px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="96" height="168" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{E.hex}}"></path></svg></div>
+    <h1 style="margin: 16px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">{{E.name}}</h1>
+    <span style="font-size: 14px; color: {{c.muted}}">{{E.maker}} · {{E.date}}</span>
+    <div style="margin-top: 12px; display: flex; align-items: center; gap: 12px"><span style="font-size: 22px; letter-spacing: 2px"><span style="color: {{c.star}}">{{E.on}}</span><span style="color: {{c.off}}">{{E.off}}</span></span><span style="font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{E.face}}</span></div>
+    <h2 style="margin: 18px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Notiz</h2>
+    <p style="margin: 6px 0 0; font-size: 16px; line-height: 24px">{{E.note}}</p>
+    <h2 style="margin: 18px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Merkmale</h2>
+    <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
+      <sc-for list="{{E.traits}}" as="t" hint-placeholder-count="4"><div style="display: flex; justify-content: space-between; font-size: 15px; padding: 10px 0; border-bottom: 1px solid {{c.border}}"><span>{{t.label}}</span><span style="font-weight: 700">{{t.value}}</span></div></sc-for>
+    </div>
+    <button type="button" onClick="{{E.again}}" style="margin-top: 18px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Nochmal verkosten</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.taste}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 4px 20px 20px">
+  <h1 style="margin: 8px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">Mein Geschmack</h1>
+  <span style="font-size: 14px; color: {{c.muted}}">{{D.label}} · aus {{journalLen}} Verkostungen</span>
+  <div style="margin-top: 10px; border-radius: 24px; background: {{c.surface}}; border: 1px solid {{c.border}}; display: flex; justify-content: center">
+    <svg role="img" aria-label="Netzdiagramm deines Geschmacks" width="330" height="270" viewBox="0 0 330 270">
+      <sc-for list="{{radar.rings}}" as="g" hint-placeholder-count="5"><polygon points="{{g.pts}}" fill="none" stroke="{{c.border}}" stroke-width="1"></polygon></sc-for>
+      <sc-for list="{{radar.spokes}}" as="k" hint-placeholder-count="6"><line x1="165" y1="138" x2="{{k.x}}" y2="{{k.y}}" stroke="{{c.border}}" stroke-width="1"></line></sc-for>
+      <polygon points="{{radar.pts}}" fill="{{c.primary}}" fill-opacity="0.22" stroke="{{c.primary}}" stroke-width="2.5" stroke-linejoin="round"></polygon>
+      <sc-for list="{{radar.labels}}" as="l" hint-placeholder-count="6"><text x="{{l.x}}" y="{{l.y}}" text-anchor="{{l.anchor}}" font-size="13" font-weight="700" fill="{{c.ink}}" font-family="Atkinson Hyperlegible, sans-serif">{{l.text}}</text></sc-for>
+    </svg>
+  </div>
+  <p style="margin: 12px 0 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 19px; line-height: 26px">{{D.sentence}}</p>
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Deine Lieblinge</h2>
+  <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px">
+    <sc-for list="{{D.favs}}" as="f" hint-placeholder-count="3"><span style="font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 18px; background: {{c.soft}}; color: {{c.primaryText}}">{{f}}</span></sc-for>
+  </div>
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Probier als Nächstes</h2>
+  <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
+    <sc-for list="{{recs}}" as="r" hint-placeholder-count="3">
+    <button type="button" onClick="{{r.start}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700; font-size: 16px">{{r.name}}</span><span style="font-size: 13px; line-height: 18px; color: {{c.muted}}">{{r.why}}</span></span>
+      <span style="flex: none; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{r.tag}}</span>
+    </button>
+    </sc-for>
+  </div>
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Lernpfad</h2>
+  <div style="margin-top: 8px; padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+    <span style="font-weight: 700; font-size: 16px">{{D.path.title}}</span>
+    <div style="margin-top: 10px; height: 10px; border-radius: 5px; background: {{c.seg}}"><div style="height: 10px; border-radius: 5px; width: {{D.path.pct}}; background: {{c.primary}}"></div></div>
+    <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{D.path.sub}}</span>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.profile}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 4px 20px 20px">
+  <h1 style="margin: 8px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">Profil</h1>
+
+  <div style="margin-top: 12px; padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+    <div style="display: flex; align-items: center; justify-content: space-between"><span style="font-weight: 700; font-size: 16px">{{aboTitle}}</span><span style="font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{aboTag}}</span></div>
+    <p style="margin: 6px 0 0; font-size: 14px; line-height: 20px; color: {{c.muted}}">{{aboText}}</p>
+    <sc-if value="{{is.free}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{openPay}}" style="margin-top: 12px; font: inherit; font-weight: 700; font-size: 15px; height: 46px; padding: 0 18px; border: 0; border-radius: 23px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Premium holen</button></sc-if>
+  </div>
+
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Erfahrungsstufe</h2>
+  <div role="group" aria-label="Erfahrungsstufe" style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}">
+    <sc-for list="{{levelSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+  </div>
+
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Darstellung</h2>
+  <div role="group" aria-label="Darstellung" style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}">
+    <sc-for list="{{lookSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+  </div>
+  <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">„Automatisch“ folgt der Einstellung deines Handys.</span>
+
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Farbwelt (Vorschau)</h2>
+  <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+    <sc-for list="{{palSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px; border-radius: 14px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{o.ring}}"><span style="display: flex"><span style="width: 22px; height: 22px; border-radius: 11px; background: {{o.a}}"></span><span style="width: 22px; height: 22px; margin-left: -6px; border-radius: 11px; background: {{o.b}}"></span></span>{{o.label}}</button></sc-for>
+  </div>
+
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Sprachausgabe</h2>
+  <div style="margin-top: 8px; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px"><span style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">Stimme des Handys</span><span style="font-size: 13px; color: {{c.muted}}">kostenlos und offline</span></span><button type="button" onClick="{{sample}}" style="flex: none; font: inherit; font-size: 14px; font-weight: 700; height: 40px; padding: 0 14px; border-radius: 20px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Hörprobe</button></div>
+    <div style="height: 1px; background: {{c.border}}"></div>
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px"><span style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">Natürlichere Stimme</span><span style="font-size: 13px; color: {{c.muted}}">{{premiumVoice}}</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></div>
+  </div>
+
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Daten</h2>
+  <div style="margin-top: 8px; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1 0 9z"></path></svg><span style="flex: 1; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">Cloud-Sync</span><span style="font-size: 13px; color: {{c.muted}}">{{syncText}}</span></span></div>
+    <div style="height: 1px; background: {{c.border}}"></div>
+    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path></svg><span style="flex: 1; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">Web-Ansicht am Rechner</span><span style="font-size: 13px; color: {{c.muted}}">{{webText}}</span></span></div>
+    <div style="height: 1px; background: {{c.border}}"></div>
+    <button type="button" onClick="{{exportData}}" style="width: 100%; font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 52px; border: 0; background: transparent; color: {{c.ink}}; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="m7 10 5 5 5-5"></path><path d="M5 20h14"></path></svg><span style="font-weight: 700; font-size: 15px">Daten als Datei exportieren</span></button>
+  </div>
+  <p style="margin: 16px 0 0; font-size: 13px; line-height: 19px; color: {{c.muted}}">Nur für Erwachsene. Genieße bewusst und fahre nach dem Trinken nicht selbst.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{is.main}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{is.ad}}" hint-placeholder-val="{{ false }}">
+<div style="flex: none; margin: 0 12px 6px; height: 50px; border-radius: 10px; border: 1px dashed {{c.border}}; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; gap: 8px"><span style="font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: {{c.seg}}; color: {{c.muted}}">Anzeige</span><span style="font-size: 14px; color: {{c.muted}}">[Werbebanner]</span></div>
+</sc-if>
+<nav aria-label="Hauptmenü" style="flex: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: end; padding: 6px 8px 14px; border-top: 1px solid {{c.border}}; background: {{c.surface}}">
+  <button type="button" aria-pressed="{{tab.home}}" onClick="{{goHome}}" style="font: inherit; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; border: 0; background: transparent; cursor: pointer; color: {{tabInk.home}}"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"></path><path d="M5 10v10h14V10"></path></svg>Start</button>
+  <button type="button" aria-pressed="{{tab.journal}}" onClick="{{goJournal}}" style="font: inherit; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; border: 0; background: transparent; cursor: pointer; color: {{tabInk.journal}}"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"></path><path d="M9 8h6"></path><path d="M9 12h4"></path></svg>Notizbuch</button>
+  <button type="button" onClick="{{goBegin}}" style="font: inherit; font-size: 12px; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 3px; border: 0; background: transparent; cursor: pointer; color: {{c.ink}}"><span style="width: 56px; height: 56px; margin-top: -24px; border-radius: 28px; background: {{c.primary}}; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></span>Verkosten</button>
+  <button type="button" aria-pressed="{{tab.taste}}" onClick="{{goTaste}}" style="font: inherit; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; border: 0; background: transparent; cursor: pointer; color: {{tabInk.taste}}"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 3 20.5 9 17.5 19 6.5 19 3.5 9"></polygon><polygon points="12 8 16 11 14.5 15.5 9.5 15.5 8 11"></polygon></svg>Geschmack</button>
+  <button type="button" aria-pressed="{{tab.profile}}" onClick="{{goProfile}}" style="font: inherit; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; border: 0; background: transparent; cursor: pointer; color: {{tabInk.profile}}"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Profil</button>
+</nav>
+</sc-if>
+
+<sc-if value="{{is.sheetQuick}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: rgba(0, 0, 0, 0.45); display: flex; flex-direction: column; justify-content: flex-end">
+  <div role="dialog" aria-label="Schnell notieren" style="box-sizing: border-box; padding: 20px 20px 24px; border-radius: 28px 28px 0 0; background: {{c.bg}}">
+    <div style="display: flex; align-items: center; justify-content: space-between"><span style="font-family: 'Fraunces', serif; font-weight: 700; font-size: 24px">Schnell notieren</span><button type="button" aria-label="Schließen" onClick="{{closeSheet}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+    <button type="button" onClick="{{quickSnap}}" style="margin-top: 12px; width: 100%; font: inherit; display: flex; align-items: center; gap: 12px; padding: 12px 14px; min-height: 64px; border-radius: 16px; border: 2px dashed {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg><span style="display: flex; flex-direction: column; text-align: left"><span style="font-weight: 700; font-size: 15px">{{quickPhoto.title}}</span><span style="font-size: 13px; color: {{c.muted}}">{{quickPhoto.sub}}</span></span></button>
+    <div role="group" aria-label="Sterne" style="margin-top: 12px; display: flex; gap: 4px">
+      <sc-for list="{{qStars}}" as="t" hint-placeholder-count="5"><button type="button" aria-label="{{t.aria}}" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="width: 48px; height: 48px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="{{t.fill}}" stroke="{{t.stroke}}" stroke-width="1.6" stroke-linejoin="round"><polygon points="12 3 14.8 9 21 9.6 16.2 13.8 17.7 20 12 16.7 6.3 20 7.8 13.8 3 9.6 9.2 9"></polygon></svg></button></sc-for>
+    </div>
+    <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+      <sc-for list="{{qFaces}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 48px; border-radius: 14px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+    </div>
+    <sc-if value="{{s.quickErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="display: block; margin-top: 8px; font-size: 13px; color: {{c.danger}}">Bitte vergib mindestens einen Stern.</span></sc-if>
+    <button type="button" onClick="{{saveQuick}}" style="margin-top: 14px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Speichern</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.sheetPay}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: rgba(0, 0, 0, 0.45); display: flex; flex-direction: column; justify-content: flex-end">
+  <div role="dialog" aria-label="Premium" style="box-sizing: border-box; padding: 20px 20px 24px; border-radius: 28px 28px 0 0; background: {{c.bg}}">
+    <div style="display: flex; align-items: center; justify-content: space-between"><span style="font-family: 'Fraunces', serif; font-weight: 700; font-size: 26px">Premium</span><button type="button" aria-label="Schließen" onClick="{{closeSheet}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+    <p style="margin: 4px 0 0; font-size: 15px; color: {{c.muted}}">Alles zum Lernen bleibt kostenlos. Premium macht es bequemer.</p>
+    <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{perks}}" as="p" hint-placeholder-count="5"><div style="display: flex; align-items: center; gap: 10px; font-size: 15px"><span style="flex: none; width: 26px; height: 26px; border-radius: 13px; background: {{c.soft}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{c.primaryText}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{p}}</div></sc-for>
+    </div>
+    <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+      <sc-for list="{{plans}}" as="o" hint-placeholder-count="2"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 4px; border-radius: 16px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{o.ring}}"><span style="font-weight: 700; font-size: 16px">{{o.price}}</span><span style="font-size: 13px; color: {{c.muted}}">{{o.label}}</span></button></sc-for>
+    </div>
+    <span style="display: block; margin-top: 8px; font-size: 13px; color: {{c.muted}}">Preise und Probezeit sind noch offen.</span>
+    <button type="button" onClick="{{buy}}" style="margin-top: 12px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Abo abschließen (Vorschau)</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.toast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; left: 20px; right: 20px; bottom: 112px; padding: 14px 16px; border-radius: 16px; background: {{c.ink}}; color: {{c.bg}}; font-size: 15px; font-weight: 700; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25)">{{s.toast}}</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["welcome","onboard","home","begin","step1","step2","step3","step4","step5","result","journal","detail","taste","profile","paywall","quick"],"default":"welcome"},"world":{"editor":"enum","options":["wein","bier"],"default":"wein"},"pal":{"editor":"enum","options":["Kellerei","Schiefer","Landgut"],"default":"Kellerei"},"look":{"editor":"enum","options":["auto","light","dark"],"default":"auto"},"$preview":{"width":390,"height":844}}'>
+// DATEN-ANFANG (gemeinsam mit Web.dc.html, Abgleich mit werkzeuge/daten_abgleichen.py)
+var PALETTES = {
+  'Kellerei': {
+    sub: 'Warmes Creme mit Bordeaux und Bernstein',
+    wein: {
+      light: { bg: '#F6F0EA', surface: '#FFFFFF', ink: '#2B1519', muted: '#6E5A5D', border: '#E2D4CB', primary: '#6B1D2F', primaryText: '#6B1D2F', onPrimary: '#FFFFFF', soft: '#F3E3E5', seg: '#EADFD7', off: '#A8999B', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#160D0F', surface: '#24171A', ink: '#F3E9EA', muted: '#B9A4A8', border: '#3D2A2E', primary: '#E8A3B1', primaryText: '#F0B8C3', onPrimary: '#2B1519', soft: '#3A2027', seg: '#2E1E22', off: '#6E5A5D', star: '#E0B656', danger: '#FF8A80' }
+    },
+    bier: {
+      light: { bg: '#FAF4E8', surface: '#FFFFFF', ink: '#261A0B', muted: '#6B5A40', border: '#E6D7BC', primary: '#8A4B08', primaryText: '#7A4206', onPrimary: '#FFFFFF', soft: '#F6E6C8', seg: '#EEE2CB', off: '#A89878', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#15100A', surface: '#231A10', ink: '#F5ECDD', muted: '#BBA888', border: '#3D3020', primary: '#F0B567', primaryText: '#F3C27F', onPrimary: '#261A0B', soft: '#3A2A14', seg: '#2D2216', off: '#6B5A40', star: '#E0B656', danger: '#FF8A80' }
+    }
+  },
+  'Schiefer': {
+    sub: 'Kühles Grau mit Pflaume und Kupfer',
+    wein: {
+      light: { bg: '#EFF1F4', surface: '#FFFFFF', ink: '#161B24', muted: '#525B6B', border: '#D2D8E0', primary: '#5A2350', primaryText: '#5A2350', onPrimary: '#FFFFFF', soft: '#EFE3EC', seg: '#DEE3EA', off: '#8E97A5', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#0F131A', surface: '#1A202A', ink: '#E8ECF2', muted: '#A2ABB9', border: '#2E3644', primary: '#D9A6CF', primaryText: '#E2B8DA', onPrimary: '#1E0C1B', soft: '#33233A', seg: '#222936', off: '#5B6475', star: '#E0B656', danger: '#FF8A80' }
+    },
+    bier: {
+      light: { bg: '#EFF1F4', surface: '#FFFFFF', ink: '#161B24', muted: '#525B6B', border: '#D2D8E0', primary: '#9A3F12', primaryText: '#8A380F', onPrimary: '#FFFFFF', soft: '#F6E2D6', seg: '#DEE3EA', off: '#8E97A5', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#0F131A', surface: '#1A202A', ink: '#E8ECF2', muted: '#A2ABB9', border: '#2E3644', primary: '#F2A77A', primaryText: '#F5B994', onPrimary: '#2A1306', soft: '#3A2418', seg: '#222936', off: '#5B6475', star: '#E0B656', danger: '#FF8A80' }
+    }
+  },
+  'Landgut': {
+    sub: 'Heller Sand mit Weinrose und Hopfengrün',
+    wein: {
+      light: { bg: '#F2F3EA', surface: '#FFFFFF', ink: '#1F2418', muted: '#596050', border: '#D7DBC8', primary: '#8A2846', primaryText: '#7E2340', onPrimary: '#FFFFFF', soft: '#F5E2E8', seg: '#E3E6D6', off: '#9A9F8E', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#11140D', surface: '#1C2117', ink: '#EDF0E4', muted: '#A9B09C', border: '#323A29', primary: '#EFA3B9', primaryText: '#F3B6C8', onPrimary: '#2A0B15', soft: '#3A2129', seg: '#262C1F', off: '#5E6652', star: '#E0B656', danger: '#FF8A80' }
+    },
+    bier: {
+      light: { bg: '#F2F3EA', surface: '#FFFFFF', ink: '#1F2418', muted: '#596050', border: '#D7DBC8', primary: '#3F6212', primaryText: '#3A5A10', onPrimary: '#FFFFFF', soft: '#E4EED3', seg: '#E3E6D6', off: '#9A9F8E', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#11140D', surface: '#1C2117', ink: '#EDF0E4', muted: '#A9B09C', border: '#323A29', primary: '#B5D98A', primaryText: '#C3E19E', onPrimary: '#16220A', soft: '#26341A', seg: '#262C1F', off: '#5E6652', star: '#E0B656', danger: '#FF8A80' }
+    }
+  }
+};
+var PAL_NAMES = ['Kellerei', 'Schiefer', 'Landgut'];
+var LEVELS = [
+  { name: 'Einsteiger', sub: 'Einfache Fragen mit Bildern, viele Erklärungen' },
+  { name: 'Erfahren', sub: 'Regler für alle Merkmale, rund 40 Aromen' },
+  { name: 'Profi', sub: 'Volles Verkostungsschema, Fachbegriffe' }
+];
+var QUIZ = [
+  { q: 'Kaffee schwarz oder mit Milch?', a: ['Schwarz', 'Mit Milch'] },
+  { q: 'Grapefruit oder Banane?', a: ['Grapefruit', 'Banane'] },
+  { q: 'Zartbitter oder Vollmilch?', a: ['Zartbitter', 'Vollmilch'] },
+  { q: 'Zitronenlimo oder Cola?', a: ['Zitronenlimo', 'Cola'] }
+];
+var FACES = ['Nochmal', 'Okay', 'Nie wieder'];
+var PATH_WINE = 'M24 4h12v18c0 5 9 8 9 18v52a5 5 0 0 1-5 5H20a5 5 0 0 1-5-5V40c0-10 9-13 9-18z';
+var PATH_BEER = 'M25 4h10v20c0 4 10 7 10 15v53a5 5 0 0 1-5 5H20a5 5 0 0 1-5-5V39c0-8 10-11 10-15z';
+var W = {
+  wein: {
+    label: 'Wein', homeTitle: 'Was trinkst du heute?', searchHint: 'Weingut, Rebsorte oder Name …', notePh: 'Zum Beispiel: passte gut zum Fisch',
+    steps: ['Aussehen', 'Nase', 'Gaumen', 'Abgang', 'Fazit'],
+    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Rosé', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426']],
+    lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Leicht trüb'] }],
+    groups: ['Zitrus', 'Gelbe Frucht', 'Rote Beeren', 'Dunkle Beeren', 'Blüten', 'Kräuter', 'Würze', 'Holz und Röstnoten'],
+    aromas: {
+      Erfahren: ['Zitrone', 'Grapefruit', 'Apfel', 'Birne', 'Pfirsich', 'Aprikose', 'Kirsche', 'Erdbeere', 'Himbeere', 'Brombeere', 'Cassis', 'Pflaume', 'Rose', 'Holunder', 'Paprika', 'Gras', 'Pfeffer', 'Vanille', 'Toast', 'Honig'],
+      Profi: ['Zitrone', 'Grapefruit', 'Apfel', 'Birne', 'Pfirsich', 'Aprikose', 'Kirsche', 'Erdbeere', 'Himbeere', 'Brombeere', 'Cassis', 'Pflaume', 'Rose', 'Holunder', 'Paprika', 'Gras', 'Pfeffer', 'Vanille', 'Toast', 'Honig', 'Petrol', 'Feuerstein', 'Hefe', 'Leder', 'Tabak', 'Waldboden']
+    },
+    axes: [{ k: 'sweet', label: 'Süße', lo: 'trocken', hi: 'süß' }, { k: 'acid', label: 'Säure', lo: 'mild', hi: 'frisch' }, { k: 'tannin', label: 'Tannin', lo: 'weich', hi: 'herb' }, { k: 'body', label: 'Körper', lo: 'leicht', hi: 'kräftig' }],
+    finRows: [{ k: 'len', label: 'Wie lange bleibt der Geschmack?', opts: ['Kurz', 'Mittel', 'Lang'] }],
+    hints: {
+      look: { Einsteiger: 'Halte das Glas schräg vor ein weißes Blatt. Welche Farbe siehst du am Rand?', Erfahren: 'Farbe, Tiefe und Reflexe am Rand des Glases.', Profi: 'Klarheit · Intensität · Farbe · Reflexe' },
+      nose: { Einsteiger: 'Erst ruhig riechen, dann das Glas schwenken und noch einmal. Tippe an, was dir einfällt. Es gibt kein Falsch.', Erfahren: 'Erst ruhend, dann geschwenkt. Achte auf Frucht, Blüten und Würze.', Profi: 'Zustand · Intensität · primäre, sekundäre und tertiäre Aromen' },
+      palate: { Einsteiger: 'Nimm einen kleinen Schluck und lass ihn im Mund kreisen. Säure spürst du an den Zungenrändern, Tannin als pelziges Gefühl am Zahnfleisch.', Erfahren: 'Süße, Säure, Tannin und Körper einordnen.', Profi: 'Süße · Säure · Tannin · Alkohol · Körper' },
+      finish: { Einsteiger: 'Schluck hinunter und zähle, wie lange der Geschmack bleibt. Unter 5 Sekunden ist kurz, über 15 lang.', Erfahren: 'Länge des Nachhalls nach dem Schlucken.', Profi: 'Abgang · Länge' },
+      verdict: { Einsteiger: 'Ehrlich sein hilft der App, deinen Geschmack zu lernen.', Erfahren: 'Gesamteindruck und ob du ihn wieder trinken würdest.', Profi: 'Qualität · Trinkreife · Bewertung' }
+    },
+    bottles: [
+      { id: 'w1', name: 'Riesling trocken', maker: '[Weingut]', meta: 'Weißwein · 2023', color: 0, groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Zitrone', 'Apfel', 'Pfirsich'], typ: { sweet: 1, acid: 5, tannin: 1, body: 2 }, fin: { len: 'Mittel' }, fact: 'Riesling ist bekannt für seine Säure. Sie macht ihn frisch und lässt ihn lange reifen.' },
+      { id: 'w2', name: 'Spätburgunder', maker: '[Weingut]', meta: 'Rotwein · 2021', color: 3, groups: ['Rote Beeren', 'Holz und Röstnoten'], aromas: ['Kirsche', 'Erdbeere', 'Vanille'], typ: { sweet: 1, acid: 3, tannin: 2, body: 3 }, fin: { len: 'Mittel' }, fact: 'Spätburgunder hat dünne Schalen. Deshalb ist er heller und weicher als viele andere Rotweine.' },
+      { id: 'w3', name: 'Grauburgunder', maker: '[Weingut]', meta: 'Weißwein · 2023', color: 1, groups: ['Gelbe Frucht', 'Würze'], aromas: ['Birne', 'Aprikose', 'Honig'], typ: { sweet: 2, acid: 3, tannin: 1, body: 4 }, fin: { len: 'Mittel' }, fact: 'Grauburgunder ist oft kräftiger als andere Weißweine und passt gut zu cremigen Gerichten.' }
+    ],
+    recs: [
+      { id: 'w4', name: 'Albariño', maker: '[Weingut]', meta: 'Weißwein', color: 0, tag: 'Passt gut', why: 'Weil du Säure und Zitrusnoten magst.', groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Grapefruit', 'Pfirsich', 'Zitrone'], typ: { sweet: 1, acid: 4, tannin: 1, body: 2 }, fin: { len: 'Mittel' }, fact: 'Albariño wächst nah am Meer. Viele schmecken darin eine leicht salzige Frische.' },
+      { id: 'w5', name: 'Grüner Veltliner', maker: '[Weingut]', meta: 'Weißwein', color: 0, tag: 'Passt gut', why: 'Frisch wie dein Riesling, dazu ein Hauch Pfeffer.', groups: ['Gelbe Frucht', 'Würze'], aromas: ['Apfel', 'Pfeffer', 'Gras'], typ: { sweet: 1, acid: 4, tannin: 1, body: 2 }, fin: { len: 'Mittel' }, fact: 'Das „Pfefferl“ ist typisch für Grünen Veltliner. Achte darauf am Ende des Schlucks.' },
+      { id: 'w6', name: 'Gamay', maker: '[Weingut]', meta: 'Rotwein, leicht gekühlt', color: 3, tag: 'Mutig', why: 'Ein leichter, fruchtiger Roter. Ein guter erster Schritt zu Rotwein.', groups: ['Rote Beeren', 'Blüten'], aromas: ['Kirsche', 'Himbeere', 'Rose'], typ: { sweet: 1, acid: 4, tannin: 2, body: 2 }, fin: { len: 'Kurz' }, fact: 'Gamay schmeckt leicht gekühlt am besten, ähnlich wie ein Rosé.' }
+    ],
+    lesson: { title: 'Was ist Tannin?', text: 'Tannin ist ein Gerbstoff aus Schalen und Kernen der Traube. Er fühlt sich pelzig an, wie schwarzer Tee, der zu lange gezogen hat.' },
+    journal: [
+      { name: 'Riesling trocken', maker: '[Weingut]', stars: 4, face: 'Nochmal', date: '18. Okt.', color: 0, note: 'Sehr frisch, passte super zum Fisch.', ax: { sweet: 1, acid: 5, tannin: 1, body: 2 }, len: 'Mittel' },
+      { name: 'Grauburgunder', maker: '[Weingut]', stars: 5, face: 'Nochmal', date: '11. Okt.', color: 1, note: 'Weich und rund, schöne Birne.', ax: { sweet: 2, acid: 3, tannin: 1, body: 4 }, len: 'Lang' },
+      { name: 'Spätburgunder', maker: '[Weingut]', stars: 3, face: 'Okay', date: '4. Okt.', color: 3, note: 'Etwas zu herb für mich.', ax: { sweet: 1, acid: 3, tannin: 3, body: 3 }, len: 'Mittel' },
+      { name: 'Rosé', maker: '[Weingut]', stars: 4, face: 'Nochmal', date: '27. Sep.', color: 2, note: 'Perfekt für den Balkon.', ax: { sweet: 2, acid: 4, tannin: 1, body: 2 }, len: 'Kurz' },
+      { name: 'Merlot', maker: '[Weingut]', stars: 2, face: 'Nie wieder', date: '20. Sep.', color: 4, note: 'Zu schwer und zu viel Holz.', ax: { sweet: 2, acid: 2, tannin: 4, body: 5 }, len: 'Lang' }
+    ],
+    radar: { axes: ['Süße', 'Säure', 'Tannin', 'Körper', 'Frucht', 'Holz'], vals: [1.8, 4.3, 1.6, 2.4, 4.0, 1.4] },
+    sentence: 'Du magst frische, säurebetonte Weißweine mit viel Frucht und wenig Holz.',
+    favs: ['Riesling', 'Grauburgunder', 'Rosé'],
+    path: { title: 'Riesling von trocken bis edelsüß', sub: '1 von 4 Flaschen verkostet', pct: '25%' }
+  },
+  bier: {
+    label: 'Bier', homeTitle: 'Was trinkst du heute?', searchHint: 'Brauerei, Bierstil oder Name …', notePh: 'Zum Beispiel: schön herb, gut zum Grillen',
+    steps: ['Aussehen und Schaum', 'Aroma', 'Geschmack', 'Mundgefühl', 'Fazit'],
+    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C']],
+    lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Hefetrüb'] }, { k: 'foam', label: 'Schaum', opts: ['Feinporig', 'Grob', 'Kaum'] }],
+    groups: ['Getreide und Brot', 'Karamell', 'Röstnoten', 'Zitrus', 'Tropenfrucht', 'Banane und Nelke', 'Kräuter und Gras', 'Harz und Kiefer'],
+    aromas: {
+      Erfahren: ['Brot', 'Keks', 'Honig', 'Karamell', 'Toffee', 'Kaffee', 'Schokolade', 'Zitrone', 'Grapefruit', 'Orange', 'Mango', 'Maracuja', 'Banane', 'Nelke', 'Gras', 'Heu', 'Kräuter', 'Kiefer', 'Pfeffer', 'Rauch'],
+      Profi: ['Brot', 'Keks', 'Honig', 'Karamell', 'Toffee', 'Kaffee', 'Schokolade', 'Zitrone', 'Grapefruit', 'Orange', 'Mango', 'Maracuja', 'Banane', 'Nelke', 'Gras', 'Heu', 'Kräuter', 'Kiefer', 'Pfeffer', 'Rauch', 'Butter', 'Schwefel', 'Stall', 'Essig', 'Sherry', 'Papier']
+    },
+    axes: [{ k: 'bitter', label: 'Bittere', lo: 'mild', hi: 'sehr bitter' }, { k: 'malt', label: 'Malz-Süße', lo: 'trocken', hi: 'malzig' }, { k: 'acid', label: 'Säure', lo: 'keine', hi: 'sauer' }, { k: 'body', label: 'Körper', lo: 'schlank', hi: 'vollmundig' }],
+    finRows: [{ k: 'fizz', label: 'Kohlensäure (Rezenz)', opts: ['Wenig', 'Mittel', 'Viel'] }, { k: 'len', label: 'Wie lange bleibt der Geschmack?', opts: ['Kurz', 'Mittel', 'Lang'] }],
+    hints: {
+      look: { Einsteiger: 'Halte das Glas gegen das Licht. Welche Farbe hat das Bier, und wie sieht der Schaum aus?', Erfahren: 'Farbe, Klarheit und wie lange der Schaum steht.', Profi: 'Farbe · Klarheit · Schaumbild · Haltbarkeit des Schaums' },
+      nose: { Einsteiger: 'Riech direkt nach dem Einschenken. Denk an Brot, Früchte oder Kräuter. Tippe an, was dir einfällt.', Erfahren: 'Malz-, Hopfen- und Hefearomen unterscheiden.', Profi: 'Malz · Hopfen · Hefe · Fehlaromen' },
+      palate: { Einsteiger: 'Nimm einen kräftigen Schluck. Die Bittere spürst du hinten auf der Zunge, die Süße vorne.', Erfahren: 'Bittere, Malz-Süße, Säure und Körper einordnen.', Profi: 'Antrunk · Bittere · Malzkörper · Säure · Balance' },
+      finish: { Einsteiger: 'Wie prickelt es im Mund, und wie lange bleibt der Geschmack nach dem Schlucken?', Erfahren: 'Rezenz und Länge des Nachtrunks.', Profi: 'Rezenz · Vollmundigkeit · Nachtrunk' },
+      verdict: { Einsteiger: 'Ehrlich sein hilft der App, deinen Geschmack zu lernen.', Erfahren: 'Gesamteindruck und ob du es wieder trinken würdest.', Profi: 'Stiltreue · Balance · Bewertung' }
+    },
+    bottles: [
+      { id: 'b1', name: 'Pils', maker: '[Brauerei]', meta: 'Untergärig, hell', color: 0, groups: ['Kräuter und Gras', 'Getreide und Brot'], aromas: ['Kräuter', 'Gras', 'Brot'], typ: { bitter: 4, malt: 2, acid: 1, body: 2 }, fin: { fizz: 'Viel', len: 'Mittel' }, fact: 'Die herbe Note im Pils kommt vom Hopfen. Je mehr Hopfen, desto bitterer.' },
+      { id: 'b2', name: 'Hefeweizen', maker: '[Brauerei]', meta: 'Obergärig, naturtrüb', color: 1, groups: ['Banane und Nelke', 'Getreide und Brot'], aromas: ['Banane', 'Nelke', 'Brot'], typ: { bitter: 1, malt: 3, acid: 2, body: 3 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Banane und Nelke kommen nicht von Früchten oder Gewürzen, sondern von der Weizenbier-Hefe.' },
+      { id: 'b3', name: 'Stout', maker: '[Brauerei]', meta: 'Obergärig, dunkel', color: 4, groups: ['Röstnoten', 'Karamell'], aromas: ['Kaffee', 'Schokolade', 'Karamell'], typ: { bitter: 3, malt: 3, acid: 1, body: 4 }, fin: { fizz: 'Wenig', len: 'Lang' }, fact: 'Die Kaffee-Noten im Stout kommen von stark geröstetem Malz, nicht von Kaffee.' }
+    ],
+    recs: [
+      { id: 'b4', name: 'Session IPA', maker: '[Brauerei]', meta: 'Obergärig, hell', color: 1, tag: 'Passt gut', why: 'Viel Frucht vom Hopfen, aber schlanker als ein IPA.', groups: ['Tropenfrucht', 'Zitrus'], aromas: ['Mango', 'Grapefruit', 'Maracuja'], typ: { bitter: 3, malt: 2, acid: 1, body: 2 }, fin: { fizz: 'Mittel', len: 'Mittel' }, fact: 'Die Fruchtnoten kommen von Hopfensorten, die erst spät beim Brauen dazukommen.' },
+      { id: 'b5', name: 'Kellerbier', maker: '[Brauerei]', meta: 'Unfiltriert', color: 2, tag: 'Passt gut', why: 'Rund und mild gehopft, mit etwas mehr Malz als dein Pils.', groups: ['Getreide und Brot', 'Karamell'], aromas: ['Brot', 'Honig', 'Kräuter'], typ: { bitter: 2, malt: 3, acid: 1, body: 3 }, fin: { fizz: 'Wenig', len: 'Mittel' }, fact: 'Kellerbier wird nicht gefiltert. Darum ist es trüb und schmeckt oft weicher.' },
+      { id: 'b6', name: 'Berliner Weisse', maker: '[Brauerei]', meta: 'Sauer, sehr leicht', color: 0, tag: 'Mutig', why: 'Säuerlich und erfrischend. Ganz anders als alles, was du bisher hattest.', groups: ['Zitrus'], aromas: ['Zitrone', 'Heu'], typ: { bitter: 1, malt: 1, acid: 5, body: 1 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Die Säure entsteht durch Milchsäurebakterien beim Brauen, ähnlich wie bei Joghurt.' }
+    ],
+    lesson: { title: 'Was heißt obergärig?', text: 'Das beschreibt die Hefe. Obergärige Hefe arbeitet bei wärmeren Temperaturen und bringt oft fruchtige Noten, untergärige bei kühleren und schmeckt klarer.' },
+    journal: [
+      { name: 'Pale Ale', maker: '[Brauerei]', stars: 5, face: 'Nochmal', date: '19. Okt.', color: 2, note: 'Richtig fruchtig, Grapefruit pur.', ax: { bitter: 3, malt: 2, acid: 1, body: 2 }, fizz: 'Mittel', len: 'Mittel' },
+      { name: 'Hefeweizen', maker: '[Brauerei]', stars: 4, face: 'Nochmal', date: '12. Okt.', color: 1, note: 'Banane deutlich, schön spritzig.', ax: { bitter: 1, malt: 3, acid: 2, body: 3 }, fizz: 'Viel', len: 'Kurz' },
+      { name: 'Pils', maker: '[Brauerei]', stars: 3, face: 'Okay', date: '5. Okt.', color: 0, note: 'Solide, etwas zu bitter.', ax: { bitter: 4, malt: 2, acid: 1, body: 2 }, fizz: 'Viel', len: 'Mittel' },
+      { name: 'Stout', maker: '[Brauerei]', stars: 2, face: 'Nie wieder', date: '28. Sep.', color: 4, note: 'Zu schwer für mich.', ax: { bitter: 3, malt: 4, acid: 1, body: 5 }, fizz: 'Wenig', len: 'Lang' }
+    ],
+    radar: { axes: ['Bittere', 'Malz-Süße', 'Röstnoten', 'Frucht', 'Säure', 'Körper'], vals: [3.2, 2.4, 1.4, 4.1, 2.6, 2.6] },
+    sentence: 'Du magst fruchtige, eher schlanke Biere mit mittlerer Bittere.',
+    favs: ['Pale Ale', 'Hefeweizen', 'Pils'],
+    path: { title: 'Hopfen verstehen: vom Pils zum IPA', sub: '2 von 4 Bieren verkostet', pct: '50%' }
+  }
+};
+
+function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
+function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
+function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }
+function emptySel() { return { color: -1, rows: {}, aromas: {}, ax: {}, fin: {}, stars: 0, face: '' }; }
+// DATEN-ENDE
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var p = props || {};
+    var w = p.world === 'bier' ? 'bier' : 'wein';
+    this.state = {
+      screen: 'welcome', world: w, pal: PALETTES[p.pal] ? p.pal : 'Kellerei', look: (p.look === 'light' || p.look === 'dark') ? p.look : 'auto',
+      level: 'Einsteiger', premium: p.premium === true || p.premium === 'true', quizIdx: 0, quiz: {}, ageOk: false, ageErr: false,
+      step: 0, bottle: W[w].bottles[0].id, sel: emptySel(), beginTab: 'own', recognized: false, sheet: '',
+      quick: { stars: 0, face: '', photo: false }, quickErr: false, plan: 'year',
+      jw: seed('wein'), jb: seed('bier'), detail: '', view: 'grid', filter: 'Alle', toast: '', speaking: false, timer: false
+    };
+    this.applyStart(p.start || 'welcome');
+  }
+
+  demoSel(w, b) {
+    var s = emptySel();
+    s.color = b.color; s.rows = { clear: 'Klar' };
+    if (w === 'bier') s.rows.foam = 'Feinporig';
+    var lvl = this.state.level;
+    var picks = lvl === 'Einsteiger' ? b.groups.slice(0, 1) : b.aromas.slice(0, 2);
+    picks.push(lvl === 'Einsteiger' ? W[w].groups[5] : W[w].aromas.Erfahren[3]);
+    picks.forEach(function (a) { s.aromas[a] = true; });
+    W[w].axes.forEach(function (ax, i) { s.ax[ax.k] = Math.max(1, Math.min(5, b.typ[ax.k] + (i === 1 ? -1 : 0))); });
+    W[w].finRows.forEach(function (r) { s.fin[r.k] = b.fin[r.k]; });
+    s.stars = 4; s.face = 'Nochmal';
+    return s;
+  }
+
+  applyStart(st) {
+    var s = this.state, w = s.world;
+    s.ageOk = st !== 'welcome';
+    var b = W[w].bottles[0];
+    if (st.indexOf('step') === 0) {
+      var n = Math.max(1, Math.min(5, parseInt(st.slice(4), 10) || 1));
+      s.screen = 'step'; s.step = n - 1; s.bottle = b.id; s.sel = this.demoSel(w, b);
+      if (n <= 4) s.sel.stars = 0, s.sel.face = '';
+      return;
+    }
+    if (st === 'result') { s.screen = 'result'; s.bottle = b.id; s.sel = this.demoSel(w, b); return; }
+    if (st === 'detail') { s.screen = 'detail'; s.detail = (w === 'wein' ? s.jw : s.jb)[0].id; return; }
+    if (st === 'paywall') { s.screen = 'home'; s.sheet = 'pay'; return; }
+    if (st === 'quick') { s.screen = 'home'; s.sheet = 'quick'; return; }
+    if (st === 'begin-rec') { s.screen = 'begin'; s.beginTab = 'rec'; return; }
+    if (st === 'begin-snap') { s.screen = 'begin'; s.recognized = true; return; }
+    var ok = ['welcome', 'onboard', 'home', 'begin', 'journal', 'taste', 'profile'];
+    s.screen = ok.indexOf(st) >= 0 ? st : 'welcome';
+  }
+
+  say(text) {
+    var self = this;
+    this.setState({ toast: text });
+    clearTimeout(this._t);
+    this._t = setTimeout(function () { self.setState({ toast: '' }); }, 2400);
+  }
+
+  speak(text) {
+    try {
+      if (!window.speechSynthesis) return false;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'de-DE';
+      window.speechSynthesis.speak(u);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  journalKey() { return this.state.world === 'wein' ? 'jw' : 'jb'; }
+
+  startWith(id) {
+    try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
+    this.setState({ screen: 'step', step: 0, bottle: id, sel: emptySel(), sheet: '', recognized: false, speaking: false, timer: false });
+  }
+
+  renderVals() {
+    var self = this, s = this.state, w = s.world, D = W[w];
+    var dark = s.look === 'dark';
+    if (s.look === 'auto') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) { dark = false; } }
+    var mode = dark ? 'dark' : 'light';
+    var P = PALETTES[s.pal];
+    var c = P[w][mode];
+    var pr = function (on) { return on ? 'true' : 'false'; };
+    var chip = function (on) { return on ? 'border: 1.5px solid ' + c.primary + '; background: ' + c.primary + '; color: ' + c.onPrimary + '; font-weight: 700' : 'border: 1.5px solid ' + c.border + '; background: ' + c.surface + '; color: ' + c.ink; };
+    var seg = function (on) { return on ? 'background: ' + c.surface + '; color: ' + c.ink + '; font-weight: 700; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18)' : 'background: transparent; color: ' + c.ink; };
+    var ring = function (on) { return on ? 'border: 2px solid ' + c.primary : 'border: 1.5px solid ' + c.border; };
+    var go = function (scr) { return function () { self.setState({ screen: scr, sheet: '', detail: scr === 'detail' ? s.detail : '' }); }; };
+    var starStr = function (n) { return { on: '★★★★★'.slice(0, n), off: '★★★★★'.slice(0, 5 - n) }; };
+    var B = bottleOf(w, s.bottle);
+    var bHex = function (b) { return D.colors[Math.max(0, b.color)][1]; };
+    var bottleVm = function (b) { return { name: b.name, maker: b.maker, meta: b.meta, hex: bHex(b), tag: b.tag, why: b.why, fact: b.fact, start: function () { self.startWith(b.id); } }; };
+    var jKey = this.journalKey();
+    var journal = s[jKey];
+    var entryVm = function (e) {
+      var st = starStr(e.stars);
+      return { id: e.id, name: e.name, maker: e.maker, date: e.date, face: e.face, note: e.note || 'Keine Notiz.', on: st.on, off: st.off, hex: D.colors[Math.max(0, e.color)][1], open: function () { self.setState({ screen: 'detail', detail: e.id }); } };
+    };
+
+    var is = {
+      welcome: s.screen === 'welcome', onboard: s.screen === 'onboard', home: s.screen === 'home', begin: s.screen === 'begin',
+      step: s.screen === 'step', result: s.screen === 'result', journal: s.screen === 'journal', detail: s.screen === 'detail',
+      taste: s.screen === 'taste', profile: s.screen === 'profile',
+      wein: w === 'wein', bier: w === 'bier', free: !s.premium,
+      tabOwn: s.beginTab === 'own', tabRec: s.beginTab === 'rec', recognized: s.recognized, notRecognized: !s.recognized,
+      gridView: s.view === 'grid', listView: s.view === 'list',
+      sheetQuick: s.sheet === 'quick', sheetPay: s.sheet === 'pay', toast: !!s.toast
+    };
+    is.main = is.home || is.journal || is.taste || is.profile;
+    is.ad = is.main && !s.premium && (is.home || is.journal);
+
+    var vals = {
+      s: s, c: c, is: is, D: D, B: bottleVm(B), cw: P.wein[mode], cb: P.bier[mode],
+      bottlePath: w === 'wein' ? PATH_WINE : PATH_BEER,
+      pressWein: pr(is.wein), pressBier: pr(is.bier), segWein: seg(is.wein), segBier: seg(is.bier),
+      toWein: function () { self.setState({ world: 'wein', bottle: W.wein.bottles[0].id, filter: 'Alle', detail: '', screen: s.screen === 'detail' ? 'journal' : s.screen }); },
+      toBier: function () { self.setState({ world: 'bier', bottle: W.bier.bottles[0].id, filter: 'Alle', detail: '', screen: s.screen === 'detail' ? 'journal' : s.screen }); },
+      goHome: go('home'), goJournal: go('journal'), goTaste: go('taste'), goProfile: go('profile'),
+      goBegin: function () { self.setState({ screen: 'begin', beginTab: 'own', recognized: false, sheet: '' }); },
+      tab: { home: pr(is.home), journal: pr(is.journal || is.detail), taste: pr(is.taste), profile: pr(is.profile) },
+      tabInk: { home: is.home ? c.primaryText : c.muted, journal: is.journal ? c.primaryText : c.muted, taste: is.taste ? c.primaryText : c.muted, profile: is.profile ? c.primaryText : c.muted },
+      toggleAge: function () { self.setState({ ageOk: !s.ageOk, ageErr: false }); },
+      startOnboard: function () { if (!s.ageOk) { self.setState({ ageErr: true }); return; } self.setState({ screen: 'onboard', ageErr: false }); },
+      openQuick: function () { self.setState({ sheet: 'quick', quick: { stars: 0, face: '', photo: false }, quickErr: false }); },
+      openPay: function () { self.setState({ sheet: 'pay' }); },
+      closeSheet: function () { self.setState({ sheet: '', quickErr: false }); }
+    };
+
+    // Onboarding
+    var qi = Math.min(s.quizIdx, QUIZ.length - 1);
+    vals.quizNo = qi + 1;
+    vals.quizQ = QUIZ[qi];
+    vals.quizOpts = QUIZ[qi].a.map(function (a) { var on = s.quiz[qi] === a; return { label: a, pressed: pr(on), st: chip(on), pick: function () { var q = Object.assign({}, s.quiz); q[qi] = a; self.setState({ quiz: q }); } }; });
+    vals.quizBtn = qi < QUIZ.length - 1 ? 'Nächste Frage' : 'Fertig';
+    vals.nextQuiz = function () {
+      if (qi < QUIZ.length - 1) { self.setState({ quizIdx: qi + 1 }); return; }
+      self.setState({ screen: 'home' });
+      self.say('Dein erstes Geschmacksprofil steht.');
+    };
+    vals.levels = LEVELS.map(function (l) { var on = s.level === l.name; return { name: l.name, sub: l.sub, pressed: pr(on), ring: ring(on), pick: function () { self.setState({ level: l.name }); } }; });
+
+    // Home
+    vals.rec0 = bottleVm(D.recs[0]);
+    vals.recent = journal.slice(0, 3).map(entryVm);
+
+    // Begin
+    vals.pressOwn = pr(is.tabOwn); vals.pressRec = pr(is.tabRec); vals.segOwn = seg(is.tabOwn); vals.segRec = seg(is.tabRec);
+    vals.tabOwn = function () { self.setState({ beginTab: 'own' }); };
+    vals.tabRec = function () { self.setState({ beginTab: 'rec' }); };
+    vals.snap = function () { self.setState({ recognized: true }); };
+    vals.unsnap = function () { self.setState({ recognized: false }); };
+    vals.snapB = bottleVm(D.bottles[0]);
+    vals.bottles = D.bottles.map(bottleVm);
+    vals.recs = D.recs.map(bottleVm);
+
+    // Step
+    var key = ['look', 'nose', 'palate', 'finish', 'verdict'][s.step];
+    var sel = s.sel;
+    var setSel = function (patch) { self.setState({ sel: Object.assign({}, s.sel, patch) }); };
+    vals.st = { look: key === 'look', nose: key === 'nose', palate: key === 'palate', finish: key === 'finish', verdict: key === 'verdict' };
+    vals.stepNo = s.step + 1;
+    vals.stepTitle = D.steps[s.step];
+    vals.levelName = s.level;
+    vals.hint = D.hints[key][s.level];
+    vals.hintSt = s.level === 'Profi' ? 'color: ' + c.muted + '; font-size: 14px' : 'color: ' + c.ink;
+    vals.progress = [0, 1, 2, 3, 4].map(function (i) { return { bg: i <= s.step ? c.primary : c.seg }; });
+    vals.speaking = s.speaking;
+    vals.pressSpeak = pr(s.speaking);
+    vals.speakLabel = s.speaking ? 'Vorlesen stoppen' : 'Vorlesen';
+    vals.speakSt = s.speaking ? 'border: 0; background: ' + c.primary : 'border: 0; background: ' + c.surface;
+    vals.speakInk = s.speaking ? c.onPrimary : c.ink;
+    vals.toggleSpeak = function () {
+      if (s.speaking) { try { window.speechSynthesis.cancel(); } catch (e) {} self.setState({ speaking: false }); return; }
+      self.speak(D.steps[s.step] + '. ' + D.hints[key][s.level]);
+      self.setState({ speaking: true });
+    };
+    vals.lookColors = D.colors.map(function (col, i) { var on = sel.color === i; return { label: col[0], hex: col[1], pressed: pr(on), ring: ring(on), pick: function () { setSel({ color: i }); } }; });
+    vals.lookRows = D.lookRows.map(function (r) { return { label: r.label, opts: r.opts.map(function (o) { var on = sel.rows[r.k] === o; return { label: o, pressed: pr(on), st: chip(on), pick: function () { var rows = Object.assign({}, sel.rows); rows[r.k] = o; setSel({ rows: rows }); } }; }) }; });
+    var aromaSrc = s.level === 'Einsteiger' ? D.groups : D.aromas[s.level];
+    vals.aromaHead = s.level === 'Einsteiger' ? 'Woran erinnert dich der Duft?' : 'Aromen';
+    vals.aromaList = aromaSrc.map(function (a) { var on = !!sel.aromas[a]; return { label: a, pressed: pr(on), st: chip(on), pick: function () { var ar = Object.assign({}, sel.aromas); if (on) delete ar[a]; else ar[a] = true; setSel({ aromas: ar }); } }; });
+    var nAr = Object.keys(sel.aromas).length;
+    vals.aromaCount = nAr === 0 ? 'Noch nichts gewählt. Das ist auch in Ordnung.' : nAr + (nAr === 1 ? ' Aroma gewählt' : ' Aromen gewählt');
+    vals.timerSt = s.timer ? 'border: 0; background: ' + c.primary + '; color: ' + c.onPrimary + '; font-weight: 700' : 'border: 1.5px solid ' + c.border + '; background: ' + c.surface + '; color: ' + c.ink;
+    vals.timerLabel = s.timer ? 'Schwenken … 30 Sek.' : '30 Sek. schwenken';
+    vals.toggleTimer = function () {
+      if (s.timer) { clearTimeout(self._tm); self.setState({ timer: false }); return; }
+      self.setState({ timer: true });
+      clearTimeout(self._tm);
+      self._tm = setTimeout(function () { self.setState({ timer: false }); self.say('Jetzt noch einmal riechen.'); }, 30000);
+    };
+    vals.axes = D.axes.map(function (ax) { return { label: ax.label, lo: ax.lo, hi: ax.hi, opts: [1, 2, 3, 4, 5].map(function (n) { var on = sel.ax[ax.k] === n; return { n: n, aria: ax.label + ' ' + n + ' von 5', pressed: pr(on), st: chip(on), pick: function () { var a = Object.assign({}, sel.ax); a[ax.k] = n; setSel({ ax: a }); } }; }) }; });
+    vals.finRows = D.finRows.map(function (r) { return { label: r.label, opts: r.opts.map(function (o) { var on = sel.fin[r.k] === o; return { label: o, pressed: pr(on), st: chip(on), pick: function () { var f = Object.assign({}, sel.fin); f[r.k] = o; setSel({ fin: f }); } }; }) }; });
+    var mkStars = function (cur, pick) { return [1, 2, 3, 4, 5].map(function (n) { var on = n <= cur; return { aria: n + (n === 1 ? ' Stern' : ' Sterne'), pressed: pr(n === cur), fill: on ? c.star : 'none', stroke: on ? c.star : c.off, pick: function () { pick(n); } }; }); };
+    vals.stars = mkStars(sel.stars, function (n) { setSel({ stars: n }); });
+    vals.faces = FACES.map(function (f) { var on = sel.face === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { setSel({ face: f }); } }; });
+    vals.prevStep = function () {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+      if (s.step === 0) { self.setState({ screen: 'begin', speaking: false }); return; }
+      self.setState({ step: s.step - 1, speaking: false, timer: false });
+    };
+    vals.nextLabel = s.step < 4 ? 'Weiter' : 'Auflösung ansehen';
+    vals.nextStep = function () {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+      if (s.step < 4) { self.setState({ step: s.step + 1, speaking: false, timer: false }); return; }
+      if (!sel.stars) { self.say('Bitte vergib noch Sterne.'); return; }
+      self.setState({ screen: 'result', speaking: false });
+    };
+
+    // Result
+    var typical = s.level === 'Einsteiger' ? B.groups : B.aromas;
+    var hits = typical.filter(function (a) { return sel.aromas[a]; });
+    vals.insight = hits.length
+      ? { head: 'Gut gerochen!', text: 'Du hast ' + hits.join(' und ') + ' erkannt. Das ist typisch für ' + B.name + '.' }
+      : { head: 'Darauf kannst du achten', text: 'Typisch für ' + B.name + ' sind ' + typical.join(', ') + '. Beim nächsten Glas fällt es dir vielleicht auf.' };
+    vals.cmp = D.axes.map(function (ax) {
+      var you = sel.ax[ax.k] || 0, typ = B.typ[ax.k];
+      var d = Math.abs(you - typ);
+      return { label: ax.label, you: (you * 20) + '%', typ: (typ * 20) + '%', verdict: you === 0 ? 'nicht bewertet' : (d === 0 ? 'genau getroffen' : (d === 1 ? 'nah dran' : (you > typ ? 'stärker empfunden' : 'schwächer empfunden'))) };
+    });
+    vals.resStars = starStr(sel.stars);
+    vals.backToVerdict = function () { self.setState({ screen: 'step', step: 4 }); };
+    vals.saveTasting = function () {
+      var e = { id: w + '-n' + Date.now(), name: B.name, maker: B.maker, stars: sel.stars || 3, face: sel.face || 'Okay', date: 'Heute', color: sel.color >= 0 ? sel.color : B.color, note: '', ax: Object.assign({}, sel.ax), len: sel.fin.len || '', fizz: sel.fin.fizz || '' };
+      var patch = { screen: 'journal', sel: emptySel(), filter: 'Alle' };
+      patch[jKey] = [e].concat(journal);
+      self.setState(patch);
+      self.say('Im Notizbuch gespeichert');
+    };
+
+    // Journal
+    var fl = journal.filter(function (e) { return s.filter === 'Alle' || (s.filter === '4+ Sterne' && e.stars >= 4) || (s.filter === 'Nochmal' && e.face === 'Nochmal'); });
+    vals.entries = fl.map(entryVm);
+    is.noEntries = fl.length === 0;
+    vals.journalLen = journal.length;
+    vals.journalCount = journal.length + (journal.length === 1 ? ' Verkostung' : ' Verkostungen');
+    vals.filters = ['Alle', '4+ Sterne', 'Nochmal'].map(function (f) { var on = s.filter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ filter: f }); } }; });
+    vals.pressGrid = pr(is.gridView); vals.pressList = pr(is.listView); vals.segGrid = seg(is.gridView); vals.segList = seg(is.listView);
+    vals.viewGrid = function () { self.setState({ view: 'grid' }); };
+    vals.viewList = function () { self.setState({ view: 'list' }); };
+
+    // Detail
+    var ent = journal.filter(function (e) { return e.id === s.detail; })[0] || journal[0];
+    var E = entryVm(ent);
+    E.traits = D.axes.map(function (ax) { var v = ent.ax ? ent.ax[ax.k] : 0; return { label: ax.label, value: v ? v + ' von 5' : '–' }; });
+    D.finRows.forEach(function (r) { E.traits.push({ label: r.k === 'len' ? 'Abgang' : 'Kohlensäure', value: ent[r.k] || '–' }); });
+    E.again = function () { var match = allBottles(w).filter(function (b) { return b.name === ent.name; })[0]; self.startWith(match ? match.id : D.bottles[0].id); };
+    vals.E = E;
+
+    // Taste radar
+    var cx = 165, cy = 138, R = 92, n = D.radar.axes.length;
+    var pt = function (i, v) { var a = (-90 + i * 360 / n) * Math.PI / 180; return [cx + Math.cos(a) * R * v / 5, cy + Math.sin(a) * R * v / 5]; };
+    var poly = function (f) { var out = []; for (var i = 0; i < n; i++) { var q = pt(i, f(i)); out.push(q[0].toFixed(1) + ',' + q[1].toFixed(1)); } return out.join(' '); };
+    vals.radar = {
+      rings: [1, 2, 3, 4, 5].map(function (k) { return { pts: poly(function () { return k; }) }; }),
+      spokes: D.radar.axes.map(function (a, i) { var q = pt(i, 5); return { x: q[0].toFixed(1), y: q[1].toFixed(1) }; }),
+      pts: poly(function (i) { return D.radar.vals[i]; }),
+      labels: D.radar.axes.map(function (a, i) { var q = pt(i, 5.9); var anchor = Math.abs(q[0] - cx) < 4 ? 'middle' : (q[0] > cx ? 'start' : 'end'); return { x: q[0].toFixed(1), y: (q[1] + 5).toFixed(1), anchor: anchor, text: a }; })
+    };
+
+    // Profile
+    vals.aboTitle = s.premium ? 'Premium ist aktiv' : 'Kostenlose Version';
+    vals.aboTag = s.premium ? 'Premium' : 'Gratis';
+    vals.aboText = s.premium ? 'Keine Werbung, Cloud-Sync auf allen Geräten und die Web-Ansicht am Rechner.' : 'Alles zum Lernen ist frei. Mit Premium ohne Werbung, mit Cloud-Sync und Web-Ansicht.';
+    vals.levelSeg = LEVELS.map(function (l) { var on = s.level === l.name; return { label: l.name, pressed: pr(on), st: seg(on), pick: function () { self.setState({ level: l.name }); } }; });
+    vals.lookSeg = [['auto', 'Automatisch'], ['light', 'Hell'], ['dark', 'Dunkel']].map(function (o) { var on = s.look === o[0]; return { label: o[1], pressed: pr(on), st: seg(on), pick: function () { self.setState({ look: o[0] }); } }; });
+    vals.palSeg = PAL_NAMES.map(function (nm) { var on = s.pal === nm; return { label: nm, pressed: pr(on), ring: ring(on), a: PALETTES[nm].wein[mode].primary, b: PALETTES[nm].bier[mode].primary, pick: function () { self.setState({ pal: nm }); } }; });
+    vals.premiumVoice = s.premium ? 'Mit Premium enthalten, folgt später' : 'Mit Premium, folgt später';
+    vals.syncText = s.premium ? 'An · alle Geräte sind auf dem gleichen Stand' : 'Mit Premium. Ohne Abo bleiben die Daten nur auf diesem Handy.';
+    vals.webText = s.premium ? 'Mit deinem Konto unter [Adresse] anmelden' : 'Mit Premium';
+    vals.sample = function () { if (!self.speak('Hallo, ich führe dich durch deine Verkostung. Halte das Glas schräg vor ein weißes Blatt.')) self.say('Hörprobe: Hier spricht die Stimme deines Handys.'); };
+    vals.exportData = function () { self.say('Export als Datei (Vorschau)'); };
+
+    // Sheets
+    vals.quickPhoto = s.quick.photo ? { title: D.bottles[0].maker + ' · ' + D.bottles[0].name, sub: 'Vom Etikett erkannt' } : { title: 'Etikett fotografieren (Vorschau)', sub: 'Name wird vom Foto gelesen' };
+    vals.quickSnap = function () { self.setState({ quick: Object.assign({}, s.quick, { photo: true }) }); };
+    vals.qStars = mkStars(s.quick.stars, function (n) { self.setState({ quick: Object.assign({}, s.quick, { stars: n }), quickErr: false }); });
+    vals.qFaces = FACES.map(function (f) { var on = s.quick.face === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ quick: Object.assign({}, s.quick, { face: f }) }); } }; });
+    vals.saveQuick = function () {
+      if (!s.quick.stars) { self.setState({ quickErr: true }); return; }
+      var b = D.bottles[0];
+      var e = { id: w + '-q' + Date.now(), name: s.quick.photo ? b.name : 'Unbenannte Flasche', maker: s.quick.photo ? b.maker : '[ohne Etikett]', stars: s.quick.stars, face: s.quick.face || 'Okay', date: 'Heute', color: b.color, note: '' };
+      var patch = { sheet: '', screen: 'journal', filter: 'Alle' };
+      patch[jKey] = [e].concat(journal);
+      self.setState(patch);
+      self.say('Notiert');
+    };
+    vals.perks = ['Keine Werbung', 'Cloud-Sync auf allen Geräten', 'Web-Ansicht am Rechner', 'Natürlichere Stimme (später)', 'Tasting-Abend und Weinkeller (später)'];
+    vals.plans = [['month', '[Preis]', 'pro Monat'], ['year', '[Preis]', 'pro Jahr']].map(function (o) { var on = s.plan === o[0]; return { price: o[1], label: o[2], pressed: pr(on), ring: ring(on), pick: function () { self.setState({ plan: o[0] }); } }; });
+    vals.buy = function () { self.setState({ premium: true, sheet: '' }); self.say('Premium ist aktiv (Vorschau)'); };
+
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

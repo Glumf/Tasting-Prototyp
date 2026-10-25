@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Web-Ansicht</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:inherit}
+</style>
+</helmet>
+<div style="height: 100vh; min-height: 640px; display: flex; flex-direction: column; overflow: hidden; font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 15px; background: {{c.bg}}; color: {{c.ink}}">
+
+<header style="flex: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 24px; border-bottom: 1px solid {{c.border}}; background: {{c.surface}}">
+  <div style="display: flex; align-items: center; gap: 10px">
+    <span style="width: 36px; height: 36px; border-radius: 18px; background: {{c.primary}}; display: flex; align-items: center; justify-content: center"><sc-if value="{{isWein}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-.6 5.5a4.4 4.4 0 0 1-8.8 0z"></path><path d="M12 13v8"></path><path d="M8 21h8"></path></svg></sc-if><sc-if value="{{isBier}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path d="M15 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path><path d="M5 8a3 3 0 0 1 5-2 3 3 0 0 1 5 2"></path></svg></sc-if></span>
+    <span style="font-weight: 700; font-size: 17px">[App-Name]</span>
+  </div>
+  <sc-if value="{{is.inApp}}" hint-placeholder-val="{{ false }}">
+  <nav aria-label="Bereiche" style="display: flex; flex-wrap: wrap; gap: 4px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="font: inherit; font-size: 15px; height: 40px; padding: 0 14px; border: 0; border-radius: 20px; cursor: pointer; {{t.st}}">{{t.label}}</button></sc-for>
+  </nav>
+  </sc-if>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+    <sc-if value="{{is.inApp}}" hint-placeholder-val="{{ false }}">
+    <div role="group" aria-label="Wein oder Bier" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; width: 150px; padding: 3px; border-radius: 14px; background: {{c.seg}}">
+      <button type="button" aria-pressed="{{pressWein}}" onClick="{{toWein}}" style="font: inherit; font-size: 15px; height: 36px; border: 0; border-radius: 11px; cursor: pointer; {{segWein}}">Wein</button>
+      <button type="button" aria-pressed="{{pressBier}}" onClick="{{toBier}}" style="font: inherit; font-size: 15px; height: 36px; border: 0; border-radius: 11px; cursor: pointer; {{segBier}}">Bier</button>
+    </div>
+    </sc-if>
+    <button type="button" onClick="{{toApp}}" style="font: inherit; font-size: 15px; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 20px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"></rect><path d="M11 18h2"></path></svg>App-Ansicht</button>
+    <sc-if value="{{is.guest}}" hint-placeholder-val="{{ true }}">
+    <button type="button" onClick="{{goLogin}}" style="font: inherit; font-weight: 700; font-size: 15px; height: 40px; padding: 0 18px; border: 0; border-radius: 20px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Anmelden</button>
+    </sc-if>
+  </div>
+</header>
+
+<main style="flex: 1; min-height: 0; overflow-y: auto">
+
+<sc-if value="{{is.guest}}" hint-placeholder-val="{{ true }}">
+<div style="max-width: 1180px; margin: 0 auto; box-sizing: border-box; padding: 48px 24px 32px">
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px">
+    <div style="flex: 999 1 420px; min-width: 0">
+      <span style="font-size: 15px; font-weight: 700; color: {{c.primaryText}}">Für Wein und Bier · Android und iPhone</span>
+      <h1 style="margin: 10px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 54px; line-height: 60px">Schmecken lernen, Schluck für Schluck.</h1>
+      <p style="margin: 16px 0 0; max-width: 560px; font-size: 19px; line-height: 29px; color: {{c.muted}}">Halte fest, was dir geschmeckt hat. Lass dich durch Verkostungen führen, als Text oder zum Zuhören. Und entdecke, was dir als Nächstes gefallen könnte, vom Einsteiger bis zum Profi.</p>
+      <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px">
+        <button type="button" onClick="{{getApp}}" style="font: inherit; font-weight: 700; font-size: 17px; height: 52px; padding: 0 24px; border: 0; border-radius: 26px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">App kostenlos laden</button>
+        <button type="button" onClick="{{goLogin}}" style="font: inherit; font-weight: 700; font-size: 17px; height: 52px; padding: 0 24px; border-radius: 26px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Mit Premium anmelden</button>
+      </div>
+      <p style="margin: 12px 0 0; font-size: 14px; color: {{c.muted}}">Die Web-Ansicht gibt es für Premium-Nutzer. Verkostet wird in der App, direkt am Glas.</p>
+    </div>
+    <div style="flex: 1 1 320px; display: flex; justify-content: center">
+      <div style="width: 300px; padding: 20px; box-sizing: border-box; border-radius: 32px; background: {{c.surface}}; border: 1px solid {{c.border}}; box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12)">
+        <span style="font-size: 13px; color: {{c.muted}}">Schritt 2 von 5 · Einsteiger</span>
+        <span style="display: block; margin-top: 6px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 26px">Nase</span>
+        <p style="margin: 6px 0 0; font-size: 14px; line-height: 20px">Erst ruhig riechen, dann das Glas schwenken. Woran erinnert dich der Duft?</p>
+        <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px">
+          <span style="font-size: 13px; font-weight: 700; padding: 8px 12px; border-radius: 16px; background: {{c.primary}}; color: {{c.onPrimary}}">Zitrus</span><span style="font-size: 13px; padding: 8px 12px; border-radius: 16px; border: 1px solid {{c.border}}">Gelbe Frucht</span><span style="font-size: 13px; padding: 8px 12px; border-radius: 16px; border: 1px solid {{c.border}}">Blüten</span><span style="font-size: 13px; font-weight: 700; padding: 8px 12px; border-radius: 16px; background: {{c.primary}}; color: {{c.onPrimary}}">Kräuter</span><span style="font-size: 13px; padding: 8px 12px; border-radius: 16px; border: 1px solid {{c.border}}">Würze</span>
+        </div>
+        <div style="margin-top: 16px; height: 44px; border-radius: 22px; background: {{c.primary}}; color: {{c.onPrimary}}; display: flex; align-items: center; justify-content: center; font-weight: 700">Weiter</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin: 56px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 32px">So funktioniert es</h2>
+  <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+    <sc-for list="{{how}}" as="h" hint-placeholder-count="3">
+    <div style="padding: 20px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <span style="width: 36px; height: 36px; border-radius: 18px; background: {{c.soft}}; color: {{c.primaryText}}; display: flex; align-items: center; justify-content: center; font-weight: 700">{{h.n}}</span>
+      <h3 style="margin: 12px 0 0; font-size: 19px">{{h.title}}</h3>
+      <p style="margin: 6px 0 0; font-size: 16px; line-height: 24px; color: {{c.muted}}">{{h.text}}</p>
+    </div>
+    </sc-for>
+  </div>
+
+  <h2 style="margin: 48px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 32px">Kostenlos oder Premium</h2>
+  <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+    <div style="padding: 24px; border-radius: 24px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <h3 style="margin: 0; font-size: 22px">Kostenlos</h3>
+      <span style="display: block; margin-top: 4px; font-size: 15px; color: {{c.muted}}">mit Werbung</span>
+      <ul style="margin: 14px 0 0; padding-left: 20px; font-size: 16px; line-height: 28px"><li>Unbegrenzt Verkostungen notieren</li><li>Geführtes Tasting in allen Stufen</li><li>Geschmacksprofil und Empfehlungen</li><li>Daten bleiben auf deinem Handy</li></ul>
+    </div>
+    <div style="padding: 24px; border-radius: 24px; background: {{c.soft}}; border: 2px solid {{c.primary}}">
+      <h3 style="margin: 0; font-size: 22px">Premium</h3>
+      <span style="display: block; margin-top: 4px; font-size: 15px; color: {{c.muted}}">[Preis] im Monat oder [Preis] im Jahr</span>
+      <ul style="margin: 14px 0 0; padding-left: 20px; font-size: 16px; line-height: 28px"><li>Keine Werbung</li><li>Cloud-Sync auf allen Geräten</li><li>Diese Web-Ansicht am Rechner</li><li>Später: natürlichere Stimme, Tasting-Abend, Weinkeller</li></ul>
+    </div>
+  </div>
+  <p style="margin: 40px 0 0; font-size: 14px; color: {{c.muted}}">Nur für Erwachsene ab 18. Genieße bewusst. · Impressum · Datenschutz</p>
+</div>
+</sc-if>
+
+<sc-if value="{{is.login}}" hint-placeholder-val="{{ false }}">
+<div style="min-height: 100%; box-sizing: border-box; padding: 48px 24px; display: flex; align-items: flex-start; justify-content: center">
+  <div style="width: 100%; max-width: 420px; padding: 28px; box-sizing: border-box; border-radius: 24px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px">Anmelden</h1>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Mit demselben Konto wie in der App. Die Web-Ansicht gehört zu Premium.</p>
+    <label style="display: block; margin-top: 18px; font-size: 15px; font-weight: 700">E-Mail
+      <input type="email" placeholder="name@beispiel.de" style="display: block; box-sizing: border-box; width: 100%; height: 48px; margin-top: 6px; padding: 0 14px; border-radius: 12px; border: 1.5px solid {{c.border}}; background: {{c.bg}}; color: {{c.ink}}; font: inherit; font-weight: 400">
+    </label>
+    <button type="button" onClick="{{doLogin}}" style="margin-top: 14px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border: 0; border-radius: 25px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Anmelden (Vorschau)</button>
+    <div style="margin-top: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+      <button type="button" onClick="{{doLogin}}" style="font: inherit; font-size: 15px; height: 46px; border-radius: 23px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Mit Apple</button>
+      <button type="button" onClick="{{doLogin}}" style="font: inherit; font-size: 15px; height: 46px; border-radius: 23px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Mit Google</button>
+    </div>
+    <button type="button" onClick="{{goGuest}}" style="margin-top: 14px; font: inherit; font-size: 15px; height: 44px; padding: 0; border: 0; background: transparent; color: {{c.primaryText}}; cursor: pointer; text-decoration: underline">Zurück zur Startseite</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.inApp}}" hint-placeholder-val="{{ false }}">
+<div style="max-width: 1180px; margin: 0 auto; box-sizing: border-box; padding: 28px 24px 40px">
+
+<sc-if value="{{tabIs.home}}" hint-placeholder-val="{{ true }}">
+  <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 36px">Hallo [Name]</h1>
+  <p style="margin: 4px 0 0; font-size: 16px; color: {{c.muted}}">Dein {{D.label}}-Notizbuch ist auf dem gleichen Stand wie dein Handy.</p>
+  <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px">
+    <div style="padding: 18px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-size: 14px; color: {{c.muted}}">Verkostungen</span><span style="display: block; margin-top: 4px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 32px">{{journalLen}}</span></div>
+    <div style="padding: 18px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-size: 14px; color: {{c.muted}}">Am liebsten</span><span style="display: block; margin-top: 4px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 26px">{{fav0}}</span></div>
+    <div style="padding: 18px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-size: 14px; color: {{c.muted}}">Lernpfad</span><span style="display: block; margin-top: 4px; font-weight: 700; font-size: 16px">{{D.path.title}}</span><div style="margin-top: 10px; height: 8px; border-radius: 4px; background: {{c.seg}}"><div style="height: 8px; border-radius: 4px; width: {{D.path.pct}}; background: {{c.primary}}"></div></div><span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{D.path.sub}}</span></div>
+  </div>
+  <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 24px">
+    <section style="flex: 999 1 520px; min-width: 0">
+      <h2 style="margin: 0; font-size: 20px">Zuletzt verkostet</h2>
+      <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{recent}}" as="e" hint-placeholder-count="4">
+        <button type="button" onClick="{{e.open}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
+          <span style="flex: none; width: 40px; height: 48px; border-radius: 10px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="24" height="40" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{e.hex}}"></path></svg></span>
+          <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 16px">{{e.name}}</span><span style="font-size: 14px; color: {{c.muted}}">{{e.maker}} · {{e.date}}</span></span>
+          <span style="font-size: 16px; letter-spacing: 1px"><span style="color: {{c.star}}">{{e.on}}</span><span style="color: {{c.off}}">{{e.off}}</span></span>
+        </button>
+        </sc-for>
+      </div>
+    </section>
+    <section style="flex: 1 1 320px; min-width: 0">
+      <h2 style="margin: 0; font-size: 20px">Probier als Nächstes</h2>
+      <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{recs}}" as="r" hint-placeholder-count="3">
+        <div style="padding: 14px 16px; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.border}}"><div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-weight: 700; font-size: 16px">{{r.name}}</span><span style="flex: none; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{r.tag}}</span></div><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: {{c.muted}}">{{r.why}}</p></div>
+        </sc-for>
+      </div>
+      <p style="margin: 12px 0 0; font-size: 14px; line-height: 20px; color: {{c.muted}}">Verkosten geht in der App, weil du dabei am Glas bist. Neue Verkostungen erscheinen hier automatisch.</p>
+    </section>
+  </div>
+</sc-if>
+
+<sc-if value="{{tabIs.journal}}" hint-placeholder-val="{{ false }}">
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+    <div><h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 36px">Notizbuch</h1><span style="font-size: 15px; color: {{c.muted}}">{{journalCount}} · {{D.label}}</span></div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="font: inherit; font-size: 14px; height: 40px; padding: 0 14px; border-radius: 20px; cursor: pointer; {{f.st}}">{{f.label}}</button></sc-for>
+    </div>
+  </div>
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+    <div style="flex: 999 1 560px; min-width: 0; overflow-x: auto; border-radius: 20px; border: 1px solid {{c.border}}; background: {{c.surface}}">
+      <div style="min-width: 560px; font-size: 15px">
+        <div style="display: grid; grid-template-columns: 2fr 1.4fr 1fr 1fr 1fr; gap: 8px; padding: 12px 16px; font-size: 13px; font-weight: 700; color: {{c.muted}}"><span>Name</span><span>Hersteller</span><span>Datum</span><span>Bewertung</span><span>Wieder?</span></div>
+        <sc-for list="{{entries}}" as="e" hint-placeholder-count="5">
+        <div style="display: grid; grid-template-columns: 2fr 1.4fr 1fr 1fr 1fr; gap: 8px; align-items: center; padding: 4px 16px; border-top: 1px solid {{c.border}}; {{e.rowSt}}"><button type="button" onClick="{{e.open}}" style="font: inherit; font-weight: 700; min-height: 44px; padding: 0; border: 0; background: transparent; color: {{c.ink}}; cursor: pointer; text-align: left; text-decoration: underline; text-underline-offset: 3px">{{e.name}}</button><span style="color: {{c.muted}}">{{e.maker}}</span><span style="color: {{c.muted}}">{{e.date}}</span><span style="letter-spacing: 1px"><span style="color: {{c.star}}">{{e.on}}</span><span style="color: {{c.off}}">{{e.off}}</span></span><span>{{e.face}}</span></div>
+        </sc-for>
+      </div>
+      <sc-if value="{{is.noEntries}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px; color: {{c.muted}}">Keine Verkostung passt zu diesem Filter.</p></sc-if>
+    </div>
+    <aside style="flex: 1 1 320px; min-width: 0; padding: 20px; box-sizing: border-box; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <div style="height: 160px; border-radius: 16px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="78" height="136" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{E.hex}}"></path></svg></div>
+      <h2 style="margin: 14px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 24px">{{E.name}}</h2>
+      <span style="font-size: 14px; color: {{c.muted}}">{{E.maker}} · {{E.date}} · {{E.face}}</span>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 22px">{{E.note}}</p>
+      <div style="margin-top: 10px">
+        <sc-for list="{{E.traits}}" as="t" hint-placeholder-count="4"><div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid {{c.border}}; font-size: 14px"><span>{{t.label}}</span><span style="font-weight: 700">{{t.value}}</span></div></sc-for>
+      </div>
+    </aside>
+  </div>
+</sc-if>
+
+<sc-if value="{{tabIs.taste}}" hint-placeholder-val="{{ false }}">
+  <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 36px">Mein Geschmack</h1>
+  <span style="font-size: 15px; color: {{c.muted}}">{{D.label}} · aus {{journalLen}} Verkostungen</span>
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+    <div style="flex: 1 1 360px; display: flex; justify-content: center; border-radius: 24px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <svg role="img" aria-label="Netzdiagramm deines Geschmacks" width="100%" viewBox="0 0 330 270" style="max-width: 460px">
+        <sc-for list="{{radar.rings}}" as="g" hint-placeholder-count="5"><polygon points="{{g.pts}}" fill="none" stroke="{{c.border}}" stroke-width="1"></polygon></sc-for>
+        <sc-for list="{{radar.spokes}}" as="k" hint-placeholder-count="6"><line x1="165" y1="138" x2="{{k.x}}" y2="{{k.y}}" stroke="{{c.border}}" stroke-width="1"></line></sc-for>
+        <polygon points="{{radar.pts}}" fill="{{c.primary}}" fill-opacity="0.22" stroke="{{c.primary}}" stroke-width="2.5" stroke-linejoin="round"></polygon>
+        <sc-for list="{{radar.labels}}" as="l" hint-placeholder-count="6"><text x="{{l.x}}" y="{{l.y}}" text-anchor="{{l.anchor}}" font-size="12" font-weight="700" fill="{{c.ink}}" font-family="Atkinson Hyperlegible, sans-serif">{{l.text}}</text></sc-for>
+      </svg>
+    </div>
+    <div style="flex: 999 1 420px; min-width: 0">
+      <p style="margin: 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 26px; line-height: 34px">{{D.sentence}}</p>
+      <h2 style="margin: 20px 0 0; font-size: 18px">Deine Lieblinge</h2>
+      <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{D.favs}}" as="f" hint-placeholder-count="3"><span style="font-size: 15px; font-weight: 700; padding: 8px 14px; border-radius: 18px; background: {{c.soft}}; color: {{c.primaryText}}">{{f}}</span></sc-for></div>
+      <h2 style="margin: 20px 0 0; font-size: 18px">Probier als Nächstes</h2>
+      <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px">
+        <sc-for list="{{recs}}" as="r" hint-placeholder-count="3"><div style="padding: 14px 16px; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 8px; background: {{c.soft}}; color: {{c.primaryText}}">{{r.tag}}</span><span style="display: block; margin-top: 8px; font-weight: 700; font-size: 17px">{{r.name}}</span><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: {{c.muted}}">{{r.why}}</p></div></sc-for>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{tabIs.account}}" hint-placeholder-val="{{ false }}">
+  <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 36px">Konto und Abo</h1>
+  <div style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start">
+    <section style="padding: 22px; border-radius: 22px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <div style="display: flex; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 20px">Premium</h2><span style="font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">aktiv</span></div>
+      <p style="margin: 8px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Jahresabo · [Preis] · verlängert sich am [Datum]. Gekauft über [Apple, Google oder Web].</p>
+      <button type="button" onClick="{{manage}}" style="margin-top: 14px; font: inherit; font-weight: 700; font-size: 15px; height: 44px; padding: 0 18px; border-radius: 22px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Abo verwalten</button>
+    </section>
+    <section style="padding: 22px; border-radius: 22px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <h2 style="margin: 0; font-size: 20px">Geräte</h2>
+      <div style="margin-top: 10px"><sc-for list="{{devices}}" as="d" hint-placeholder-count="2"><div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid {{c.border}}; font-size: 15px"><span style="font-weight: 700">{{d.name}}</span><span style="color: {{c.muted}}">{{d.when}}</span></div></sc-for></div>
+    </section>
+    <section style="padding: 22px; border-radius: 22px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <h2 style="margin: 0; font-size: 20px">Darstellung</h2>
+      <div role="group" aria-label="Darstellung" style="margin-top: 10px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}">
+        <sc-for list="{{lookSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 42px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+      </div>
+      <h3 style="margin: 16px 0 0; font-size: 15px">Farbwelt (Vorschau)</h3>
+      <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{palSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 14px; display: flex; align-items: center; gap: 8px; height: 42px; padding: 0 14px; border-radius: 21px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{o.ring}}"><span style="width: 16px; height: 16px; border-radius: 8px; background: {{o.a}}"></span><span style="width: 16px; height: 16px; margin-left: -12px; border-radius: 8px; background: {{o.b}}"></span>{{o.label}}</button></sc-for>
+      </div>
+    </section>
+    <section style="padding: 22px; border-radius: 22px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+      <h2 style="margin: 0; font-size: 20px">Daten</h2>
+      <p style="margin: 8px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Deine Verkostungen liegen auf deinem Handy und als Kopie auf einem Server in der EU.</p>
+      <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" onClick="{{exportData}}" style="font: inherit; font-weight: 700; font-size: 15px; height: 44px; padding: 0 18px; border-radius: 22px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Als Datei exportieren</button>
+        <button type="button" onClick="{{logout}}" style="font: inherit; font-weight: 700; font-size: 15px; height: 44px; padding: 0 18px; border: 0; border-radius: 22px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Abmelden</button>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+</div>
+</sc-if>
+</main>
+
+<sc-if value="{{is.toast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: fixed; left: 50%; bottom: 32px; transform: translateX(-50%); max-width: 480px; padding: 14px 20px; border-radius: 16px; background: {{c.ink}}; color: {{c.bg}}; font-size: 15px; font-weight: 700; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25)">{{s.toast}}</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["guest","login","home","journal","taste","account"],"default":"guest"},"world":{"editor":"enum","options":["wein","bier"],"default":"wein"},"pal":{"editor":"enum","options":["Kellerei","Schiefer","Landgut"],"default":"Kellerei"},"look":{"editor":"enum","options":["auto","light","dark"],"default":"auto"},"$preview":{"width":1440,"height":900}}'>
+// DATEN-ANFANG (gemeinsam mit Web.dc.html, Abgleich mit werkzeuge/daten_abgleichen.py)
+var PALETTES = {
+  'Kellerei': {
+    sub: 'Warmes Creme mit Bordeaux und Bernstein',
+    wein: {
+      light: { bg: '#F6F0EA', surface: '#FFFFFF', ink: '#2B1519', muted: '#6E5A5D', border: '#E2D4CB', primary: '#6B1D2F', primaryText: '#6B1D2F', onPrimary: '#FFFFFF', soft: '#F3E3E5', seg: '#EADFD7', off: '#A8999B', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#160D0F', surface: '#24171A', ink: '#F3E9EA', muted: '#B9A4A8', border: '#3D2A2E', primary: '#E8A3B1', primaryText: '#F0B8C3', onPrimary: '#2B1519', soft: '#3A2027', seg: '#2E1E22', off: '#6E5A5D', star: '#E0B656', danger: '#FF8A80' }
+    },
+    bier: {
+      light: { bg: '#FAF4E8', surface: '#FFFFFF', ink: '#261A0B', muted: '#6B5A40', border: '#E6D7BC', primary: '#8A4B08', primaryText: '#7A4206', onPrimary: '#FFFFFF', soft: '#F6E6C8', seg: '#EEE2CB', off: '#A89878', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#15100A', surface: '#231A10', ink: '#F5ECDD', muted: '#BBA888', border: '#3D3020', primary: '#F0B567', primaryText: '#F3C27F', onPrimary: '#261A0B', soft: '#3A2A14', seg: '#2D2216', off: '#6B5A40', star: '#E0B656', danger: '#FF8A80' }
+    }
+  },
+  'Schiefer': {
+    sub: 'Kühles Grau mit Pflaume und Kupfer',
+    wein: {
+      light: { bg: '#EFF1F4', surface: '#FFFFFF', ink: '#161B24', muted: '#525B6B', border: '#D2D8E0', primary: '#5A2350', primaryText: '#5A2350', onPrimary: '#FFFFFF', soft: '#EFE3EC', seg: '#DEE3EA', off: '#8E97A5', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#0F131A', surface: '#1A202A', ink: '#E8ECF2', muted: '#A2ABB9', border: '#2E3644', primary: '#D9A6CF', primaryText: '#E2B8DA', onPrimary: '#1E0C1B', soft: '#33233A', seg: '#222936', off: '#5B6475', star: '#E0B656', danger: '#FF8A80' }
+    },
+    bier: {
+      light: { bg: '#EFF1F4', surface: '#FFFFFF', ink: '#161B24', muted: '#525B6B', border: '#D2D8E0', primary: '#9A3F12', primaryText: '#8A380F', onPrimary: '#FFFFFF', soft: '#F6E2D6', seg: '#DEE3EA', off: '#8E97A5', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#0F131A', surface: '#1A202A', ink: '#E8ECF2', muted: '#A2ABB9', border: '#2E3644', primary: '#F2A77A', primaryText: '#F5B994', onPrimary: '#2A1306', soft: '#3A2418', seg: '#222936', off: '#5B6475', star: '#E0B656', danger: '#FF8A80' }
+    }
+  },
+  'Landgut': {
+    sub: 'Heller Sand mit Weinrose und Hopfengrün',
+    wein: {
+      light: { bg: '#F2F3EA', surface: '#FFFFFF', ink: '#1F2418', muted: '#596050', border: '#D7DBC8', primary: '#8A2846', primaryText: '#7E2340', onPrimary: '#FFFFFF', soft: '#F5E2E8', seg: '#E3E6D6', off: '#9A9F8E', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#11140D', surface: '#1C2117', ink: '#EDF0E4', muted: '#A9B09C', border: '#323A29', primary: '#EFA3B9', primaryText: '#F3B6C8', onPrimary: '#2A0B15', soft: '#3A2129', seg: '#262C1F', off: '#5E6652', star: '#E0B656', danger: '#FF8A80' }
+    },
+    bier: {
+      light: { bg: '#F2F3EA', surface: '#FFFFFF', ink: '#1F2418', muted: '#596050', border: '#D7DBC8', primary: '#3F6212', primaryText: '#3A5A10', onPrimary: '#FFFFFF', soft: '#E4EED3', seg: '#E3E6D6', off: '#9A9F8E', star: '#A8761E', danger: '#B3261E' },
+      dark: { bg: '#11140D', surface: '#1C2117', ink: '#EDF0E4', muted: '#A9B09C', border: '#323A29', primary: '#B5D98A', primaryText: '#C3E19E', onPrimary: '#16220A', soft: '#26341A', seg: '#262C1F', off: '#5E6652', star: '#E0B656', danger: '#FF8A80' }
+    }
+  }
+};
+var PAL_NAMES = ['Kellerei', 'Schiefer', 'Landgut'];
+var LEVELS = [
+  { name: 'Einsteiger', sub: 'Einfache Fragen mit Bildern, viele Erklärungen' },
+  { name: 'Erfahren', sub: 'Regler für alle Merkmale, rund 40 Aromen' },
+  { name: 'Profi', sub: 'Volles Verkostungsschema, Fachbegriffe' }
+];
+var QUIZ = [
+  { q: 'Kaffee schwarz oder mit Milch?', a: ['Schwarz', 'Mit Milch'] },
+  { q: 'Grapefruit oder Banane?', a: ['Grapefruit', 'Banane'] },
+  { q: 'Zartbitter oder Vollmilch?', a: ['Zartbitter', 'Vollmilch'] },
+  { q: 'Zitronenlimo oder Cola?', a: ['Zitronenlimo', 'Cola'] }
+];
+var FACES = ['Nochmal', 'Okay', 'Nie wieder'];
+var PATH_WINE = 'M24 4h12v18c0 5 9 8 9 18v52a5 5 0 0 1-5 5H20a5 5 0 0 1-5-5V40c0-10 9-13 9-18z';
+var PATH_BEER = 'M25 4h10v20c0 4 10 7 10 15v53a5 5 0 0 1-5 5H20a5 5 0 0 1-5-5V39c0-8 10-11 10-15z';
+var W = {
+  wein: {
+    label: 'Wein', homeTitle: 'Was trinkst du heute?', searchHint: 'Weingut, Rebsorte oder Name …', notePh: 'Zum Beispiel: passte gut zum Fisch',
+    steps: ['Aussehen', 'Nase', 'Gaumen', 'Abgang', 'Fazit'],
+    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Rosé', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426']],
+    lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Leicht trüb'] }],
+    groups: ['Zitrus', 'Gelbe Frucht', 'Rote Beeren', 'Dunkle Beeren', 'Blüten', 'Kräuter', 'Würze', 'Holz und Röstnoten'],
+    aromas: {
+      Erfahren: ['Zitrone', 'Grapefruit', 'Apfel', 'Birne', 'Pfirsich', 'Aprikose', 'Kirsche', 'Erdbeere', 'Himbeere', 'Brombeere', 'Cassis', 'Pflaume', 'Rose', 'Holunder', 'Paprika', 'Gras', 'Pfeffer', 'Vanille', 'Toast', 'Honig'],
+      Profi: ['Zitrone', 'Grapefruit', 'Apfel', 'Birne', 'Pfirsich', 'Aprikose', 'Kirsche', 'Erdbeere', 'Himbeere', 'Brombeere', 'Cassis', 'Pflaume', 'Rose', 'Holunder', 'Paprika', 'Gras', 'Pfeffer', 'Vanille', 'Toast', 'Honig', 'Petrol', 'Feuerstein', 'Hefe', 'Leder', 'Tabak', 'Waldboden']
+    },
+    axes: [{ k: 'sweet', label: 'Süße', lo: 'trocken', hi: 'süß' }, { k: 'acid', label: 'Säure', lo: 'mild', hi: 'frisch' }, { k: 'tannin', label: 'Tannin', lo: 'weich', hi: 'herb' }, { k: 'body', label: 'Körper', lo: 'leicht', hi: 'kräftig' }],
+    finRows: [{ k: 'len', label: 'Wie lange bleibt der Geschmack?', opts: ['Kurz', 'Mittel', 'Lang'] }],
+    hints: {
+      look: { Einsteiger: 'Halte das Glas schräg vor ein weißes Blatt. Welche Farbe siehst du am Rand?', Erfahren: 'Farbe, Tiefe und Reflexe am Rand des Glases.', Profi: 'Klarheit · Intensität · Farbe · Reflexe' },
+      nose: { Einsteiger: 'Erst ruhig riechen, dann das Glas schwenken und noch einmal. Tippe an, was dir einfällt. Es gibt kein Falsch.', Erfahren: 'Erst ruhend, dann geschwenkt. Achte auf Frucht, Blüten und Würze.', Profi: 'Zustand · Intensität · primäre, sekundäre und tertiäre Aromen' },
+      palate: { Einsteiger: 'Nimm einen kleinen Schluck und lass ihn im Mund kreisen. Säure spürst du an den Zungenrändern, Tannin als pelziges Gefühl am Zahnfleisch.', Erfahren: 'Süße, Säure, Tannin und Körper einordnen.', Profi: 'Süße · Säure · Tannin · Alkohol · Körper' },
+      finish: { Einsteiger: 'Schluck hinunter und zähle, wie lange der Geschmack bleibt. Unter 5 Sekunden ist kurz, über 15 lang.', Erfahren: 'Länge des Nachhalls nach dem Schlucken.', Profi: 'Abgang · Länge' },
+      verdict: { Einsteiger: 'Ehrlich sein hilft der App, deinen Geschmack zu lernen.', Erfahren: 'Gesamteindruck und ob du ihn wieder trinken würdest.', Profi: 'Qualität · Trinkreife · Bewertung' }
+    },
+    bottles: [
+      { id: 'w1', name: 'Riesling trocken', maker: '[Weingut]', meta: 'Weißwein · 2023', color: 0, groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Zitrone', 'Apfel', 'Pfirsich'], typ: { sweet: 1, acid: 5, tannin: 1, body: 2 }, fin: { len: 'Mittel' }, fact: 'Riesling ist bekannt für seine Säure. Sie macht ihn frisch und lässt ihn lange reifen.' },
+      { id: 'w2', name: 'Spätburgunder', maker: '[Weingut]', meta: 'Rotwein · 2021', color: 3, groups: ['Rote Beeren', 'Holz und Röstnoten'], aromas: ['Kirsche', 'Erdbeere', 'Vanille'], typ: { sweet: 1, acid: 3, tannin: 2, body: 3 }, fin: { len: 'Mittel' }, fact: 'Spätburgunder hat dünne Schalen. Deshalb ist er heller und weicher als viele andere Rotweine.' },
+      { id: 'w3', name: 'Grauburgunder', maker: '[Weingut]', meta: 'Weißwein · 2023', color: 1, groups: ['Gelbe Frucht', 'Würze'], aromas: ['Birne', 'Aprikose', 'Honig'], typ: { sweet: 2, acid: 3, tannin: 1, body: 4 }, fin: { len: 'Mittel' }, fact: 'Grauburgunder ist oft kräftiger als andere Weißweine und passt gut zu cremigen Gerichten.' }
+    ],
+    recs: [
+      { id: 'w4', name: 'Albariño', maker: '[Weingut]', meta: 'Weißwein', color: 0, tag: 'Passt gut', why: 'Weil du Säure und Zitrusnoten magst.', groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Grapefruit', 'Pfirsich', 'Zitrone'], typ: { sweet: 1, acid: 4, tannin: 1, body: 2 }, fin: { len: 'Mittel' }, fact: 'Albariño wächst nah am Meer. Viele schmecken darin eine leicht salzige Frische.' },
+      { id: 'w5', name: 'Grüner Veltliner', maker: '[Weingut]', meta: 'Weißwein', color: 0, tag: 'Passt gut', why: 'Frisch wie dein Riesling, dazu ein Hauch Pfeffer.', groups: ['Gelbe Frucht', 'Würze'], aromas: ['Apfel', 'Pfeffer', 'Gras'], typ: { sweet: 1, acid: 4, tannin: 1, body: 2 }, fin: { len: 'Mittel' }, fact: 'Das „Pfefferl“ ist typisch für Grünen Veltliner. Achte darauf am Ende des Schlucks.' },
+      { id: 'w6', name: 'Gamay', maker: '[Weingut]', meta: 'Rotwein, leicht gekühlt', color: 3, tag: 'Mutig', why: 'Ein leichter, fruchtiger Roter. Ein guter erster Schritt zu Rotwein.', groups: ['Rote Beeren', 'Blüten'], aromas: ['Kirsche', 'Himbeere', 'Rose'], typ: { sweet: 1, acid: 4, tannin: 2, body: 2 }, fin: { len: 'Kurz' }, fact: 'Gamay schmeckt leicht gekühlt am besten, ähnlich wie ein Rosé.' }
+    ],
+    lesson: { title: 'Was ist Tannin?', text: 'Tannin ist ein Gerbstoff aus Schalen und Kernen der Traube. Er fühlt sich pelzig an, wie schwarzer Tee, der zu lange gezogen hat.' },
+    journal: [
+      { name: 'Riesling trocken', maker: '[Weingut]', stars: 4, face: 'Nochmal', date: '18. Okt.', color: 0, note: 'Sehr frisch, passte super zum Fisch.', ax: { sweet: 1, acid: 5, tannin: 1, body: 2 }, len: 'Mittel' },
+      { name: 'Grauburgunder', maker: '[Weingut]', stars: 5, face: 'Nochmal', date: '11. Okt.', color: 1, note: 'Weich und rund, schöne Birne.', ax: { sweet: 2, acid: 3, tannin: 1, body: 4 }, len: 'Lang' },
+      { name: 'Spätburgunder', maker: '[Weingut]', stars: 3, face: 'Okay', date: '4. Okt.', color: 3, note: 'Etwas zu herb für mich.', ax: { sweet: 1, acid: 3, tannin: 3, body: 3 }, len: 'Mittel' },
+      { name: 'Rosé', maker: '[Weingut]', stars: 4, face: 'Nochmal', date: '27. Sep.', color: 2, note: 'Perfekt für den Balkon.', ax: { sweet: 2, acid: 4, tannin: 1, body: 2 }, len: 'Kurz' },
+      { name: 'Merlot', maker: '[Weingut]', stars: 2, face: 'Nie wieder', date: '20. Sep.', color: 4, note: 'Zu schwer und zu viel Holz.', ax: { sweet: 2, acid: 2, tannin: 4, body: 5 }, len: 'Lang' }
+    ],
+    radar: { axes: ['Süße', 'Säure', 'Tannin', 'Körper', 'Frucht', 'Holz'], vals: [1.8, 4.3, 1.6, 2.4, 4.0, 1.4] },
+    sentence: 'Du magst frische, säurebetonte Weißweine mit viel Frucht und wenig Holz.',
+    favs: ['Riesling', 'Grauburgunder', 'Rosé'],
+    path: { title: 'Riesling von trocken bis edelsüß', sub: '1 von 4 Flaschen verkostet', pct: '25%' }
+  },
+  bier: {
+    label: 'Bier', homeTitle: 'Was trinkst du heute?', searchHint: 'Brauerei, Bierstil oder Name …', notePh: 'Zum Beispiel: schön herb, gut zum Grillen',
+    steps: ['Aussehen und Schaum', 'Aroma', 'Geschmack', 'Mundgefühl', 'Fazit'],
+    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C']],
+    lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Hefetrüb'] }, { k: 'foam', label: 'Schaum', opts: ['Feinporig', 'Grob', 'Kaum'] }],
+    groups: ['Getreide und Brot', 'Karamell', 'Röstnoten', 'Zitrus', 'Tropenfrucht', 'Banane und Nelke', 'Kräuter und Gras', 'Harz und Kiefer'],
+    aromas: {
+      Erfahren: ['Brot', 'Keks', 'Honig', 'Karamell', 'Toffee', 'Kaffee', 'Schokolade', 'Zitrone', 'Grapefruit', 'Orange', 'Mango', 'Maracuja', 'Banane', 'Nelke', 'Gras', 'Heu', 'Kräuter', 'Kiefer', 'Pfeffer', 'Rauch'],
+      Profi: ['Brot', 'Keks', 'Honig', 'Karamell', 'Toffee', 'Kaffee', 'Schokolade', 'Zitrone', 'Grapefruit', 'Orange', 'Mango', 'Maracuja', 'Banane', 'Nelke', 'Gras', 'Heu', 'Kräuter', 'Kiefer', 'Pfeffer', 'Rauch', 'Butter', 'Schwefel', 'Stall', 'Essig', 'Sherry', 'Papier']
+    },
+    axes: [{ k: 'bitter', label: 'Bittere', lo: 'mild', hi: 'sehr bitter' }, { k: 'malt', label: 'Malz-Süße', lo: 'trocken', hi: 'malzig' }, { k: 'acid', label: 'Säure', lo: 'keine', hi: 'sauer' }, { k: 'body', label: 'Körper', lo: 'schlank', hi: 'vollmundig' }],
+    finRows: [{ k: 'fizz', label: 'Kohlensäure (Rezenz)', opts: ['Wenig', 'Mittel', 'Viel'] }, { k: 'len', label: 'Wie lange bleibt der Geschmack?', opts: ['Kurz', 'Mittel', 'Lang'] }],
+    hints: {
+      look: { Einsteiger: 'Halte das Glas gegen das Licht. Welche Farbe hat das Bier, und wie sieht der Schaum aus?', Erfahren: 'Farbe, Klarheit und wie lange der Schaum steht.', Profi: 'Farbe · Klarheit · Schaumbild · Haltbarkeit des Schaums' },
+      nose: { Einsteiger: 'Riech direkt nach dem Einschenken. Denk an Brot, Früchte oder Kräuter. Tippe an, was dir einfällt.', Erfahren: 'Malz-, Hopfen- und Hefearomen unterscheiden.', Profi: 'Malz · Hopfen · Hefe · Fehlaromen' },
+      palate: { Einsteiger: 'Nimm einen kräftigen Schluck. Die Bittere spürst du hinten auf der Zunge, die Süße vorne.', Erfahren: 'Bittere, Malz-Süße, Säure und Körper einordnen.', Profi: 'Antrunk · Bittere · Malzkörper · Säure · Balance' },
+      finish: { Einsteiger: 'Wie prickelt es im Mund, und wie lange bleibt der Geschmack nach dem Schlucken?', Erfahren: 'Rezenz und Länge des Nachtrunks.', Profi: 'Rezenz · Vollmundigkeit · Nachtrunk' },
+      verdict: { Einsteiger: 'Ehrlich sein hilft der App, deinen Geschmack zu lernen.', Erfahren: 'Gesamteindruck und ob du es wieder trinken würdest.', Profi: 'Stiltreue · Balance · Bewertung' }
+    },
+    bottles: [
+      { id: 'b1', name: 'Pils', maker: '[Brauerei]', meta: 'Untergärig, hell', color: 0, groups: ['Kräuter und Gras', 'Getreide und Brot'], aromas: ['Kräuter', 'Gras', 'Brot'], typ: { bitter: 4, malt: 2, acid: 1, body: 2 }, fin: { fizz: 'Viel', len: 'Mittel' }, fact: 'Die herbe Note im Pils kommt vom Hopfen. Je mehr Hopfen, desto bitterer.' },
+      { id: 'b2', name: 'Hefeweizen', maker: '[Brauerei]', meta: 'Obergärig, naturtrüb', color: 1, groups: ['Banane und Nelke', 'Getreide und Brot'], aromas: ['Banane', 'Nelke', 'Brot'], typ: { bitter: 1, malt: 3, acid: 2, body: 3 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Banane und Nelke kommen nicht von Früchten oder Gewürzen, sondern von der Weizenbier-Hefe.' },
+      { id: 'b3', name: 'Stout', maker: '[Brauerei]', meta: 'Obergärig, dunkel', color: 4, groups: ['Röstnoten', 'Karamell'], aromas: ['Kaffee', 'Schokolade', 'Karamell'], typ: { bitter: 3, malt: 3, acid: 1, body: 4 }, fin: { fizz: 'Wenig', len: 'Lang' }, fact: 'Die Kaffee-Noten im Stout kommen von stark geröstetem Malz, nicht von Kaffee.' }
+    ],
+    recs: [
+      { id: 'b4', name: 'Session IPA', maker: '[Brauerei]', meta: 'Obergärig, hell', color: 1, tag: 'Passt gut', why: 'Viel Frucht vom Hopfen, aber schlanker als ein IPA.', groups: ['Tropenfrucht', 'Zitrus'], aromas: ['Mango', 'Grapefruit', 'Maracuja'], typ: { bitter: 3, malt: 2, acid: 1, body: 2 }, fin: { fizz: 'Mittel', len: 'Mittel' }, fact: 'Die Fruchtnoten kommen von Hopfensorten, die erst spät beim Brauen dazukommen.' },
+      { id: 'b5', name: 'Kellerbier', maker: '[Brauerei]', meta: 'Unfiltriert', color: 2, tag: 'Passt gut', why: 'Rund und mild gehopft, mit etwas mehr Malz als dein Pils.', groups: ['Getreide und Brot', 'Karamell'], aromas: ['Brot', 'Honig', 'Kräuter'], typ: { bitter: 2, malt: 3, acid: 1, body: 3 }, fin: { fizz: 'Wenig', len: 'Mittel' }, fact: 'Kellerbier wird nicht gefiltert. Darum ist es trüb und schmeckt oft weicher.' },
+      { id: 'b6', name: 'Berliner Weisse', maker: '[Brauerei]', meta: 'Sauer, sehr leicht', color: 0, tag: 'Mutig', why: 'Säuerlich und erfrischend. Ganz anders als alles, was du bisher hattest.', groups: ['Zitrus'], aromas: ['Zitrone', 'Heu'], typ: { bitter: 1, malt: 1, acid: 5, body: 1 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Die Säure entsteht durch Milchsäurebakterien beim Brauen, ähnlich wie bei Joghurt.' }
+    ],
+    lesson: { title: 'Was heißt obergärig?', text: 'Das beschreibt die Hefe. Obergärige Hefe arbeitet bei wärmeren Temperaturen und bringt oft fruchtige Noten, untergärige bei kühleren und schmeckt klarer.' },
+    journal: [
+      { name: 'Pale Ale', maker: '[Brauerei]', stars: 5, face: 'Nochmal', date: '19. Okt.', color: 2, note: 'Richtig fruchtig, Grapefruit pur.', ax: { bitter: 3, malt: 2, acid: 1, body: 2 }, fizz: 'Mittel', len: 'Mittel' },
+      { name: 'Hefeweizen', maker: '[Brauerei]', stars: 4, face: 'Nochmal', date: '12. Okt.', color: 1, note: 'Banane deutlich, schön spritzig.', ax: { bitter: 1, malt: 3, acid: 2, body: 3 }, fizz: 'Viel', len: 'Kurz' },
+      { name: 'Pils', maker: '[Brauerei]', stars: 3, face: 'Okay', date: '5. Okt.', color: 0, note: 'Solide, etwas zu bitter.', ax: { bitter: 4, malt: 2, acid: 1, body: 2 }, fizz: 'Viel', len: 'Mittel' },
+      { name: 'Stout', maker: '[Brauerei]', stars: 2, face: 'Nie wieder', date: '28. Sep.', color: 4, note: 'Zu schwer für mich.', ax: { bitter: 3, malt: 4, acid: 1, body: 5 }, fizz: 'Wenig', len: 'Lang' }
+    ],
+    radar: { axes: ['Bittere', 'Malz-Süße', 'Röstnoten', 'Frucht', 'Säure', 'Körper'], vals: [3.2, 2.4, 1.4, 4.1, 2.6, 2.6] },
+    sentence: 'Du magst fruchtige, eher schlanke Biere mit mittlerer Bittere.',
+    favs: ['Pale Ale', 'Hefeweizen', 'Pils'],
+    path: { title: 'Hopfen verstehen: vom Pils zum IPA', sub: '2 von 4 Bieren verkostet', pct: '50%' }
+  }
+};
+
+function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
+function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
+function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }
+function emptySel() { return { color: -1, rows: {}, aromas: {}, ax: {}, fin: {}, stars: 0, face: '' }; }
+// DATEN-ENDE
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var p = props || {};
+    var st = p.start || 'guest';
+    var tabs = ['home', 'journal', 'taste', 'account'];
+    this.state = {
+      page: st === 'guest' || st === 'login' ? st : (tabs.indexOf(st) >= 0 ? 'app' : 'guest'),
+      tab: tabs.indexOf(st) >= 0 ? st : 'home',
+      world: p.world === 'bier' ? 'bier' : 'wein', pal: PALETTES[p.pal] ? p.pal : 'Kellerei',
+      look: (p.look === 'light' || p.look === 'dark') ? p.look : 'auto',
+      jw: seed('wein'), jb: seed('bier'), detail: '', filter: 'Alle', toast: ''
+    };
+  }
+
+  say(text) {
+    var self = this;
+    this.setState({ toast: text });
+    clearTimeout(this._t);
+    this._t = setTimeout(function () { self.setState({ toast: '' }); }, 2600);
+  }
+
+  renderVals() {
+    var self = this, s = this.state, w = s.world, D = W[w];
+    var dark = s.look === 'dark';
+    if (s.look === 'auto') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) { dark = false; } }
+    var mode = dark ? 'dark' : 'light';
+    var c = PALETTES[s.pal][w][mode];
+    var pr = function (on) { return on ? 'true' : 'false'; };
+    var chip = function (on) { return on ? 'border: 1.5px solid ' + c.primary + '; background: ' + c.primary + '; color: ' + c.onPrimary + '; font-weight: 700' : 'border: 1.5px solid ' + c.border + '; background: ' + c.surface + '; color: ' + c.ink; };
+    var seg = function (on) { return on ? 'background: ' + c.surface + '; color: ' + c.ink + '; font-weight: 700; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18)' : 'background: transparent; color: ' + c.ink; };
+    var ring = function (on) { return on ? 'border: 2px solid ' + c.primary : 'border: 1.5px solid ' + c.border; };
+    var starStr = function (n) { return { on: '★★★★★'.slice(0, n), off: '★★★★★'.slice(0, 5 - n) }; };
+    var journal = w === 'wein' ? s.jw : s.jb;
+    var entryVm = function (e) {
+      var st = starStr(e.stars);
+      return { id: e.id, name: e.name, maker: e.maker, date: e.date, face: e.face, note: e.note || 'Keine Notiz.', on: st.on, off: st.off, hex: D.colors[Math.max(0, e.color)][1],
+        rowSt: e.id === s.detail ? 'background: ' + c.soft : '',
+        open: function () { self.setState({ tab: 'journal', detail: e.id }); } };
+    };
+    var is = { guest: s.page === 'guest', login: s.page === 'login', inApp: s.page === 'app', toast: !!s.toast };
+    var tabIs = { home: s.tab === 'home', journal: s.tab === 'journal', taste: s.tab === 'taste', account: s.tab === 'account' };
+    var fl = journal.filter(function (e) { return s.filter === 'Alle' || (s.filter === '4+ Sterne' && e.stars >= 4) || (s.filter === 'Nochmal' && e.face === 'Nochmal'); });
+    is.noEntries = fl.length === 0;
+    var ent = journal.filter(function (e) { return e.id === s.detail; })[0] || fl[0] || journal[0];
+    var E = entryVm(ent);
+    E.traits = D.axes.map(function (ax) { var v = ent.ax ? ent.ax[ax.k] : 0; return { label: ax.label, value: v ? v + ' von 5' : '–' }; });
+    D.finRows.forEach(function (r) { E.traits.push({ label: r.k === 'len' ? 'Abgang' : 'Kohlensäure', value: ent[r.k] || '–' }); });
+
+    var cx = 165, cy = 138, R = 92, n = D.radar.axes.length;
+    var pt = function (i, v) { var a = (-90 + i * 360 / n) * Math.PI / 180; return [cx + Math.cos(a) * R * v / 5, cy + Math.sin(a) * R * v / 5]; };
+    var poly = function (f) { var out = []; for (var i = 0; i < n; i++) { var q = pt(i, f(i)); out.push(q[0].toFixed(1) + ',' + q[1].toFixed(1)); } return out.join(' '); };
+
+    return {
+      s: s, c: c, is: is, tabIs: tabIs, D: D, E: E, isWein: w === 'wein', isBier: w === 'bier',
+      bottlePath: w === 'wein' ? PATH_WINE : PATH_BEER,
+      tabs: [['home', 'Übersicht'], ['journal', 'Notizbuch'], ['taste', 'Mein Geschmack'], ['account', 'Konto und Abo']].map(function (t) { var on = s.tab === t[0]; return { label: t[1], pressed: pr(on), st: on ? 'background: ' + c.soft + '; color: ' + c.primaryText + '; font-weight: 700' : 'background: transparent; color: ' + c.ink, pick: function () { self.setState({ tab: t[0] }); } }; }),
+      pressWein: pr(w === 'wein'), pressBier: pr(w === 'bier'), segWein: seg(w === 'wein'), segBier: seg(w === 'bier'),
+      toWein: function () { self.setState({ world: 'wein', detail: '', filter: 'Alle' }); },
+      toBier: function () { self.setState({ world: 'bier', detail: '', filter: 'Alle' }); },
+      toApp: function () { try { if (window.__toApp) { window.__toApp(); return; } } catch (e) {} self.say('Am Handy zeigt die Seite automatisch die App-Ansicht.'); },
+      goLogin: function () { self.setState({ page: 'login' }); },
+      goGuest: function () { self.setState({ page: 'guest' }); },
+      doLogin: function () { self.setState({ page: 'app', tab: 'home' }); },
+      getApp: function () { self.say('Bald für Android und iPhone in den Stores (Vorschau).'); },
+      logout: function () { self.setState({ page: 'guest', tab: 'home' }); self.say('Abgemeldet'); },
+      manage: function () { self.say('Das Abo verwaltest du dort, wo du es gekauft hast (Vorschau).'); },
+      exportData: function () { self.say('Export als Datei (Vorschau)'); },
+      how: [
+        { n: '1', title: 'Glas in die Hand', text: 'Fotografiere die Flasche oder lass dir etwas empfehlen, das zu deinem Geschmack passt.' },
+        { n: '2', title: 'Geführt verkosten', text: 'Aussehen, Nase, Gaumen, Abgang, Fazit. Einfach für Einsteiger, vollständig für Profis.' },
+        { n: '3', title: 'Geschmack entdecken', text: 'Aus jeder Bewertung lernt die App, was du magst, und schlägt Neues vor.' }
+      ],
+      journalLen: journal.length,
+      journalCount: journal.length + (journal.length === 1 ? ' Verkostung' : ' Verkostungen'),
+      fav0: D.favs[0],
+      recent: journal.slice(0, 4).map(entryVm),
+      recs: D.recs.map(function (b) { return { name: b.name, tag: b.tag, why: b.why }; }),
+      entries: fl.map(entryVm),
+      filters: ['Alle', '4+ Sterne', 'Nochmal'].map(function (f) { var on = s.filter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ filter: f }); } }; }),
+      radar: {
+        rings: [1, 2, 3, 4, 5].map(function (k) { return { pts: poly(function () { return k; }) }; }),
+        spokes: D.radar.axes.map(function (a, i) { var q = pt(i, 5); return { x: q[0].toFixed(1), y: q[1].toFixed(1) }; }),
+        pts: poly(function (i) { return D.radar.vals[i]; }),
+        labels: D.radar.axes.map(function (a, i) { var q = pt(i, 5.9); var anchor = Math.abs(q[0] - cx) < 4 ? 'middle' : (q[0] > cx ? 'start' : 'end'); return { x: q[0].toFixed(1), y: (q[1] + 5).toFixed(1), anchor: anchor, text: a }; })
+      },
+      devices: [{ name: 'iPhone von [Name]', when: 'gerade eben' }, { name: 'Web-Browser', when: 'jetzt aktiv' }],
+      lookSeg: [['auto', 'Automatisch'], ['light', 'Hell'], ['dark', 'Dunkel']].map(function (o) { var on = s.look === o[0]; return { label: o[1], pressed: pr(on), st: seg(on), pick: function () { self.setState({ look: o[0] }); } }; }),
+      palSeg: PAL_NAMES.map(function (nm) { var on = s.pal === nm; return { label: nm, pressed: pr(on), ring: ring(on), a: PALETTES[nm].wein[mode].primary, b: PALETTES[nm].bier[mode].primary, pick: function () { self.setState({ pal: nm }); } }; })
+    };
+  }
+}
+</script>
+</body>
+</html>
