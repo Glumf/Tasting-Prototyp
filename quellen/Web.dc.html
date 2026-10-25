@@ -383,6 +383,88 @@ var W = {
   }
 };
 
+var DARK_STYLES = [['standard', 'Standard'], ['kraeftig', 'Kräftig'], ['kerze', 'Kerzenlicht'], ['tief', 'Tiefschwarz']];
+var DARK_TONE = {
+  kerze: { bg: '#2A1D14', surface: '#3A2A1D', border: '#5A4430', seg: '#463322', muted: '#D6C1A6', ink: '#FBF1E4', off: '#8E7760' },
+  tief: { bg: '#000000', surface: '#121212', border: '#2E2E2E', seg: '#1C1C1C', muted: '#B0B0B0', ink: '#F2F2F2', off: '#686868' }
+};
+var DARK_STRONG = {
+  Kellerei: { wein: { primary: '#D2506A', onPrimary: '#1A0509', primaryText: '#F59AAC', soft: '#45202A' }, bier: { primary: '#E89A2E', onPrimary: '#1E1305', primaryText: '#F5B95E', soft: '#43300F' } },
+  Schiefer: { wein: { primary: '#C46BB4', onPrimary: '#16061A', primaryText: '#E6A9DB', soft: '#3E2541' }, bier: { primary: '#E8783A', onPrimary: '#1E0B02', primaryText: '#F6A57A', soft: '#43251A' } },
+  Landgut: { wein: { primary: '#DE5F84', onPrimary: '#1E0510', primaryText: '#F7A3BC', soft: '#46202C' }, bier: { primary: '#8FBF45', onPrimary: '#0E1806', primaryText: '#B8DE86', soft: '#26381A' } }
+};
+function themeOf(pal, w, dark, ds) {
+  var base = PALETTES[pal][w][dark ? 'dark' : 'light'];
+  if (!dark || !ds || ds === 'standard') return base;
+  var t = Object.assign({}, base);
+  if (ds === 'kraeftig') Object.assign(t, DARK_STRONG[pal][w]);
+  else Object.assign(t, DARK_TONE[ds]);
+  return t;
+}
+var TSTYLES = [['glas', 'Glas'], ['karte', 'Karten'], ['rad', 'Aromarad'], ['ruhe', 'Zuhören']];
+W.wein.wheel = [
+  { g: 'Zitrus', l: ['Zitrus'], a: ['Zitrone', 'Grapefruit'] },
+  { g: 'Gelbe Frucht', l: ['Gelbe', 'Frucht'], a: ['Apfel', 'Birne', 'Pfirsich', 'Aprikose'] },
+  { g: 'Rote Beeren', l: ['Rote', 'Beeren'], a: ['Kirsche', 'Erdbeere', 'Himbeere'] },
+  { g: 'Dunkle Beeren', l: ['Dunkle', 'Beeren'], a: ['Brombeere', 'Cassis', 'Pflaume'] },
+  { g: 'Blüten', l: ['Blüten'], a: ['Rose', 'Holunder'] },
+  { g: 'Kräuter', l: ['Kräuter'], a: ['Paprika', 'Gras'] },
+  { g: 'Würze', l: ['Würze'], a: ['Pfeffer', 'Honig'] },
+  { g: 'Holz und Röstnoten', l: ['Holz,', 'Röstnoten'], a: ['Vanille', 'Toast'] }
+];
+W.bier.wheel = [
+  { g: 'Getreide und Brot', l: ['Getreide,', 'Brot'], a: ['Brot', 'Keks', 'Honig'] },
+  { g: 'Karamell', l: ['Karamell'], a: ['Karamell', 'Toffee'] },
+  { g: 'Röstnoten', l: ['Röst-', 'noten'], a: ['Kaffee', 'Schokolade', 'Rauch'] },
+  { g: 'Zitrus', l: ['Zitrus'], a: ['Zitrone', 'Grapefruit', 'Orange'] },
+  { g: 'Tropenfrucht', l: ['Tropen-', 'frucht'], a: ['Mango', 'Maracuja'] },
+  { g: 'Banane und Nelke', l: ['Banane,', 'Nelke'], a: ['Banane', 'Nelke'] },
+  { g: 'Kräuter und Gras', l: ['Kräuter,', 'Gras'], a: ['Gras', 'Heu', 'Kräuter', 'Pfeffer'] },
+  { g: 'Harz und Kiefer', l: ['Harz,', 'Kiefer'], a: ['Kiefer'] }
+];
+W.wein.foods = [
+  { name: 'Pasta mit Tomaten', picks: [['Sangiovese', 'Die Säure im Wein passt zur Säure der Tomate.', true], ['Barbera', 'Fruchtig und frisch, mit wenig Tannin.', false]] },
+  { name: 'Fisch', picks: [['Riesling trocken', 'Frisch und leicht, überdeckt den feinen Fisch nicht.', true], ['Albariño', 'Zitrusnoten wie ein Spritzer Zitrone.', true]] },
+  { name: 'Käseplatte', picks: [['Spätburgunder', 'Weiches Tannin, passt zu mildem Käse.', false], ['Grauburgunder', 'Cremig und rund, gut zu Weichkäse.', true]] },
+  { name: 'Vom Grill', picks: [['Syrah', 'Würzig mit Pfeffernoten, hält Röstaromen stand.', false], ['Rosé', 'Leicht gekühlt, gut für warme Abende.', true]] },
+  { name: 'Asiatisch, scharf', picks: [['Riesling feinherb', 'Etwas Restsüße mildert die Schärfe.', true], ['Gewürztraminer', 'Duftig und blumig, mag Ingwer und Koriander.', false]] },
+  { name: 'Schokolade', picks: [['Portwein', 'Süß und kräftig, mindestens so süß wie das Dessert.', false], ['Banyuls', 'Süßer Rotwein mit Kakaonoten.', false]] }
+];
+W.bier.foods = [
+  { name: 'Pasta mit Tomaten', picks: [['Helles', 'Mild und rund, lässt der Soße den Vortritt.', true], ['Märzen', 'Etwas mehr Malz, passt zu würzigen Soßen.', false]] },
+  { name: 'Fisch', picks: [['Kölsch', 'Schlank und frisch, überdeckt nichts.', false], ['Witbier', 'Koriander und Orange wie ein Zitronenspritzer.', true]] },
+  { name: 'Käseplatte', picks: [['Bockbier', 'Kräftiges Malz zu würzigem Käse.', false], ['Pale Ale', 'Fruchtiger Hopfen zu Hartkäse.', true]] },
+  { name: 'Vom Grill', picks: [['Rauchbier', 'Rauch zu Rauch, ein Klassiker zum Grillen.', false], ['Dunkles', 'Röstmalz passt zu Gegrilltem.', false]] },
+  { name: 'Asiatisch, scharf', picks: [['Hefeweizen', 'Spritzig und mild, kühlt die Schärfe.', true], ['Helles', 'Wenig Bittere, damit die Schärfe nicht stärker wird.', true]] },
+  { name: 'Schokolade', picks: [['Stout', 'Röstnoten wie Kakao.', false], ['Porter', 'Weich mit Kaffee- und Schokoladennoten.', false]] }
+];
+W.wein.cellarTitle = 'Mein Weinkeller';
+W.bier.cellarTitle = 'Mein Biervorrat';
+W.wein.cellar = [
+  { name: 'Riesling Spätlese', maker: '[Weingut]', color: 1, count: 3, place: 'Regal A', window: 'Trinkfenster 2026 bis 2032', status: 'Noch lagern' },
+  { name: 'Spätburgunder', maker: '[Weingut]', color: 3, count: 2, place: 'Regal B', window: 'Trinkfenster 2024 bis 2027', status: 'Jetzt trinken' },
+  { name: 'Grauburgunder', maker: '[Weingut]', color: 1, count: 4, place: 'Kühlschrank', window: 'Trinkfenster 2024 bis 2026', status: 'Bald trinken' },
+  { name: 'Rosé', maker: '[Weingut]', color: 2, count: 1, place: 'Kühlschrank', window: 'Trinkfenster 2025 bis 2026', status: 'Bald trinken' }
+];
+W.bier.cellar = [
+  { name: 'Pale Ale', maker: '[Brauerei]', color: 2, count: 6, place: 'Keller', window: 'Mindestens haltbar bis [Datum]', status: 'Jetzt trinken' },
+  { name: 'Imperial Stout', maker: '[Brauerei]', color: 4, count: 2, place: 'Keller', window: 'Reift mit den Jahren', status: 'Noch lagern' },
+  { name: 'Hefeweizen', maker: '[Brauerei]', color: 1, count: 4, place: 'Kühlschrank', window: 'Mindestens haltbar bis [Datum]', status: 'Bald trinken' }
+];
+W.wein.year = { total: 42, fresh: 9, month: 'Juli', bars: [2, 3, 4, 3, 5, 6, 7, 4, 5, 3], top: ['Riesling', 'Grauburgunder', 'Rosé'], regions: ['Mosel', 'Pfalz', 'Wachau'], line: 'Du hast dieses Jahr 9 neue Rebsorten probiert. Am liebsten trinkst du frische Weißweine.' };
+W.bier.year = { total: 36, fresh: 7, month: 'August', bars: [1, 2, 2, 3, 4, 5, 6, 7, 4, 2], top: ['Pale Ale', 'Hefeweizen', 'Pils'], regions: ['Franken', 'Bayern', 'Belgien'], line: 'Du hast dieses Jahr 7 neue Bierstile probiert. Fruchtiger Hopfen ist dein Ding.' };
+W.wein.paths = [
+  { title: 'Riesling von trocken bis edelsüß', sub: '1 von 4 Flaschen verkostet', pct: '25%' },
+  { title: 'Rotwein verstehen', sub: '2 von 5 Lektionen', pct: '40%' },
+  { title: 'Weinregionen in Deutschland', sub: 'Noch nicht begonnen', pct: '0%' }
+];
+W.bier.paths = [
+  { title: 'Hopfen verstehen: vom Pils zum IPA', sub: '2 von 4 Bieren verkostet', pct: '50%' },
+  { title: 'Dunkle Biere', sub: 'Noch nicht begonnen', pct: '0%' },
+  { title: 'Die Welt der Sauerbiere', sub: '1 von 5 Lektionen', pct: '20%' }
+];
+W.wein.badges = [['Erste Verkostung', 'Dein erster Eintrag', true], ['Fünf Rebsorten', '5 verschiedene probiert', true], ['Spürnase', '3 Aromen richtig erkannt', true], ['Blind erkannt', 'Beim Tasting-Abend getroffen', false], ['Weltenbummler', 'Weine aus 5 Ländern', false], ['Lernpfad geschafft', 'Einen Pfad beendet', false]];
+W.bier.badges = [['Erstes Bier', 'Dein erster Eintrag', true], ['Weizen-Kenner', 'Alle Weizen-Stile probiert', true], ['Fünf Brauereien', '5 verschiedene probiert', false], ['Hopfen-Nase', '3 Hopfenaromen erkannt', true], ['Dunkel-Fan', '3 dunkle Biere probiert', false], ['Lernpfad geschafft', 'Einen Pfad beendet', false]];
 function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
 function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
 function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }

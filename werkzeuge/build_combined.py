@@ -150,9 +150,9 @@ document.getElementById('toWeb').addEventListener('click', function () { __force
 window.addEventListener('resize', __layout);
 var __q = {};
 location.search.replace(/^\?/, '').split('&').forEach(function (kv) { if (!kv) return; var p = kv.split('='); __q[decodeURIComponent(p[0])] = p.length > 1 ? decodeURIComponent(p[1]) : true; });
-var __props = { start: __q.screen, world: __q.world, pal: __q.pal, look: __q.look, premium: __q.premium };
+var __props = { start: __q.screen, world: __q.world, pal: __q.pal, look: __q.look, premium: __q.premium, ds: __q.ds, ts: __q.ts };
 var __appComp = new AppComponent(__props);
-var __webComp = new WebComponent({ start: __q.web, world: __q.world, pal: __q.pal, look: __q.look });
+var __webComp = new WebComponent({ start: __q.web, world: __q.world, pal: __q.pal, look: __q.look, ds: __q.ds });
 __layout();
 __render();
 try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', __schedule); } catch (e) {}

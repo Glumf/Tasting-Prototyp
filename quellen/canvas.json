@@ -79,11 +79,35 @@
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "4 · Tasting: Nase",
+      "title": "4 · Tasting: Nase (Stil Glas)",
+      "is_interactive": true
+    },
+    "StilKarten.dc.html": {
+      "x": 3760,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "4c · Tasting-Stil Karten",
+      "is_interactive": true
+    },
+    "StilAromarad.dc.html": {
+      "x": 4230,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "4d · Tasting-Stil Aromarad (Bier)",
+      "is_interactive": true
+    },
+    "StilZuhoeren.dc.html": {
+      "x": 4700,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "4e · Tasting-Stil Zuhören",
       "is_interactive": true
     },
     "GaumenBier.dc.html": {
-      "x": 3760,
+      "x": 5170,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -91,7 +115,7 @@
       "is_interactive": true
     },
     "Aufloesung.dc.html": {
-      "x": 4230,
+      "x": 5640,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -99,7 +123,7 @@
       "is_interactive": true
     },
     "Notizbuch.dc.html": {
-      "x": 4700,
+      "x": 6110,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -107,7 +131,7 @@
       "is_interactive": true
     },
     "Geschmack.dc.html": {
-      "x": 5170,
+      "x": 6580,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -115,7 +139,7 @@
       "is_interactive": true
     },
     "Profil.dc.html": {
-      "x": 5640,
+      "x": 7050,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -123,11 +147,75 @@
       "is_interactive": true
     },
     "Premium.dc.html": {
-      "x": 6110,
+      "x": 7520,
       "y": 0,
       "w": 390,
       "h": 844,
       "title": "8b · Premium",
+      "is_interactive": true
+    },
+    "Essen.dc.html": {
+      "x": 7990,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "9 · Was passt zum Essen?",
+      "is_interactive": true
+    },
+    "Abend.dc.html": {
+      "x": 8460,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "10 · Tasting-Abend",
+      "is_interactive": true
+    },
+    "AbendBewerten.dc.html": {
+      "x": 8930,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "10b · Tasting-Abend: bewerten",
+      "is_interactive": true
+    },
+    "AbendRangliste.dc.html": {
+      "x": 9400,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "10c · Tasting-Abend: Rangliste",
+      "is_interactive": true
+    },
+    "Keller.dc.html": {
+      "x": 9870,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "11 · Mein Weinkeller",
+      "is_interactive": true
+    },
+    "Jahr.dc.html": {
+      "x": 10340,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "12 · Mein Jahr",
+      "is_interactive": true
+    },
+    "Teilen.dc.html": {
+      "x": 10810,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "13 · Als Karte teilen",
+      "is_interactive": true
+    },
+    "Lernen.dc.html": {
+      "x": 11280,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "14 · Lernpfade und Abzeichen",
       "is_interactive": true
     },
     "Web.dc.html": {
@@ -159,6 +247,13 @@
       "w": 880,
       "h": 560,
       "title": "Farben · Landgut"
+    },
+    "Farben-Dunkel.dc.html": {
+      "x": 2880,
+      "y": 2548,
+      "w": 880,
+      "h": 1040,
+      "title": "Farben · Dunkel-Varianten"
     }
   },
   "order": [
@@ -171,16 +266,28 @@
     "Verkosten.dc.html",
     "Empfehlungen.dc.html",
     "Nase.dc.html",
+    "StilKarten.dc.html",
+    "StilAromarad.dc.html",
+    "StilZuhoeren.dc.html",
     "GaumenBier.dc.html",
     "Aufloesung.dc.html",
     "Notizbuch.dc.html",
     "Geschmack.dc.html",
     "Profil.dc.html",
     "Premium.dc.html",
+    "Essen.dc.html",
+    "Abend.dc.html",
+    "AbendBewerten.dc.html",
+    "AbendRangliste.dc.html",
+    "Keller.dc.html",
+    "Jahr.dc.html",
+    "Teilen.dc.html",
+    "Lernen.dc.html",
     "Web.dc.html",
     "Farben-Kellerei.dc.html",
     "Farben-Schiefer.dc.html",
-    "Farben-Landgut.dc.html"
+    "Farben-Landgut.dc.html",
+    "Farben-Dunkel.dc.html"
   ],
   "notes": {
     "title": {
@@ -188,7 +295,7 @@
       "y": -300,
       "text": "Wein- & Bier-App · Klick-Prototyp und Hauptbildschirme",
       "kind": "title1",
-      "maxW": 6970
+      "maxW": 12220
     },
     "web": {
       "x": 0,
@@ -202,7 +309,7 @@
       "y": 2248,
       "text": "Farbwelten · Wein und Bier, hell und dunkel",
       "kind": "title1",
-      "maxW": 2800
+      "maxW": 3760
     }
   },
   "designSystems": []

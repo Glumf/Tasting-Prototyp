@@ -90,6 +90,11 @@ a{color:inherit}
   <button type="button" onClick="{{openPay}}" style="margin-top: 10px; width: 100%; font: inherit; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: 16px; border: 1.5px dashed {{c.primary}}; background: {{c.soft}}; color: {{c.ink}}; cursor: pointer"><span style="font-size: 14px; text-align: left">Ohne Werbung, mit Cloud und Web-Ansicht</span><span style="flex: none; font-weight: 700; font-size: 14px; color: {{c.primaryText}}">Premium holen</span></button>
   </sc-if>
 
+  <h2 style="margin: 22px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Entdecken</h2>
+  <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+    <sc-for list="{{tiles}}" as="t" hint-placeholder-count="5"><button type="button" onClick="{{t.go}}" style="font: inherit; text-align: left; display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 92px; border-radius: 18px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer"><span style="display: flex; align-items: center; justify-content: space-between; width: 100%"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.primaryText}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{t.d}}"></path></svg><sc-if value="{{t.hasBadge}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 8px; background: {{c.soft}}; color: {{c.primaryText}}">{{t.badge}}</span></sc-if></span><span style="font-weight: 700; font-size: 15px; line-height: 19px">{{t.label}}</span></button></sc-for>
+  </div>
+
   <h2 style="margin: 22px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Empfehlung der Woche</h2>
   <div style="margin-top: 8px; padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; line-height: 24px">{{rec0.name}}</span><span style="flex: none; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{rec0.tag}}</span></div>
@@ -185,15 +190,51 @@ a{color:inherit}
   <div style="flex: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; padding: 12px 20px 0">
     <sc-for list="{{progress}}" as="p" hint-placeholder-count="5"><span style="height: 6px; border-radius: 3px; background: {{p.bg}}"></span></sc-for>
   </div>
+  <div role="group" aria-label="Tasting-Stil" style="flex: none; margin: 10px 20px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; padding: 3px; border-radius: 12px; background: {{c.seg}}">
+    <sc-for list="{{tsSeg}}" as="o" hint-placeholder-count="4"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 13px; height: 34px; border: 0; border-radius: 9px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+  </div>
   <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 14px 20px 16px">
-    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; border-radius: 14px; background: {{c.surface}}; border: 1px solid {{c.border}}">
-      <span style="flex: none; width: 34px; height: 40px; border-radius: 8px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="20" height="34" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{B.hex}}"></path></svg></span>
-      <span style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 14px">{{B.name}}</span><span style="font-size: 12px; color: {{c.muted}}">{{B.maker}} · {{B.meta}}</span></span>
-    </div>
-    <h1 style="margin: 16px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">{{stepTitle}}</h1>
-    <sc-if value="{{speaking}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; margin-top: 8px; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">Wird vorgelesen …</span></sc-if>
-    <p style="margin: 8px 0 0; font-size: 16px; line-height: 24px; {{hintSt}}">{{hint}}</p>
 
+    <sc-if value="{{ts.small}}" hint-placeholder-val="{{ true }}">
+    <div style="display: flex; align-items: flex-end; gap: 14px">
+      <div style="flex: none; width: 78px; height: 112px; border-radius: 18px; background: {{c.soft}}; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="60" height="95" viewBox="0 -30 120 190"><defs><clipPath id="{{G.clip}}"><path d="{{G.bowl}}"></path></clipPath></defs><g clip-path="url(#{{G.clip}})"><rect x="0" y="{{G.top}}" width="120" height="170" fill="{{G.liquid}}"></rect><sc-if value="{{G.foam}}" hint-placeholder-val="{{ false }}"><rect x="0" y="{{G.foamY}}" width="120" height="12" fill="#FFF4DC"></rect></sc-if><path d="{{G.wave}}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"></path></g><path d="{{G.bowl}}" fill="none" stroke="{{c.ink}}" stroke-width="3" stroke-linejoin="round"></path><sc-for list="{{G.extra}}" as="x" hint-placeholder-count="2"><path d="{{x.d}}" fill="none" stroke="{{c.ink}}" stroke-width="3" stroke-linecap="round"></path></sc-for><sc-for list="{{G.dots}}" as="d" hint-placeholder-count="0"><circle cx="{{d.x}}" cy="{{d.y}}" r="{{d.r}}" fill="{{c.primary}}" fill-opacity="{{d.o}}"></circle></sc-for></svg>
+      </div>
+      <div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+        <span style="font-size: 13px; color: {{c.muted}}">{{B.name}} · {{B.maker}}</span>
+        <h1 style="margin: 2px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">{{stepTitle}}</h1>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ts.karte}}" hint-placeholder-val="{{ false }}">
+    <div style="margin: -14px -20px 0; padding: 20px 24px 28px; border-radius: 0 0 32px 32px; background: {{c.soft}}; display: flex; align-items: center; gap: 18px">
+      <svg aria-hidden="true" width="118" height="187" viewBox="0 -30 120 190" style="flex: none"><defs><clipPath id="{{G.clip}}"><path d="{{G.bowl}}"></path></clipPath></defs><g clip-path="url(#{{G.clip}})"><rect x="0" y="{{G.top}}" width="120" height="170" fill="{{G.liquid}}"></rect><sc-if value="{{G.foam}}" hint-placeholder-val="{{ false }}"><rect x="0" y="{{G.foamY}}" width="120" height="12" fill="#FFF4DC"></rect></sc-if><path d="{{G.wave}}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"></path></g><path d="{{G.bowl}}" fill="none" stroke="{{c.ink}}" stroke-width="2.5" stroke-linejoin="round"></path><sc-for list="{{G.extra}}" as="x" hint-placeholder-count="2"><path d="{{x.d}}" fill="none" stroke="{{c.ink}}" stroke-width="2.5" stroke-linecap="round"></path></sc-for><sc-for list="{{G.dots}}" as="d" hint-placeholder-count="0"><circle cx="{{d.x}}" cy="{{d.y}}" r="{{d.r}}" fill="{{c.primary}}" fill-opacity="{{d.o}}"></circle></sc-for></svg>
+      <div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+        <span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.surface}}; color: {{c.primaryText}}">{{stepChip}}</span>
+        <h1 style="margin: 10px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 34px; line-height: 38px">{{stepTitle}}</h1>
+        <span style="margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{B.name}} · {{B.maker}}</span>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ts.ruhe}}" hint-placeholder-val="{{ false }}">
+      <span style="font-size: 14px; font-weight: 700; color: {{c.primaryText}}">{{B.name}}</span>
+      <h1 style="margin: 4px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 40px; line-height: 46px">{{stepTitle}}</h1>
+    </sc-if>
+
+    <sc-if value="{{speaking}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; margin-top: 10px; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">Wird vorgelesen …</span></sc-if>
+
+    <sc-if value="{{ruheTap}}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{nextStep}}" style="margin-top: 16px; width: 100%; min-height: 380px; font: inherit; text-align: left; display: flex; flex-direction: column; justify-content: space-between; padding: 24px; border-radius: 28px; border: 0; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
+        <span style="font-family: 'Fraunces', serif; font-weight: 600; font-size: 26px; line-height: 36px">{{hint}}</span>
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: {{c.primaryText}}">Zum Weitergehen irgendwo tippen<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.primaryText}}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+      </button>
+    </sc-if>
+
+    <sc-if value="{{ts.notRuhe}}" hint-placeholder-val="{{ true }}"><p style="margin: 14px 0 0; font-size: 16px; line-height: 24px; {{hintSt}}">{{hint}}</p></sc-if>
+
+    <sc-if value="{{showInputs}}" hint-placeholder-val="{{ true }}">
     <sc-if value="{{st.look}}" hint-placeholder-val="{{ true }}">
       <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">Farbe</h2>
       <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
@@ -211,10 +252,24 @@ a{color:inherit}
 
     <sc-if value="{{st.nose}}" hint-placeholder-val="{{ false }}">
       <button type="button" onClick="{{toggleTimer}}" style="margin-top: 14px; font: inherit; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 22px; cursor: pointer; {{timerSt}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path></svg>{{timerLabel}}</button>
+      <sc-if value="{{showChips}}" hint-placeholder-val="{{ true }}">
       <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">{{aromaHead}}</h2>
       <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px">
         <sc-for list="{{aromaList}}" as="a" hint-placeholder-count="8"><button type="button" aria-pressed="{{a.pressed}}" onClick="{{a.pick}}" style="font: inherit; font-size: 15px; height: 44px; padding: 0 14px; border-radius: 22px; cursor: pointer; {{a.st}}">{{a.label}}</button></sc-for>
       </div>
+      </sc-if>
+      <sc-if value="{{showWheel}}" hint-placeholder-val="{{ false }}">
+      <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">Innen grob, außen genau</h2>
+      <svg role="group" aria-label="Aromarad" width="350" height="350" viewBox="0 0 350 350" style="display: block; margin: 8px auto 0">
+        <sc-for list="{{wheel.inner}}" as="g" hint-placeholder-count="8"><path role="button" tabindex="0" aria-label="{{g.aria}}" aria-pressed="{{g.pressed}}" onClick="{{g.pick}}" d="{{g.d}}" fill="{{g.fill}}" stroke="{{c.bg}}" stroke-width="2" style="cursor: pointer"></path></sc-for>
+        <sc-for list="{{wheel.outer}}" as="o" hint-placeholder-count="20"><path role="button" tabindex="0" aria-label="{{o.aria}}" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" d="{{o.d}}" fill="{{o.fill}}" stroke="{{c.bg}}" stroke-width="2" style="cursor: pointer"></path></sc-for>
+        <sc-for list="{{wheel.inner}}" as="g" hint-placeholder-count="8"><text text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" fill="{{g.ink}}" font-family="Atkinson Hyperlegible, sans-serif" style="pointer-events: none"><sc-for list="{{g.lines}}" as="ln" hint-placeholder-count="1"><tspan x="{{ln.x}}" y="{{ln.y}}">{{ln.t}}</tspan></sc-for></text></sc-for>
+        <sc-for list="{{wheel.outer}}" as="o" hint-placeholder-count="20"><text x="{{o.x}}" y="{{o.y}}" transform="{{o.tr}}" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="{{o.ink}}" font-family="Atkinson Hyperlegible, sans-serif" style="pointer-events: none">{{o.t}}</text></sc-for>
+        <circle cx="175" cy="175" r="40" fill="{{c.surface}}"></circle>
+        <text x="175" y="170" text-anchor="middle" font-size="18" font-weight="700" fill="{{c.ink}}" font-family="Atkinson Hyperlegible, sans-serif">{{wheel.center}}</text>
+        <text x="175" y="188" text-anchor="middle" font-size="11" fill="{{c.muted}}" font-family="Atkinson Hyperlegible, sans-serif">{{wheel.centerSub}}</text>
+      </svg>
+      </sc-if>
       <p style="margin: 10px 0 0; font-size: 13px; color: {{c.muted}}">{{aromaCount}}</p>
     </sc-if>
 
@@ -249,9 +304,12 @@ a{color:inherit}
       <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
         <sc-for list="{{faces}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 48px; border-radius: 14px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
       </div>
+      <sc-if value="{{ts.notRuhe}}" hint-placeholder-val="{{ true }}">
       <label style="display: block; margin-top: 14px; font-size: 15px; font-weight: 700">Notiz (freiwillig)
         <textarea rows="3" placeholder="{{D.notePh}}" style="display: block; box-sizing: border-box; width: 100%; margin-top: 6px; padding: 12px; border-radius: 14px; border: 1.5px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; font: inherit; font-weight: 400; font-size: 15px; resize: none"></textarea>
       </label>
+      </sc-if>
+    </sc-if>
     </sc-if>
   </div>
   <div style="flex: none; padding: 10px 20px 20px; border-top: 1px solid {{c.border}}">
@@ -289,6 +347,7 @@ a{color:inherit}
   </div>
   <div style="flex: none; padding: 10px 20px 20px; border-top: 1px solid {{c.border}}">
     <button type="button" onClick="{{saveTasting}}" style="width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Im Notizbuch speichern</button>
+    <button type="button" onClick="{{openShareResult}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 15px; height: 44px; border: 0; background: transparent; color: {{c.primaryText}}; cursor: pointer">Als Karte teilen</button>
   </div>
 </div>
 </sc-if>
@@ -349,6 +408,7 @@ a{color:inherit}
       <sc-for list="{{E.traits}}" as="t" hint-placeholder-count="4"><div style="display: flex; justify-content: space-between; font-size: 15px; padding: 10px 0; border-bottom: 1px solid {{c.border}}"><span>{{t.label}}</span><span style="font-weight: 700">{{t.value}}</span></div></sc-for>
     </div>
     <button type="button" onClick="{{E.again}}" style="margin-top: 18px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Nochmal verkosten</button>
+    <button type="button" onClick="{{openShareEntry}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Als Karte teilen</button>
   </div>
 </div>
 </sc-if>
@@ -384,6 +444,7 @@ a{color:inherit}
     <span style="font-weight: 700; font-size: 16px">{{D.path.title}}</span>
     <div style="margin-top: 10px; height: 10px; border-radius: 5px; background: {{c.seg}}"><div style="height: 10px; border-radius: 5px; width: {{D.path.pct}}; background: {{c.primary}}"></div></div>
     <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{D.path.sub}}</span>
+    <button type="button" onClick="{{goLearn}}" style="margin-top: 12px; font: inherit; font-weight: 700; font-size: 15px; height: 44px; padding: 0 16px; border-radius: 22px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Alle Lernpfade und Abzeichen</button>
   </div>
 </div>
 </sc-if>
@@ -409,6 +470,22 @@ a{color:inherit}
   </div>
   <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">„Automatisch“ folgt der Einstellung deines Handys.</span>
 
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Dunkel-Stil (Vorschau)</h2>
+  <div role="group" aria-label="Dunkel-Stil" style="margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}">
+    <sc-for list="{{dsSeg}}" as="o" hint-placeholder-count="4"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+  </div>
+  <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{dsHint}}</span>
+
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Tasting-Stil (Vorschau)</h2>
+  <div role="group" aria-label="Tasting-Stil" style="margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}">
+    <sc-for list="{{tsSeg}}" as="o" hint-placeholder-count="4"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
+  </div>
+
+  <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Mehr</h2>
+  <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
+    <sc-for list="{{moreLinks}}" as="m" hint-placeholder-count="3"><button type="button" onClick="{{m.go}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 56px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer"><span style="flex: 1; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">{{m.label}}</span><span style="font-size: 13px; color: {{c.muted}}">{{m.sub}}</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button></sc-for>
+  </div>
+
   <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Farbwelt (Vorschau)</h2>
   <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
     <sc-for list="{{palSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px; border-radius: 14px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{o.ring}}"><span style="display: flex"><span style="width: 22px; height: 22px; border-radius: 11px; background: {{o.a}}"></span><span style="width: 22px; height: 22px; margin-left: -6px; border-radius: 11px; background: {{o.b}}"></span></span>{{o.label}}</button></sc-for>
@@ -430,6 +507,186 @@ a{color:inherit}
     <button type="button" onClick="{{exportData}}" style="width: 100%; font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 52px; border: 0; background: transparent; color: {{c.ink}}; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="m7 10 5 5 5-5"></path><path d="M5 20h14"></path></svg><span style="font-weight: 700; font-size: 15px">Daten als Datei exportieren</span></button>
   </div>
   <p style="margin: 16px 0 0; font-size: 13px; line-height: 19px; color: {{c.muted}}">Nur für Erwachsene. Genieße bewusst und fahre nach dem Trinken nicht selbst.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{is.food}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{goBack}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">Zum Essen · {{D.label}}</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 20px">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">Was passt zum Essen?</h1>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Wähle, was es gibt. Die App schlägt passende Sorten vor, die zu deinem Geschmack passen.</p>
+    <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+      <sc-for list="{{foods}}" as="f" hint-placeholder-count="6"><button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="font: inherit; font-size: 15px; min-height: 52px; padding: 8px 12px; border-radius: 16px; cursor: pointer; text-align: left; {{f.st}}">{{f.label}}</button></sc-for>
+    </div>
+    <sc-if value="{{is.foodNone}}" hint-placeholder-val="{{ true }}"><p style="margin: 18px 0 0; font-size: 15px; color: {{c.muted}}">Tippe auf ein Gericht.</p></sc-if>
+    <sc-if value="{{is.foodPicked}}" hint-placeholder-val="{{ false }}">
+    <h2 style="margin: 22px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Zu {{foodName}}</h2>
+    <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{foodPicks}}" as="r" hint-placeholder-count="2">
+      <div style="padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px">{{r.name}}</span><span style="flex: none; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{r.tag}}</span></div>
+        <p style="margin: 6px 0 0; font-size: 15px; line-height: 21px; color: {{c.muted}}">{{r.why}}</p>
+        <button type="button" onClick="{{r.remember}}" style="margin-top: 10px; font: inherit; font-weight: 700; font-size: 15px; height: 44px; padding: 0 16px; border-radius: 22px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Merken</button>
+      </div>
+      </sc-for>
+    </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.party}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{goBack}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">Tasting-Abend · {{D.label}}</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 20px">
+
+    <sc-if value="{{is.pSetup}}" hint-placeholder-val="{{ true }}">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">Gemeinsam verkosten</h1>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Alle bewerten reihum auf diesem Handy. Am Ende zeigt die App die Rangliste.</p>
+    <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">Wie viele Gläser?</h2>
+    <div role="group" aria-label="Anzahl Gläser" style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}"><sc-for list="{{pGlassSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for></div>
+    <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">Blind oder offen?</h2>
+    <div role="group" aria-label="Blind oder offen" style="margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}"><sc-for list="{{pBlindSeg}}" as="o" hint-placeholder-count="2"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for></div>
+    <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">Blind: Die Flaschen werden erst am Ende verraten.</span>
+    <h2 style="margin: 16px 0 0; font-size: 15px; font-weight: 700">Wer ist dabei?</h2>
+    <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px">
+      <sc-for list="{{pPeople}}" as="p" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 4px; height: 44px; padding: 0 6px 0 14px; border-radius: 22px; background: {{c.surface}}; border: 1.5px solid {{c.border}}; font-size: 15px">{{p.name}}<sc-if value="{{p.removable}}" hint-placeholder-val="{{ false }}"><button type="button" aria-label="{{p.aria}}" onClick="{{p.remove}}" style="width: 32px; height: 32px; border: 0; border-radius: 16px; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></sc-if></span></sc-for>
+      <button type="button" onClick="{{pAdd}}" style="font: inherit; font-size: 15px; height: 44px; padding: 0 14px; border-radius: 22px; border: 1.5px dashed {{c.muted}}; background: transparent; color: {{c.ink}}; cursor: pointer">+ Person</button>
+    </div>
+    <div style="margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: {{c.soft}}; font-size: 14px; line-height: 20px">Kleine Schlucke, Wasser bereitstellen, und wer fährt, probiert nur. Ausspucken ist bei Profis ganz normal.</div>
+    <button type="button" onClick="{{pStart}}" style="margin-top: 16px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Abend starten</button>
+    </sc-if>
+
+    <sc-if value="{{is.pRate}}" hint-placeholder-val="{{ false }}">
+    <span style="font-size: 14px; color: {{c.muted}}">Glas {{pGlassNo}} von {{pGlassCount}}</span>
+    <div style="margin-top: 8px; display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 20px; background: {{c.soft}}">
+      <span style="flex: none; width: 56px; height: 56px; border-radius: 28px; background: {{pGlassHex}}; border: 3px solid {{c.surface}}"></span>
+      <span style="font-family: 'Fraunces', serif; font-weight: 700; font-size: 24px">{{pGlassName}}</span>
+    </div>
+    <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">Jede Person bewertet</h2>
+    <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
+      <sc-for list="{{pRows}}" as="r" hint-placeholder-count="3">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 8px 8px 14px; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+        <span style="font-weight: 700; font-size: 15px">{{r.name}}</span>
+        <div role="group" aria-label="{{r.name}}" style="display: flex">
+          <sc-for list="{{r.stars}}" as="t" hint-placeholder-count="5"><button type="button" aria-label="{{t.aria}}" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="{{t.fill}}" stroke="{{t.stroke}}" stroke-width="1.6" stroke-linejoin="round"><polygon points="12 3 14.8 9 21 9.6 16.2 13.8 17.7 20 12 16.7 6.3 20 7.8 13.8 3 9.6 9.2 9"></polygon></svg></button></sc-for>
+        </div>
+      </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{is.pErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="display: block; margin-top: 8px; font-size: 13px; color: {{c.danger}}">Bitte lass alle bewerten, bevor es weitergeht.</span></sc-if>
+    <button type="button" onClick="{{pNext}}" style="margin-top: 16px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">{{pNextLabel}}</button>
+    </sc-if>
+
+    <sc-if value="{{is.pResult}}" hint-placeholder-val="{{ false }}">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">Die Rangliste</h1>
+    <p style="margin: 6px 0 0; font-size: 15px; color: {{c.muted}}">Jetzt wird verraten, was in den Gläsern war.</p>
+    <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{pResults}}" as="r" hint-placeholder-count="3">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+        <span style="flex: none; width: 40px; height: 40px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px; {{r.badgeSt}}">{{r.place}}</span>
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 16px">{{r.name}}</span><span style="font-size: 12px; color: {{c.muted}}">{{r.label}} · {{r.per}}</span></span>
+        <span style="flex: none; font-family: 'Fraunces', serif; font-weight: 700; font-size: 20px">{{r.avgText}}</span>
+      </div>
+      </sc-for>
+    </div>
+    <button type="button" onClick="{{pSave}}" style="margin-top: 16px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Ins Notizbuch übernehmen</button>
+    <button type="button" onClick="{{pNew}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Neuer Abend</button>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.cellar}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{goBack}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">{{D.cellarTitle}}</span>
+    <span style="margin-left: auto; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">Premium</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 20px">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">{{D.cellarTitle}}</h1>
+    <span style="font-size: 14px; color: {{c.muted}}">{{cellarSum}}</span>
+    <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{cellar}}" as="e" hint-placeholder-count="4">
+      <div style="display: flex; gap: 12px; padding: 12px; border-radius: 18px; background: {{c.surface}}; border: 1px solid {{c.border}}">
+        <span style="flex: none; width: 56px; height: 76px; border-radius: 12px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="34" height="62" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{e.hex}}"></path></svg></span>
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+          <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-weight: 700; font-size: 16px">{{e.name}}</span><span style="flex: none; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 8px; {{e.stSt}}">{{e.status}}</span></span>
+          <span style="font-size: 13px; color: {{c.muted}}">{{e.maker}} · {{e.countText}} · {{e.place}}</span>
+          <span style="font-size: 13px; color: {{c.muted}}">{{e.window}}</span>
+        </span>
+      </div>
+      </sc-for>
+    </div>
+    <button type="button" onClick="{{addBottle}}" style="margin-top: 14px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px dashed {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">+ Flasche hinzufügen</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.year}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{goBack}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">Mein Jahr · {{D.label}}</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 20px">
+    <div style="padding: 20px; border-radius: 24px; background: {{c.primary}}; color: {{c.onPrimary}}">
+      <span style="font-size: 14px; font-weight: 700; opacity: 0.85">Dein Jahr bisher</span>
+      <span style="display: block; margin-top: 4px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 56px; line-height: 60px">{{Y.total}}</span>
+      <span style="font-size: 16px">Verkostungen, davon {{Y.fresh}} neue Sorten</span>
+    </div>
+    <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Verkostungen pro Monat</h2>
+    <div role="img" aria-label="Säulen der Verkostungen von Januar bis Oktober, am meisten im {{Y.month}}" style="margin-top: 10px; height: 140px; display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 6px; align-items: end">
+      <sc-for list="{{yBars}}" as="b" hint-placeholder-count="10"><span style="display: flex; flex-direction: column; align-items: center; gap: 4px"><span style="width: 100%; height: {{b.h}}; border-radius: 6px 6px 2px 2px; background: {{b.bg}}"></span><span style="font-size: 11px; color: {{c.muted}}">{{b.m}}</span></span></sc-for>
+    </div>
+    <p style="margin: 10px 0 0; font-size: 15px">Am meisten verkostet hast du im {{Y.month}}.</p>
+    <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <div style="padding: 14px; border-radius: 18px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-size: 13px; color: {{c.muted}}">Deine Top 3</span><sc-for list="{{Y.top}}" as="t" hint-placeholder-count="3"><span style="display: block; margin-top: 4px; font-weight: 700; font-size: 15px">{{t}}</span></sc-for></div>
+      <div style="padding: 14px; border-radius: 18px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-size: 13px; color: {{c.muted}}">Herkunft</span><sc-for list="{{Y.regions}}" as="t" hint-placeholder-count="3"><span style="display: block; margin-top: 4px; font-weight: 700; font-size: 15px">{{t}}</span></sc-for></div>
+    </div>
+    <p style="margin: 16px 0 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 19px; line-height: 26px">{{Y.line}}</p>
+    <button type="button" onClick="{{yShare}}" style="margin-top: 16px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border: 0; border-radius: 25px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Rückblick teilen</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.learn}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column">
+  <div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+    <button type="button" aria-label="Zurück" onClick="{{goBack}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+    <span style="font-weight: 700; font-size: 16px">Lernen · {{D.label}}</span>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 20px 20px">
+    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">Lernpfade</h1>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">Kleine Kurse aus Lern-Häppchen und Verkostungen, passend zu deiner Stufe.</p>
+    <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{paths}}" as="p" hint-placeholder-count="3">
+      <button type="button" onClick="{{learnGo}}" style="font: inherit; text-align: left; padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}; color: {{c.ink}}; cursor: pointer">
+        <span style="display: block; font-weight: 700; font-size: 16px">{{p.title}}</span>
+        <span style="display: block; margin-top: 10px; height: 10px; border-radius: 5px; background: {{c.seg}}"><span style="display: block; height: 10px; border-radius: 5px; width: {{p.pct}}; background: {{c.primary}}"></span></span>
+        <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{p.sub}}</span>
+      </button>
+      </sc-for>
+    </div>
+    <div style="margin-top: 22px; display: flex; align-items: baseline; justify-content: space-between"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px">Abzeichen</h2><span style="font-size: 13px; color: {{c.muted}}">{{badgeCount}}</span></div>
+    <div style="margin-top: 10px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+      <sc-for list="{{badges}}" as="b" hint-placeholder-count="6">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; border-radius: 18px; background: {{c.surface}}; border: 1px solid {{c.border}}; text-align: center">
+        <span style="width: 52px; height: 52px; border-radius: 26px; background: {{b.bg}}; display: flex; align-items: center; justify-content: center"><sc-if value="{{b.got}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{b.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"></circle><path d="M8.5 14 7 22l5-3 5 3-1.5-8"></path></svg></sc-if><sc-if value="{{b.locked}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{b.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></sc-if></span>
+        <span style="font-weight: 700; font-size: 13px; line-height: 16px; color: {{b.nameInk}}">{{b.name}}</span>
+        <span style="font-size: 11px; line-height: 14px; color: {{c.muted}}">{{b.desc}}</span>
+      </div>
+      </sc-for>
+    </div>
+  </div>
 </div>
 </sc-if>
 
@@ -480,13 +737,46 @@ a{color:inherit}
 </div>
 </sc-if>
 
+<sc-if value="{{is.sheetShare}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: rgba(0, 0, 0, 0.45); display: flex; flex-direction: column; justify-content: flex-end">
+  <div role="dialog" aria-label="Teilen" style="box-sizing: border-box; padding: 20px 20px 24px; border-radius: 28px 28px 0 0; background: {{c.bg}}">
+    <div style="display: flex; align-items: center; justify-content: space-between"><span style="font-family: 'Fraunces', serif; font-weight: 700; font-size: 24px">Teilen</span><button type="button" aria-label="Schließen" onClick="{{closeSheet}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+    <div style="margin: 14px auto 0; width: 250px; border-radius: 26px; overflow: hidden; background: {{c.primary}}; color: {{c.onPrimary}}; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25)">
+      <sc-if value="{{is.shareEntry}}" hint-placeholder-val="{{ true }}">
+      <div style="height: 150px; background: rgba(255, 255, 255, 0.16); display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="74" height="128" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{SC.hex}}" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"></path></svg></div>
+      <div style="padding: 14px 16px 16px">
+        <span style="display: block; font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; line-height: 26px">{{SC.name}}</span>
+        <span style="display: block; font-size: 13px; opacity: 0.85">{{SC.maker}}</span>
+        <span style="display: block; margin-top: 6px; font-size: 18px; letter-spacing: 2px">{{SC.on}}<span style="opacity: 0.35">{{SC.off}}</span></span>
+        <span style="display: block; margin-top: 6px; font-size: 13px; line-height: 18px">{{SC.note}}</span>
+        <span style="display: block; margin-top: 12px; font-size: 12px; font-weight: 700; opacity: 0.85">[App-Name]</span>
+      </div>
+      </sc-if>
+      <sc-if value="{{is.shareYear}}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 20px 18px">
+        <span style="display: block; font-size: 13px; font-weight: 700; opacity: 0.85">Mein Jahr mit {{D.label}}</span>
+        <span style="display: block; margin-top: 4px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 56px; line-height: 60px">{{Y.total}}</span>
+        <span style="display: block; font-size: 15px">Verkostungen, {{Y.fresh}} neue Sorten</span>
+        <sc-for list="{{Y.top}}" as="t" hint-placeholder-count="3"><span style="display: block; margin-top: 6px; font-weight: 700; font-size: 15px">{{t}}</span></sc-for>
+        <span style="display: block; margin-top: 14px; font-size: 12px; font-weight: 700; opacity: 0.85">[App-Name]</span>
+      </div>
+      </sc-if>
+    </div>
+    <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+      <button type="button" onClick="{{doShare}}" style="font: inherit; font-weight: 700; font-size: 15px; height: 50px; border: 0; border-radius: 25px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Als Bild teilen</button>
+      <button type="button" onClick="{{doStory}}" style="font: inherit; font-weight: 700; font-size: 15px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Für die Story</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
 <sc-if value="{{is.toast}}" hint-placeholder-val="{{ false }}">
 <div role="status" style="position: absolute; left: 20px; right: 20px; bottom: 112px; padding: 14px 16px; border-radius: 16px; background: {{c.ink}}; color: {{c.bg}}; font-size: 15px; font-weight: 700; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25)">{{s.toast}}</div>
 </sc-if>
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["welcome","onboard","home","begin","step1","step2","step3","step4","step5","result","journal","detail","taste","profile","paywall","quick"],"default":"welcome"},"world":{"editor":"enum","options":["wein","bier"],"default":"wein"},"pal":{"editor":"enum","options":["Kellerei","Schiefer","Landgut"],"default":"Kellerei"},"look":{"editor":"enum","options":["auto","light","dark"],"default":"auto"},"$preview":{"width":390,"height":844}}'>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["welcome","onboard","home","begin","step1","step2","step3","step4","step5","result","journal","detail","taste","profile","paywall","quick","food","party","party-rate","party-result","cellar","year","share","learn"],"default":"welcome"},"world":{"editor":"enum","options":["wein","bier"],"default":"wein"},"pal":{"editor":"enum","options":["Kellerei","Schiefer","Landgut"],"default":"Kellerei"},"look":{"editor":"enum","options":["auto","light","dark"],"default":"auto"},"ds":{"editor":"enum","options":["standard","kraeftig","kerze","tief"],"default":"standard"},"ts":{"editor":"enum","options":["glas","karte","rad","ruhe"],"default":"glas"},"$preview":{"width":390,"height":844}}'>
 // DATEN-ANFANG (gemeinsam mit Web.dc.html, Abgleich mit werkzeuge/daten_abgleichen.py)
 var PALETTES = {
   'Kellerei': {
@@ -624,6 +914,88 @@ var W = {
   }
 };
 
+var DARK_STYLES = [['standard', 'Standard'], ['kraeftig', 'Kräftig'], ['kerze', 'Kerzenlicht'], ['tief', 'Tiefschwarz']];
+var DARK_TONE = {
+  kerze: { bg: '#2A1D14', surface: '#3A2A1D', border: '#5A4430', seg: '#463322', muted: '#D6C1A6', ink: '#FBF1E4', off: '#8E7760' },
+  tief: { bg: '#000000', surface: '#121212', border: '#2E2E2E', seg: '#1C1C1C', muted: '#B0B0B0', ink: '#F2F2F2', off: '#686868' }
+};
+var DARK_STRONG = {
+  Kellerei: { wein: { primary: '#D2506A', onPrimary: '#1A0509', primaryText: '#F59AAC', soft: '#45202A' }, bier: { primary: '#E89A2E', onPrimary: '#1E1305', primaryText: '#F5B95E', soft: '#43300F' } },
+  Schiefer: { wein: { primary: '#C46BB4', onPrimary: '#16061A', primaryText: '#E6A9DB', soft: '#3E2541' }, bier: { primary: '#E8783A', onPrimary: '#1E0B02', primaryText: '#F6A57A', soft: '#43251A' } },
+  Landgut: { wein: { primary: '#DE5F84', onPrimary: '#1E0510', primaryText: '#F7A3BC', soft: '#46202C' }, bier: { primary: '#8FBF45', onPrimary: '#0E1806', primaryText: '#B8DE86', soft: '#26381A' } }
+};
+function themeOf(pal, w, dark, ds) {
+  var base = PALETTES[pal][w][dark ? 'dark' : 'light'];
+  if (!dark || !ds || ds === 'standard') return base;
+  var t = Object.assign({}, base);
+  if (ds === 'kraeftig') Object.assign(t, DARK_STRONG[pal][w]);
+  else Object.assign(t, DARK_TONE[ds]);
+  return t;
+}
+var TSTYLES = [['glas', 'Glas'], ['karte', 'Karten'], ['rad', 'Aromarad'], ['ruhe', 'Zuhören']];
+W.wein.wheel = [
+  { g: 'Zitrus', l: ['Zitrus'], a: ['Zitrone', 'Grapefruit'] },
+  { g: 'Gelbe Frucht', l: ['Gelbe', 'Frucht'], a: ['Apfel', 'Birne', 'Pfirsich', 'Aprikose'] },
+  { g: 'Rote Beeren', l: ['Rote', 'Beeren'], a: ['Kirsche', 'Erdbeere', 'Himbeere'] },
+  { g: 'Dunkle Beeren', l: ['Dunkle', 'Beeren'], a: ['Brombeere', 'Cassis', 'Pflaume'] },
+  { g: 'Blüten', l: ['Blüten'], a: ['Rose', 'Holunder'] },
+  { g: 'Kräuter', l: ['Kräuter'], a: ['Paprika', 'Gras'] },
+  { g: 'Würze', l: ['Würze'], a: ['Pfeffer', 'Honig'] },
+  { g: 'Holz und Röstnoten', l: ['Holz,', 'Röstnoten'], a: ['Vanille', 'Toast'] }
+];
+W.bier.wheel = [
+  { g: 'Getreide und Brot', l: ['Getreide,', 'Brot'], a: ['Brot', 'Keks', 'Honig'] },
+  { g: 'Karamell', l: ['Karamell'], a: ['Karamell', 'Toffee'] },
+  { g: 'Röstnoten', l: ['Röst-', 'noten'], a: ['Kaffee', 'Schokolade', 'Rauch'] },
+  { g: 'Zitrus', l: ['Zitrus'], a: ['Zitrone', 'Grapefruit', 'Orange'] },
+  { g: 'Tropenfrucht', l: ['Tropen-', 'frucht'], a: ['Mango', 'Maracuja'] },
+  { g: 'Banane und Nelke', l: ['Banane,', 'Nelke'], a: ['Banane', 'Nelke'] },
+  { g: 'Kräuter und Gras', l: ['Kräuter,', 'Gras'], a: ['Gras', 'Heu', 'Kräuter', 'Pfeffer'] },
+  { g: 'Harz und Kiefer', l: ['Harz,', 'Kiefer'], a: ['Kiefer'] }
+];
+W.wein.foods = [
+  { name: 'Pasta mit Tomaten', picks: [['Sangiovese', 'Die Säure im Wein passt zur Säure der Tomate.', true], ['Barbera', 'Fruchtig und frisch, mit wenig Tannin.', false]] },
+  { name: 'Fisch', picks: [['Riesling trocken', 'Frisch und leicht, überdeckt den feinen Fisch nicht.', true], ['Albariño', 'Zitrusnoten wie ein Spritzer Zitrone.', true]] },
+  { name: 'Käseplatte', picks: [['Spätburgunder', 'Weiches Tannin, passt zu mildem Käse.', false], ['Grauburgunder', 'Cremig und rund, gut zu Weichkäse.', true]] },
+  { name: 'Vom Grill', picks: [['Syrah', 'Würzig mit Pfeffernoten, hält Röstaromen stand.', false], ['Rosé', 'Leicht gekühlt, gut für warme Abende.', true]] },
+  { name: 'Asiatisch, scharf', picks: [['Riesling feinherb', 'Etwas Restsüße mildert die Schärfe.', true], ['Gewürztraminer', 'Duftig und blumig, mag Ingwer und Koriander.', false]] },
+  { name: 'Schokolade', picks: [['Portwein', 'Süß und kräftig, mindestens so süß wie das Dessert.', false], ['Banyuls', 'Süßer Rotwein mit Kakaonoten.', false]] }
+];
+W.bier.foods = [
+  { name: 'Pasta mit Tomaten', picks: [['Helles', 'Mild und rund, lässt der Soße den Vortritt.', true], ['Märzen', 'Etwas mehr Malz, passt zu würzigen Soßen.', false]] },
+  { name: 'Fisch', picks: [['Kölsch', 'Schlank und frisch, überdeckt nichts.', false], ['Witbier', 'Koriander und Orange wie ein Zitronenspritzer.', true]] },
+  { name: 'Käseplatte', picks: [['Bockbier', 'Kräftiges Malz zu würzigem Käse.', false], ['Pale Ale', 'Fruchtiger Hopfen zu Hartkäse.', true]] },
+  { name: 'Vom Grill', picks: [['Rauchbier', 'Rauch zu Rauch, ein Klassiker zum Grillen.', false], ['Dunkles', 'Röstmalz passt zu Gegrilltem.', false]] },
+  { name: 'Asiatisch, scharf', picks: [['Hefeweizen', 'Spritzig und mild, kühlt die Schärfe.', true], ['Helles', 'Wenig Bittere, damit die Schärfe nicht stärker wird.', true]] },
+  { name: 'Schokolade', picks: [['Stout', 'Röstnoten wie Kakao.', false], ['Porter', 'Weich mit Kaffee- und Schokoladennoten.', false]] }
+];
+W.wein.cellarTitle = 'Mein Weinkeller';
+W.bier.cellarTitle = 'Mein Biervorrat';
+W.wein.cellar = [
+  { name: 'Riesling Spätlese', maker: '[Weingut]', color: 1, count: 3, place: 'Regal A', window: 'Trinkfenster 2026 bis 2032', status: 'Noch lagern' },
+  { name: 'Spätburgunder', maker: '[Weingut]', color: 3, count: 2, place: 'Regal B', window: 'Trinkfenster 2024 bis 2027', status: 'Jetzt trinken' },
+  { name: 'Grauburgunder', maker: '[Weingut]', color: 1, count: 4, place: 'Kühlschrank', window: 'Trinkfenster 2024 bis 2026', status: 'Bald trinken' },
+  { name: 'Rosé', maker: '[Weingut]', color: 2, count: 1, place: 'Kühlschrank', window: 'Trinkfenster 2025 bis 2026', status: 'Bald trinken' }
+];
+W.bier.cellar = [
+  { name: 'Pale Ale', maker: '[Brauerei]', color: 2, count: 6, place: 'Keller', window: 'Mindestens haltbar bis [Datum]', status: 'Jetzt trinken' },
+  { name: 'Imperial Stout', maker: '[Brauerei]', color: 4, count: 2, place: 'Keller', window: 'Reift mit den Jahren', status: 'Noch lagern' },
+  { name: 'Hefeweizen', maker: '[Brauerei]', color: 1, count: 4, place: 'Kühlschrank', window: 'Mindestens haltbar bis [Datum]', status: 'Bald trinken' }
+];
+W.wein.year = { total: 42, fresh: 9, month: 'Juli', bars: [2, 3, 4, 3, 5, 6, 7, 4, 5, 3], top: ['Riesling', 'Grauburgunder', 'Rosé'], regions: ['Mosel', 'Pfalz', 'Wachau'], line: 'Du hast dieses Jahr 9 neue Rebsorten probiert. Am liebsten trinkst du frische Weißweine.' };
+W.bier.year = { total: 36, fresh: 7, month: 'August', bars: [1, 2, 2, 3, 4, 5, 6, 7, 4, 2], top: ['Pale Ale', 'Hefeweizen', 'Pils'], regions: ['Franken', 'Bayern', 'Belgien'], line: 'Du hast dieses Jahr 7 neue Bierstile probiert. Fruchtiger Hopfen ist dein Ding.' };
+W.wein.paths = [
+  { title: 'Riesling von trocken bis edelsüß', sub: '1 von 4 Flaschen verkostet', pct: '25%' },
+  { title: 'Rotwein verstehen', sub: '2 von 5 Lektionen', pct: '40%' },
+  { title: 'Weinregionen in Deutschland', sub: 'Noch nicht begonnen', pct: '0%' }
+];
+W.bier.paths = [
+  { title: 'Hopfen verstehen: vom Pils zum IPA', sub: '2 von 4 Bieren verkostet', pct: '50%' },
+  { title: 'Dunkle Biere', sub: 'Noch nicht begonnen', pct: '0%' },
+  { title: 'Die Welt der Sauerbiere', sub: '1 von 5 Lektionen', pct: '20%' }
+];
+W.wein.badges = [['Erste Verkostung', 'Dein erster Eintrag', true], ['Fünf Rebsorten', '5 verschiedene probiert', true], ['Spürnase', '3 Aromen richtig erkannt', true], ['Blind erkannt', 'Beim Tasting-Abend getroffen', false], ['Weltenbummler', 'Weine aus 5 Ländern', false], ['Lernpfad geschafft', 'Einen Pfad beendet', false]];
+W.bier.badges = [['Erstes Bier', 'Dein erster Eintrag', true], ['Weizen-Kenner', 'Alle Weizen-Stile probiert', true], ['Fünf Brauereien', '5 verschiedene probiert', false], ['Hopfen-Nase', '3 Hopfenaromen erkannt', true], ['Dunkel-Fan', '3 dunkle Biere probiert', false], ['Lernpfad geschafft', 'Einen Pfad beendet', false]];
 function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
 function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
 function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }
@@ -640,7 +1012,11 @@ class Component extends DCLogic {
       level: 'Einsteiger', premium: p.premium === true || p.premium === 'true', quizIdx: 0, quiz: {}, ageOk: false, ageErr: false,
       step: 0, bottle: W[w].bottles[0].id, sel: emptySel(), beginTab: 'own', recognized: false, sheet: '',
       quick: { stars: 0, face: '', photo: false }, quickErr: false, plan: 'year',
-      jw: seed('wein'), jb: seed('bier'), detail: '', view: 'grid', filter: 'Alle', toast: '', speaking: false, timer: false
+      jw: seed('wein'), jb: seed('bier'), detail: '', view: 'grid', filter: 'Alle', toast: '', speaking: false, timer: false,
+      ds: ['kraeftig', 'kerze', 'tief'].indexOf(p.ds) >= 0 ? p.ds : 'standard',
+      ts: ['karte', 'rad', 'ruhe'].indexOf(p.ts) >= 0 ? p.ts : 'glas',
+      food: -1, back: 'home', share: '',
+      party: { phase: 'setup', glasses: 3, blind: true, people: ['Du', '[Name 2]', '[Name 3]'], glass: 0, scores: {}, err: false }
     };
     this.applyStart(p.start || 'welcome');
   }
@@ -675,6 +1051,20 @@ class Component extends DCLogic {
     if (st === 'quick') { s.screen = 'home'; s.sheet = 'quick'; return; }
     if (st === 'begin-rec') { s.screen = 'begin'; s.beginTab = 'rec'; return; }
     if (st === 'begin-snap') { s.screen = 'begin'; s.recognized = true; return; }
+    if (st === 'food') { s.screen = 'food'; s.food = 1; return; }
+    if (st.indexOf('party') === 0) {
+      s.screen = 'party';
+      if (st === 'party-rate' || st === 'party-result') {
+        var sc = {};
+        var demo = [[4, 3, 5], [3, 4, 2], [5, 4, 4]];
+        for (var g = 0; g < 3; g++) for (var q = 0; q < 3; q++) if (st === 'party-result' || g === 0) sc[g + '-' + q] = demo[g][q];
+        s.party = Object.assign({}, s.party, { phase: st === 'party-rate' ? 'rate' : 'result', glass: st === 'party-rate' ? 1 : 2, scores: sc });
+        if (st === 'party-rate') { s.party.scores['1-0'] = 3; }
+      }
+      return;
+    }
+    if (st === 'share') { s.screen = 'detail'; s.detail = (w === 'wein' ? s.jw : s.jb)[0].id; s.sheet = 'share'; s.share = 'entry'; return; }
+    if (['cellar', 'year', 'learn'].indexOf(st) >= 0) { s.screen = st; return; }
     var ok = ['welcome', 'onboard', 'home', 'begin', 'journal', 'taste', 'profile'];
     s.screen = ok.indexOf(st) >= 0 ? st : 'welcome';
   }
@@ -702,6 +1092,7 @@ class Component extends DCLogic {
   startWith(id) {
     try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
     this.setState({ screen: 'step', step: 0, bottle: id, sel: emptySel(), sheet: '', recognized: false, speaking: false, timer: false });
+    if (this.state.ts === 'ruhe') { var D0 = W[this.state.world]; if (this.speak(D0.steps[0] + '. ' + D0.hints.look[this.state.level])) this.setState({ speaking: true }); }
   }
 
   renderVals() {
@@ -710,7 +1101,7 @@ class Component extends DCLogic {
     if (s.look === 'auto') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) { dark = false; } }
     var mode = dark ? 'dark' : 'light';
     var P = PALETTES[s.pal];
-    var c = P[w][mode];
+    var c = themeOf(s.pal, w, dark, s.ds);
     var pr = function (on) { return on ? 'true' : 'false'; };
     var chip = function (on) { return on ? 'border: 1.5px solid ' + c.primary + '; background: ' + c.primary + '; color: ' + c.onPrimary + '; font-weight: 700' : 'border: 1.5px solid ' + c.border + '; background: ' + c.surface + '; color: ' + c.ink; };
     var seg = function (on) { return on ? 'background: ' + c.surface + '; color: ' + c.ink + '; font-weight: 700; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18)' : 'background: transparent; color: ' + c.ink; };
@@ -731,6 +1122,8 @@ class Component extends DCLogic {
       welcome: s.screen === 'welcome', onboard: s.screen === 'onboard', home: s.screen === 'home', begin: s.screen === 'begin',
       step: s.screen === 'step', result: s.screen === 'result', journal: s.screen === 'journal', detail: s.screen === 'detail',
       taste: s.screen === 'taste', profile: s.screen === 'profile',
+      food: s.screen === 'food', party: s.screen === 'party', cellar: s.screen === 'cellar', year: s.screen === 'year', learn: s.screen === 'learn',
+      sheetShare: s.sheet === 'share',
       wein: w === 'wein', bier: w === 'bier', free: !s.premium,
       tabOwn: s.beginTab === 'own', tabRec: s.beginTab === 'rec', recognized: s.recognized, notRecognized: !s.recognized,
       gridView: s.view === 'grid', listView: s.view === 'list',
@@ -918,6 +1311,150 @@ class Component extends DCLogic {
     vals.perks = ['Keine Werbung', 'Cloud-Sync auf allen Geräten', 'Web-Ansicht am Rechner', 'Natürlichere Stimme (später)', 'Tasting-Abend und Weinkeller (später)'];
     vals.plans = [['month', '[Preis]', 'pro Monat'], ['year', '[Preis]', 'pro Jahr']].map(function (o) { var on = s.plan === o[0]; return { price: o[1], label: o[2], pressed: pr(on), ring: ring(on), pick: function () { self.setState({ plan: o[0] }); } }; });
     vals.buy = function () { self.setState({ premium: true, sheet: '' }); self.say('Premium ist aktiv (Vorschau)'); };
+
+    // Tasting-Stile
+    vals.ts = { glas: s.ts === 'glas', karte: s.ts === 'karte', rad: s.ts === 'rad', ruhe: s.ts === 'ruhe' };
+    vals.ts.notRuhe = !vals.ts.ruhe;
+    vals.ts.notKarte = !vals.ts.karte;
+    vals.ts.small = vals.ts.glas || vals.ts.rad;
+    vals.showInputs = !vals.ts.ruhe || key === 'verdict';
+    vals.showChips = key === 'nose' && !vals.ts.rad && vals.showInputs;
+    vals.showWheel = key === 'nose' && vals.ts.rad;
+    vals.ruheTap = vals.ts.ruhe && key !== 'verdict';
+    vals.tsSeg = TSTYLES.map(function (t) { var on = s.ts === t[0]; return { label: t[1], pressed: pr(on), st: seg(on), pick: function () { self.setState({ ts: t[0], speaking: false }); } }; });
+    var gIdx = sel.color >= 0 ? sel.color : B.color;
+    var isW = w === 'wein';
+    var gBottom = isW ? 94 : 142, gTop = isW ? 16 : 14;
+    var gLevel = [0.62, 0.6, 0.48, 0.36, 0.3][s.step];
+    var ly = gBottom - gLevel * (gBottom - gTop);
+    var DOTS = [[48, 4, 5, 0.5], [64, -4, 6, 0.7], [78, 6, 4, 0.45], [40, -10, 4, 0.6], [58, -16, 5, 0.4], [74, -12, 6, 0.55], [86, -4, 4, 0.35], [52, -24, 5, 0.5]];
+    var nDots = key === 'look' ? 0 : Math.min(8, Object.keys(sel.aromas).length);
+    vals.G = {
+      clip: 'gclip-' + w,
+      bowl: isW ? 'M32 16 C30 60 38 92 60 94 C82 92 90 60 88 16 Z' : 'M30 14 L90 14 L84 132 Q83 142 72 142 L48 142 Q37 142 36 132 Z',
+      liquid: D.colors[gIdx][1], top: ly.toFixed(1), foam: !isW, foamY: (ly - 11).toFixed(1),
+      wave: 'M0 ' + (ly + 3).toFixed(1) + ' Q30 ' + (ly - 1).toFixed(1) + ' 60 ' + (ly + 3).toFixed(1) + ' T120 ' + (ly + 3).toFixed(1),
+      extra: isW ? [{ d: 'M60 94 L60 138' }, { d: 'M36 142 Q60 134 84 142' }] : [],
+      dots: DOTS.slice(0, nDots).map(function (d) { return { x: d[0], y: d[1], r: d[2], o: d[3] }; })
+    };
+    vals.stepChip = 'Schritt ' + (s.step + 1) + ' von 5';
+    var f1 = function (n) { return n.toFixed(1); };
+    var WC = 175, R0 = 44, R1 = 102, R2 = 172;
+    var pol = function (r, a) { var t = (a - 90) * Math.PI / 180; return [WC + r * Math.cos(t), WC + r * Math.sin(t)]; };
+    var sector = function (r0, r1, a0, a1) { var p1 = pol(r1, a0), p2 = pol(r1, a1), p3 = pol(r0, a1), p4 = pol(r0, a0), lg = (a1 - a0) > 180 ? 1 : 0; return 'M' + f1(p1[0]) + ' ' + f1(p1[1]) + ' A' + r1 + ' ' + r1 + ' 0 ' + lg + ' 1 ' + f1(p2[0]) + ' ' + f1(p2[1]) + ' L' + f1(p3[0]) + ' ' + f1(p3[1]) + ' A' + r0 + ' ' + r0 + ' 0 ' + lg + ' 0 ' + f1(p4[0]) + ' ' + f1(p4[1]) + ' Z'; };
+    var toggleAroma = function (a) { var ar = Object.assign({}, s.sel.aromas); if (ar[a]) delete ar[a]; else ar[a] = true; setSel({ aromas: ar }); };
+    var inner = [], outer = [], gs = 360 / D.wheel.length;
+    D.wheel.forEach(function (gr, i) {
+      var a0 = i * gs, on = !!sel.aromas[gr.g], m = pol((R0 + R1) / 2, a0 + gs / 2);
+      inner.push({ d: sector(R0, R1, a0, a0 + gs), fill: on ? c.primary : (i % 2 ? c.surface : c.seg), ink: on ? c.onPrimary : c.ink, aria: gr.g, pressed: pr(on), pick: function () { toggleAroma(gr.g); },
+        lines: gr.l.map(function (t, k) { return { t: t, x: f1(m[0]), y: f1(m[1] + (k - (gr.l.length - 1) / 2) * 12) }; }) });
+      var as = gs / gr.a.length;
+      gr.a.forEach(function (a, j) {
+        var b0 = a0 + j * as, mid = b0 + as / 2, on2 = !!sel.aromas[a], q = pol((R1 + R2) / 2 + 2, mid), rot = mid < 180 ? mid - 90 : mid + 90;
+        outer.push({ d: sector(R1 + 2, R2, b0, b0 + as), fill: on2 ? c.primary : (i % 2 ? c.seg : c.surface), ink: on2 ? c.onPrimary : c.ink, aria: a, pressed: pr(on2), pick: function () { toggleAroma(a); }, t: a, x: f1(q[0]), y: f1(q[1]), tr: 'rotate(' + f1(rot) + ' ' + f1(q[0]) + ' ' + f1(q[1]) + ')' });
+      });
+    });
+    vals.wheel = { inner: inner, outer: outer, center: nAr === 0 ? 'Tippen' : String(nAr), centerSub: nAr === 0 ? 'zum Wählen' : (nAr === 1 ? 'gewählt' : 'gewählt') };
+    var origNext = vals.nextStep, origPrev = vals.prevStep;
+    vals.nextStep = function () {
+      origNext();
+      if (s.ts === 'ruhe' && s.step < 4) { var k2 = ['look', 'nose', 'palate', 'finish', 'verdict'][s.step + 1]; if (self.speak(D.steps[s.step + 1] + '. ' + D.hints[k2][s.level])) self.setState({ speaking: true }); }
+    };
+    vals.prevStep = origPrev;
+
+    // Navigation zu den neuen Bereichen
+    var goSub = function (scr, extra) { return function () { self.setState(Object.assign({ screen: scr, back: is.main ? s.screen : 'home', sheet: '' }, extra || {})); }; };
+    vals.goBack = function () { self.setState({ screen: s.back || 'home' }); };
+    vals.goFood = goSub('food', { food: -1 });
+    vals.goParty = goSub('party', { party: Object.assign({}, s.party, { phase: 'setup', glass: 0, scores: {}, err: false }) });
+    vals.goCellar = goSub('cellar');
+    vals.goYear = goSub('year');
+    vals.goLearn = goSub('learn');
+    vals.tiles = [
+      { label: 'Was passt zum Essen?', d: 'M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 1-3 4-3 7h3v11', go: vals.goFood },
+      { label: 'Tasting-Abend', d: 'M4 3h6l-.5 4a2.5 2.5 0 0 1-5 0zM7 9.5V20M5 20h4M14 3h6l-.5 4a2.5 2.5 0 0 1-5 0zM17 9.5V20M15 20h4', go: vals.goParty },
+      { label: 'Lernen und Abzeichen', d: 'M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5', go: vals.goLearn },
+      { label: 'Mein Jahr', d: 'M5 20V11M11 20V5M17 20v-8M3 20h18', go: vals.goYear },
+      { label: D.cellarTitle, d: 'M4 4h16v16H4zM4 10h16M4 15h16', go: vals.goCellar, badge: 'Premium' }
+    ];
+    vals.tiles.forEach(function (t) { t.hasBadge = !!t.badge; });
+
+    // Essen
+    vals.foods = D.foods.map(function (f, i) { var on = s.food === i; return { label: f.name, pressed: pr(on), st: chip(on), pick: function () { self.setState({ food: i }); } }; });
+    var F = s.food >= 0 ? D.foods[s.food] : null;
+    is.foodPicked = !!F; is.foodNone = !F;
+    vals.foodName = F ? F.name : '';
+    vals.foodPicks = F ? F.picks.map(function (p) { return { name: p[0], why: p[1], tag: p[2] ? 'Passt zu dir' : 'Mal probieren', remember: function () { self.say(p[0] + ' gemerkt (Vorschau)'); } }; }) : [];
+
+    // Tasting-Abend
+    var pt = s.party, glasses = allBottles(w).slice(0, pt.glasses);
+    var setP = function (patch) { self.setState({ party: Object.assign({}, s.party, patch) }); };
+    is.pSetup = pt.phase === 'setup'; is.pRate = pt.phase === 'rate'; is.pResult = pt.phase === 'result'; is.pErr = !!pt.err;
+    vals.pGlassSeg = [3, 4, 5].map(function (n) { var on = pt.glasses === n; return { label: n + ' Gläser', pressed: pr(on), st: seg(on), pick: function () { setP({ glasses: n }); } }; });
+    vals.pBlindSeg = [[true, 'Blind'], [false, 'Offen']].map(function (o) { var on = pt.blind === o[0]; return { label: o[1], pressed: pr(on), st: seg(on), pick: function () { setP({ blind: o[0] }); } }; });
+    vals.pPeople = pt.people.map(function (n, i) { return { name: n, removable: i > 0, aria: n + ' entfernen', remove: function () { setP({ people: pt.people.filter(function (x, k) { return k !== i; }) }); } }; });
+    vals.pAdd = function () { if (pt.people.length >= 5) { self.say('Im Prototyp höchstens 5 Personen'); return; } setP({ people: pt.people.concat(['[Name ' + (pt.people.length + 1) + ']']) }); };
+    vals.pStart = function () { setP({ phase: 'rate', glass: 0, scores: {}, err: false }); };
+    var gi = Math.min(pt.glass, glasses.length - 1), gb = glasses[gi];
+    vals.pGlassNo = gi + 1; vals.pGlassCount = pt.glasses;
+    vals.pGlassName = pt.blind ? 'Glas ' + (gi + 1) + ' · blind' : gb.name;
+    vals.pGlassHex = D.colors[gb.color][1];
+    vals.pRows = pt.people.map(function (n, q) {
+      var cur = pt.scores[gi + '-' + q] || 0;
+      return { name: n, stars: [1, 2, 3, 4, 5].map(function (k) { var on = k <= cur; return { aria: n + ': ' + k + (k === 1 ? ' Stern' : ' Sterne'), pressed: pr(k === cur), fill: on ? c.star : 'none', stroke: on ? c.star : c.off, pick: function () { var sc = Object.assign({}, s.party.scores); sc[gi + '-' + q] = k; setP({ scores: sc, err: false }); } }; }) };
+    });
+    vals.pNextLabel = gi < pt.glasses - 1 ? 'Nächstes Glas' : 'Ergebnis zeigen';
+    vals.pNext = function () {
+      var missing = pt.people.some(function (n, q) { return !pt.scores[gi + '-' + q]; });
+      if (missing) { setP({ err: true }); return; }
+      if (gi < pt.glasses - 1) setP({ glass: gi + 1, err: false }); else setP({ phase: 'result', err: false });
+    };
+    vals.pResults = glasses.map(function (b, i) {
+      var sum = 0, n = 0;
+      pt.people.forEach(function (p, q) { var v = pt.scores[i + '-' + q]; if (v) { sum += v; n++; } });
+      var avg = n ? sum / n : 0;
+      return { name: b.name, maker: b.maker, label: 'Glas ' + (i + 1), avg: avg, avgText: avg.toFixed(1).replace('.', ','), hex: D.colors[b.color][1], per: pt.people.map(function (p, q) { return p + ' ' + (pt.scores[i + '-' + q] || '–'); }).join(' · ') };
+    }).sort(function (a, b) { return b.avg - a.avg; }).map(function (r, i) { r.place = i + 1; r.top = i === 0; r.badgeSt = i === 0 ? 'background: ' + c.primary + '; color: ' + c.onPrimary : 'background: ' + c.seg + '; color: ' + c.ink; return r; });
+    vals.pNew = function () { setP({ phase: 'setup', glass: 0, scores: {}, err: false }); };
+    vals.pSave = function () { self.say('Ins Notizbuch übernommen (Vorschau)'); };
+
+    // Keller
+    var total = 0;
+    vals.cellar = D.cellar.map(function (e) { total += e.count; var now = e.status === 'Jetzt trinken'; return { name: e.name, maker: e.maker, hex: D.colors[e.color][1], countText: e.count + (e.count === 1 ? ' Flasche' : ' Flaschen'), place: e.place, window: e.window, status: e.status, stSt: now ? 'background: ' + c.primary + '; color: ' + c.onPrimary : 'background: ' + c.soft + '; color: ' + c.primaryText }; });
+    vals.cellarSum = total + (w === 'wein' ? ' Flaschen' : ' Flaschen und Dosen') + ' · ' + D.cellar.length + ' Sorten';
+    vals.addBottle = function () { self.say('Flasche hinzufügen (Vorschau)'); };
+
+    // Mein Jahr
+    var MONTHS = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt'];
+    var ymax = Math.max.apply(null, D.year.bars);
+    vals.Y = D.year;
+    vals.yBars = D.year.bars.map(function (v, i) { return { h: Math.round(v / ymax * 110) + 'px', m: MONTHS[i], bg: v === ymax ? c.primary : c.off }; });
+    vals.yShare = function () { self.setState({ sheet: 'share', share: 'year' }); };
+
+    // Lernen
+    vals.paths = D.paths;
+    vals.badges = D.badges.map(function (b) { return { name: b[0], desc: b[1], got: b[2], locked: !b[2], bg: b[2] ? c.primary : c.seg, ink: b[2] ? c.onPrimary : c.muted, nameInk: b[2] ? c.ink : c.muted }; });
+    vals.badgeCount = D.badges.filter(function (b) { return b[2]; }).length + ' von ' + D.badges.length + ' Abzeichen';
+    vals.learnGo = function () { self.say('Lektion öffnen (Vorschau)'); };
+
+    // Teilen
+    var shareFrom = s.share === 'result' ? { name: B.name, maker: B.maker, hex: D.colors[gIdx][1], stars: sel.stars, note: vals.insight.text } : (s.share === 'year' ? null : { name: ent.name, maker: ent.maker, hex: D.colors[Math.max(0, ent.color)][1], stars: ent.stars, note: ent.note || '' });
+    is.shareYear = s.share === 'year'; is.shareEntry = s.share !== 'year';
+    var ss = starStr(shareFrom ? shareFrom.stars : 0);
+    vals.SC = shareFrom ? { name: shareFrom.name, maker: shareFrom.maker, hex: shareFrom.hex, on: ss.on, off: ss.off, note: shareFrom.note } : { name: '', maker: '', hex: c.primary, on: '', off: '', note: '' };
+    vals.openShareEntry = function () { self.setState({ sheet: 'share', share: 'entry' }); };
+    vals.openShareResult = function () { self.setState({ sheet: 'share', share: 'result' }); };
+    vals.doShare = function () { self.setState({ sheet: '' }); self.say('Bild geteilt (Vorschau)'); };
+    vals.doStory = function () { self.setState({ sheet: '' }); self.say('Als Story geteilt (Vorschau)'); };
+
+    // Profil: Dunkel-Stil und mehr
+    vals.dsSeg = DARK_STYLES.map(function (d) { var on = s.ds === d[0]; return { label: d[1], pressed: pr(on), st: seg(on), pick: function () { self.setState({ ds: d[0] }); } }; });
+    vals.dsHint = dark ? 'Gilt gerade, weil die Darstellung dunkel ist.' : 'Wirkt nur, wenn die Darstellung dunkel ist. Zum Ausprobieren oben „Dunkel“ wählen.';
+    vals.moreLinks = [
+      { label: 'Lernen und Abzeichen', sub: vals.badgeCount, go: vals.goLearn },
+      { label: 'Mein Jahr', sub: D.year.total + ' Verkostungen', go: vals.goYear },
+      { label: D.cellarTitle, sub: 'Mit Premium', go: vals.goCellar }
+    ];
 
     return vals;
   }

@@ -20,12 +20,23 @@ APP = [
     ("03-verkosten-starten.png", "screen=begin-snap"),
     ("03b-empfehlungen.png", "screen=begin-rec"),
     ("04-tasting-nase.png", "screen=step2"),
+    ("04c-stil-karten.png", "screen=step2&ts=karte"),
+    ("04d-stil-aromarad.png", "screen=step2&ts=rad&world=bier"),
+    ("04e-stil-zuhoeren.png", "screen=step3&ts=ruhe"),
     ("04b-tasting-gaumen-bier.png", "screen=step3&world=bier"),
     ("05-aufloesung.png", "screen=result"),
     ("06-notizbuch.png", "screen=journal"),
     ("07-geschmack.png", "screen=taste"),
     ("08-profil.png", "screen=profile"),
     ("08b-premium.png", "screen=paywall"),
+    ("09-essen.png", "screen=food"),
+    ("10-tasting-abend.png", "screen=party"),
+    ("10b-tasting-abend-bewerten.png", "screen=party-rate"),
+    ("10c-tasting-abend-rangliste.png", "screen=party-result"),
+    ("11-keller.png", "screen=cellar"),
+    ("12-mein-jahr.png", "screen=year"),
+    ("13-teilen.png", "screen=share"),
+    ("14-lernen.png", "screen=learn"),
 ]
 WEB = [
     ("web-1-startseite.png", "web=guest"),
@@ -37,6 +48,7 @@ WEB = [
 PALS = [("Kellerei", "Warmes Creme mit Bordeaux und Bernstein", True),
         ("Schiefer", "Kühles Grau mit Pflaume und Kupfer", False),
         ("Landgut", "Heller Sand mit Weinrose und Hopfengrün", False)]
+DARK = [("standard", "Standard"), ("kraeftig", "Kräftig"), ("kerze", "Kerzenlicht"), ("tief", "Tiefschwarz")]
 
 
 async def shot_app(page, query, path):
@@ -91,6 +103,31 @@ figcaption{{margin-top:6px;font-size:13px;font-weight:700;text-align:center}}
             name = f"farben-{i}-{pal.lower()}.png"
             await web.locator("#c").screenshot(path=os.path.join(OUT, name))
             print("ok", name)
+        # Dunkel-Varianten der aktuellen Farbwelt
+        cells = []
+        for world in ("wein", "bier"):
+            for ds, label in DARK:
+                f = os.path.join(tmp, f"dunkel-{world}-{ds}.png")
+                await app.goto("file://" + FILE + f"?app&screen=home&world={world}&pal=Kellerei&look=dark&ds={ds}")
+                await app.evaluate("document.fonts.ready")
+                await app.wait_for_timeout(250)
+                await app.locator("#device").screenshot(path=f)
+                cells.append((f, ("Wein" if world == "wein" else "Bier") + " · " + label))
+        figs = "".join(f"<figure><img src='file://{f}'><figcaption>{cap}</figcaption></figure>" for f, cap in cells)
+        html = f"""<!doctype html><html lang='de'><head><meta charset='utf-8'><style>
+body{{margin:0;background:#FFFFFF;font-family:'Atkinson Hyperlegible',sans-serif;color:#1A1D21}}
+#c{{width:880px;box-sizing:border-box;padding:28px}}
+h1{{margin:0;font-size:26px}} p{{margin:4px 0 0;font-size:15px;color:#4D535B}}
+.g{{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}}
+figure{{margin:0}} img{{width:100%;border-radius:18px;display:block;border:1px solid #E3E3E3}}
+figcaption{{margin-top:6px;font-size:13px;font-weight:700;text-align:center}}
+</style></head><body><div id='c'><h1>Dunkel-Varianten (Kellerei)</h1><p>Standard, Kräftig, Kerzenlicht und Tiefschwarz, jeweils für Wein und Bier</p><div class='g'>{figs}</div></div></body></html>"""
+        hp = os.path.join(tmp, "dunkel.html")
+        open(hp, "w", encoding="utf-8").write(html)
+        await web.goto("file://" + hp)
+        await web.wait_for_timeout(300)
+        await web.locator("#c").screenshot(path=os.path.join(OUT, "farben-4-dunkel-varianten.png"))
+        print("ok farben-4-dunkel-varianten.png")
         await b.close()
 
 asyncio.run(main())
