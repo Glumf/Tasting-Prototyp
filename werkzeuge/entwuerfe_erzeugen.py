@@ -18,24 +18,28 @@ SCREENS = [
     ("Schnellnotiz.dc.html", "2c · Schnell notieren", "quick", "wein"),
     ("Verkosten.dc.html", "3 · Verkosten starten", "begin-snap", "wein"),
     ("Empfehlungen.dc.html", "3b · Empfiehl mir was", "begin-rec", "wein"),
-    ("Nase.dc.html", "4 · Tasting: Nase (Stil Glas)", "step2", "wein"),
-    ("StilKarten.dc.html", "4c · Tasting-Stil Karten", "step2", "wein", "karte"),
-    ("StilAromarad.dc.html", "4d · Tasting-Stil Aromarad (Bier)", "step2", "bier", "rad"),
-    ("StilZuhoeren.dc.html", "4e · Tasting-Stil Zuhören", "step3", "wein", "ruhe"),
-    ("GaumenBier.dc.html", "4b · Tasting: Geschmack (Bier)", "step3", "bier"),
+    ("Vorbereitung.dc.html", "3c · Vorbereitung: Temperatur und Glas", "prep", "wein"),
+    ("Aussehen.dc.html", "4 · Tasting: Aussehen mit „Warum?“", "step1", "wein"),
+    ("Nase.dc.html", "4b · Tasting: Nase (Einsteiger)", "step2-kurz", "wein"),
+    ("NaseErfahren.dc.html", "4c · Tasting: Aroma (Bier, Erfahren)", "step2-kurz", "bier", "Erfahren"),
+    ("GaumenBier.dc.html", "4d · Tasting: Geschmack (Bier)", "step3", "bier"),
     ("Aufloesung.dc.html", "5 · Auflösung", "result", "wein"),
-    ("Notizbuch.dc.html", "6 · Notizbuch", "journal", "wein"),
+    ("Notizbuch.dc.html", "6 · Notizbuch: Verkostet", "journal", "wein"),
+    ("Keller.dc.html", "6b · Notizbuch: Keller", "cellar", "wein"),
+    ("Merkliste.dc.html", "6c · Notizbuch: Merkliste", "merk", "wein"),
     ("Geschmack.dc.html", "7 · Mein Geschmack", "taste", "wein"),
     ("Profil.dc.html", "8 · Profil", "profile", "wein"),
     ("Premium.dc.html", "8b · Premium", "paywall", "wein"),
     ("Essen.dc.html", "9 · Was passt zum Essen?", "food", "wein"),
-    ("Abend.dc.html", "10 · Tasting-Abend", "party", "wein"),
-    ("AbendBewerten.dc.html", "10b · Tasting-Abend: bewerten", "party-rate", "wein"),
-    ("AbendRangliste.dc.html", "10c · Tasting-Abend: Rangliste", "party-result", "wein"),
-    ("Keller.dc.html", "11 · Mein Weinkeller", "cellar", "wein"),
+    ("Abend.dc.html", "10 · Tasting-Abend: Flaschen wählen", "party", "wein"),
+    ("AbendTeilen.dc.html", "10b · Tasting-Abend: Freunde einladen", "party-share", "wein"),
+    ("AbendBewerten.dc.html", "10c · Tasting-Abend: gemeinsam bewerten", "party-rate", "wein"),
+    ("AbendRangliste.dc.html", "10d · Tasting-Abend: Rangliste", "party-result", "wein"),
     ("Jahr.dc.html", "12 · Mein Jahr", "year", "wein"),
     ("Teilen.dc.html", "13 · Als Karte teilen", "share", "wein"),
-    ("Lernen.dc.html", "14 · Lernpfade und Abzeichen", "learn", "wein"),
+    ("Lernen.dc.html", "14 · Lernen und Abzeichen", "learn", "wein"),
+    ("NasenTraining.dc.html", "14b · Nasen-Training", "train", "wein"),
+    ("Karte.dc.html", "15 · Karte der Herkunft", "map", "wein"),
 ]
 PALS = [("Kellerei", "Warmes Creme mit Bordeaux und Bernstein", True),
         ("Schiefer", "Kühles Grau mit Pflaume und Kupfer", False),
@@ -77,7 +81,7 @@ boards["Prototyp.dc.html"] = {"x": -470, "y": 0, "w": 390, "h": 844, "title": "0
 order.append("Prototyp.dc.html")
 for i, sc in enumerate(SCREENS):
     f, title, start, world = sc[:4]
-    ts = f' ts="{sc[4]}"' if len(sc) > 4 else ""
+    ts = f' level="{sc[4]}"' if len(sc) > 4 else ""
     body = f'<div style="width: 390px; height: 844px; overflow: hidden"><dc-import name="Prototyp" start="{start}" world="{world}" look="light"{ts} hint-size="390px,844px"></dc-import></div>'
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(page(title.split(" · ", 1)[1], 390, 844, body))
     boards[f] = {"x": i * 470, "y": 0, "w": 390, "h": 844, "title": title, "is_interactive": True}

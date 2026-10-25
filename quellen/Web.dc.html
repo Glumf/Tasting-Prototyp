@@ -401,7 +401,6 @@ function themeOf(pal, w, dark, ds) {
   else Object.assign(t, DARK_TONE[ds]);
   return t;
 }
-var TSTYLES = [['glas', 'Glas'], ['karte', 'Karten'], ['rad', 'Aromarad'], ['ruhe', 'Zuhören']];
 W.wein.wheel = [
   { g: 'Zitrus', l: ['Zitrus'], a: ['Zitrone', 'Grapefruit'] },
   { g: 'Gelbe Frucht', l: ['Gelbe', 'Frucht'], a: ['Apfel', 'Birne', 'Pfirsich', 'Aprikose'] },
@@ -465,10 +464,133 @@ W.bier.paths = [
 ];
 W.wein.badges = [['Erste Verkostung', 'Dein erster Eintrag', true], ['Fünf Rebsorten', '5 verschiedene probiert', true], ['Spürnase', '3 Aromen richtig erkannt', true], ['Blind erkannt', 'Beim Tasting-Abend getroffen', false], ['Weltenbummler', 'Weine aus 5 Ländern', false], ['Lernpfad geschafft', 'Einen Pfad beendet', false]];
 W.bier.badges = [['Erstes Bier', 'Dein erster Eintrag', true], ['Weizen-Kenner', 'Alle Weizen-Stile probiert', true], ['Fünf Brauereien', '5 verschiedene probiert', false], ['Hopfen-Nase', '3 Hopfenaromen erkannt', true], ['Dunkel-Fan', '3 dunkle Biere probiert', false], ['Lernpfad geschafft', 'Einen Pfad beendet', false]];
+// Tasting: Warum macht man das? und Tipps für Einsteiger
+W.wein.why = {
+  look: 'Die Farbe verrät viel, bevor du probierst. Weißweine werden mit dem Alter goldener, Rotweine am Rand heller und bräunlicher. Eine tiefe Farbe deutet oft auf einen kräftigeren Wein hin.',
+  nose: 'Das meiste, was wir „schmecken“, nimmt eigentlich die Nase wahr. Die Zunge kennt nur süß, sauer, salzig, bitter und umami. Beim Schwenken kommt Luft an den Wein, und die Duftstoffe steigen auf.',
+  palate: 'Im Mund prüfst du, was die Nase nicht kann: Süße, Säure, Gerbstoff und wie schwer sich der Wein anfühlt. Lässt du ihn kreisen, erreicht er alle Stellen im Mund.',
+  finish: 'Wie lange der Geschmack nachklingt, gilt als Zeichen für Qualität. Einfache Weine sind schnell wieder weg, gute bleiben oft lange im Mund.',
+  verdict: 'Deine Bewertung ist für dich der wichtigste Schritt. Daraus lernt die App, was dir schmeckt, und schlägt dir passende Flaschen vor.'
+};
+W.bier.why = {
+  look: 'Farbe und Schaum erzählen viel über das Bier. Dunkle Farbe kommt von geröstetem Malz, Trübung oft von der Hefe. Ein feiner, stabiler Schaum hält die Aromen im Glas.',
+  nose: 'Das meiste, was wir „schmecken“, nimmt eigentlich die Nase wahr. Direkt nach dem Einschenken ist der Duft am stärksten, weil die Kohlensäure die Aromen nach oben trägt.',
+  palate: 'Im Mund zeigt sich das Gleichgewicht: Die Bittere vom Hopfen und die Süße vom Malz halten sich die Waage. Daran erkennt man den Stil eines Biers.',
+  finish: 'Das Mundgefühl unterscheidet Stile deutlich. Ein Weizen prickelt stark, ein Stout ist weich und cremig. Wie lange der Geschmack bleibt, sagt etwas über Hopfen und Malz.',
+  verdict: 'Deine Bewertung ist für dich der wichtigste Schritt. Daraus lernt die App, was dir schmeckt, und schlägt dir passende Biere vor.'
+};
+W.wein.tip = {
+  look: 'Ein weißes Blatt Papier oder eine Serviette hinter dem Glas macht die Farbe gut sichtbar.',
+  nose: 'Nicht zu lange am Stück riechen. Die Nase gewöhnt sich schnell an einen Duft. Lieber kurz absetzen und neu ansetzen.',
+  palate: 'Läuft dir nach dem Schluck das Wasser im Mund zusammen? Das ist die Säure.',
+  finish: 'Zähl nach dem Schlucken langsam mit: einundzwanzig, zweiundzwanzig …',
+  verdict: 'Es gibt kein Richtig oder Falsch. Wenn er dir nicht schmeckt, ist das auch ein Ergebnis.'
+};
+W.bier.tip = {
+  look: 'Schenk schräg ein und richte das Glas zum Schluss auf. So bildet sich eine schöne Schaumkrone.',
+  nose: 'Halte die Nase nah ans Glas und atme zweimal kurz ein. Leicht schwenken weckt den Duft wieder auf.',
+  palate: 'Lass das Bier einen Moment im Mund, bevor du schluckst. So merkst du Süße und Bittere besser.',
+  finish: 'Achte darauf, ob die Bittere nach dem Schlucken bleibt oder schnell verschwindet.',
+  verdict: 'Es gibt kein Richtig oder Falsch. Wenn es dir nicht schmeckt, ist das auch ein Ergebnis.'
+};
+// Aromen erklärt: was man riecht, woher es kommt, wie man es sich merkt
+W.wein.aromaInfo = {
+  'Zitrus': ['Zitrone, Limette, Grapefruit', 'Typisch für frische Weißweine mit viel Säure, zum Beispiel Riesling oder Sauvignon Blanc.', 'Reib eine Zitrone an der Schale und riech daran. Genau dieser helle, spritzige Duft ist gemeint.'],
+  'Gelbe Frucht': ['Apfel, Birne, Pfirsich, Aprikose', 'Häufig in Weißweinen. Grüner Apfel wirkt frisch, reifer Pfirsich eher voll und weich.', 'Riech abwechselnd an einem Apfel und einem reifen Pfirsich. Merk dir den Unterschied zwischen frisch und reif.'],
+  'Rote Beeren': ['Kirsche, Erdbeere, Himbeere', 'Typisch für leichte Rotweine wie Spätburgunder oder Gamay, oft auch im Rosé.', 'Denk an Erdbeermarmelade oder frische Himbeeren. Der Duft ist hell und fruchtig.'],
+  'Dunkle Beeren': ['Brombeere, Cassis, Pflaume', 'In kräftigen Rotweinen, zum Beispiel aus Cabernet Sauvignon oder Syrah.', 'Denk an schwarze Johannisbeeren oder Pflaumenmus. Der Duft ist tiefer und dunkler als bei roten Beeren.'],
+  'Blüten': ['Rose, Holunderblüte', 'Gern in duftigen Weißweinen wie Gewürztraminer oder Muskateller.', 'Riech an einer Rose oder an Holunderblütensirup. Blütenduft ist süßlich, aber nicht fruchtig.'],
+  'Kräuter': ['Gras, grüne Paprika', 'Frische, grüne Noten, typisch zum Beispiel für Sauvignon Blanc.', 'Denk an frisch gemähten Rasen oder eine aufgeschnittene grüne Paprika.'],
+  'Würze': ['Pfeffer, Honig', 'Pfeffer ist typisch für Grünen Veltliner und Syrah. Honig zeigt sich oft in reifen oder süßen Weinen.', 'Riech an frisch gemahlenem Pfeffer. Das leichte Kitzeln in der Nase ist gemeint.'],
+  'Holz und Röstnoten': ['Vanille, Toast', 'Kommt meist vom Holzfass, in dem der Wein gereift ist, nicht von der Traube.', 'Denk an Vanillezucker oder getoastetes Brot. Riechst du das, lag der Wein wahrscheinlich im Holz.']
+};
+W.bier.aromaInfo = {
+  'Getreide und Brot': ['Brot, Keks, Honig', 'Kommt vom Malz, also von gekeimtem und getrocknetem Getreide. Typisch für Helles, Pils und Kellerbier.', 'Riech an einer frischen Brotkruste oder an einem Butterkeks.'],
+  'Karamell': ['Karamell, Toffee', 'Entsteht, wenn Malz stärker erhitzt wird. Typisch für Märzen und Bockbier.', 'Denk an Karamellbonbons oder an Toffee.'],
+  'Röstnoten': ['Kaffee, Schokolade, Rauch', 'Kommt von stark geröstetem Malz, typisch für Stout, Porter und Schwarzbier.', 'Riech an Kaffeebohnen oder an dunkler Schokolade.'],
+  'Zitrus': ['Zitrone, Grapefruit, Orange', 'Kommt meist vom Hopfen, besonders von amerikanischen Sorten in Pale Ale und IPA.', 'Riech an einer Grapefruit- oder Orangenschale.'],
+  'Tropenfrucht': ['Mango, Maracuja', 'Moderne Hopfensorten bringen diese Noten, typisch für IPA und Session IPA.', 'Denk an Maracujasaft oder eine reife Mango.'],
+  'Banane und Nelke': ['Banane, Gewürznelke', 'Kommt von der Weizenbier-Hefe, nicht von Früchten oder Gewürzen.', 'Riech an einer reifen Banane und an einer Gewürznelke. Beides zusammen ist typisch für Hefeweizen.'],
+  'Kräuter und Gras': ['Gras, Heu, Kräuter', 'Kommt von klassischen deutschen und tschechischen Hopfensorten, typisch für Pils.', 'Denk an frisches Heu oder getrocknete Kräuter.'],
+  'Harz und Kiefer': ['Kiefer, Harz', 'Kommt von kräftig gehopften Bieren, vor allem von amerikanischen IPAs.', 'Denk an einen Spaziergang im Nadelwald.']
+};
+// Vorbereitung: Richtwerte für Temperatur und Glas
+W.wein.prep = {
+  w1: [8, 10, 'Weißweinglas', 'Lieber etwas zu kalt einschenken. Im Glas wird er schnell wärmer.'],
+  w2: [14, 16, 'Burgunderglas mit weitem Bauch', 'Etwa 15 Minuten vorher öffnen, dann kann er atmen.'],
+  w3: [10, 12, 'Weißweinglas', 'Nicht zu kalt, sonst gehen die vollen Aromen unter.'],
+  w4: [8, 10, 'Weißweinglas', 'Gut gekühlt zeigt sich die Frische am besten.'],
+  w5: [8, 10, 'Weißweinglas', 'Gut gekühlt zeigt sich die Frische am besten.'],
+  w6: [12, 14, 'Rotweinglas', 'Ruhig kurz in den Kühlschrank stellen. Leicht gekühlt schmeckt er am frischesten.']
+};
+W.bier.prep = {
+  b1: [6, 8, 'Pilstulpe', 'Glas vorher kalt ausspülen, dann hält der Schaum besser.'],
+  b2: [7, 9, 'Weizenglas', 'Den Rest in der Flasche schwenken und zum Schluss dazugießen. So kommt die Hefe ins Glas.'],
+  b3: [10, 13, 'Tulpenglas', 'Nicht zu kalt, sonst gehen Kaffee und Schokolade unter.'],
+  b4: [6, 8, 'Tulpenglas', 'Frisch trinken. Hopfenaromen verblassen mit der Zeit.'],
+  b5: [7, 9, 'Krug oder Becher', 'Ruhig einschenken, die Trübung gehört dazu.'],
+  b6: [6, 8, 'Weite Schale', 'Erst pur probieren. Mit Sirup schmeckt man die Säure kaum noch.']
+};
+W.wein.prepWhy = 'Zu kalt gehen die Aromen unter, zu warm schmeckt vor allem der Alkohol.';
+W.bier.prepWhy = 'Zu kalt schmeckt man kaum etwas, zu warm wirkt das Bier schnell schal.';
+W.wein.prepGlass = 'Das Glas nur zu einem Drittel füllen. So bleibt Platz zum Schwenken.';
+W.bier.prepGlass = 'Ein sauberes Glas ohne Spülmittelreste ist wichtig, sonst fällt der Schaum zusammen.';
+W.wein.prepList = ['Sauberes Glas, das nicht nach Schrank oder Spülmittel riecht', 'Ein Glas Wasser und etwas neutrales Brot', 'Ein weißes Blatt Papier für die Farbe', 'Kein starkes Parfüm, keine Duftkerze in der Nähe'];
+W.bier.prepList = ['Sauberes Glas, kalt ausgespült', 'Ein Glas Wasser und etwas neutrales Brot', 'Helles Licht für Farbe und Schaum', 'Kein starkes Parfüm, keine Duftkerze in der Nähe'];
+// Notizbuch: Kurzname für Keller oder Vorrat, Merkliste zum Einkaufen
+W.wein.cellarShort = 'Keller';
+W.bier.cellarShort = 'Vorrat';
+W.wein.merk = [{ name: 'Albariño', from: 'Empfehlung für dich', id: 'w4' }, { name: 'Syrah', from: 'Was passt zum Essen? · Vom Grill' }];
+W.bier.merk = [{ name: 'Session IPA', from: 'Empfehlung für dich', id: 'b4' }, { name: 'Witbier', from: 'Was passt zum Essen? · Fisch' }];
+// Nasen-Training mit Küchenzutaten
+W.wein.train = [
+  { ing: 'Zitrone', how: 'Reib etwas Schale ab und riech daran.', link: 'Zitrus · zum Beispiel im Riesling' },
+  { ing: 'Grüner Apfel', how: 'Schneide den Apfel auf und riech an der Schnittfläche.', link: 'Gelbe Frucht · frische Weißweine' },
+  { ing: 'Himbeeren', how: 'Riech an ein paar Beeren oder an Himbeermarmelade.', link: 'Rote Beeren · Spätburgunder und Rosé' },
+  { ing: 'Schwarzer Pfeffer', how: 'Mahl etwas Pfeffer frisch und riech daran.', link: 'Würze · Grüner Veltliner und Syrah' },
+  { ing: 'Vanille', how: 'Riech an Vanillezucker oder einer Vanilleschote.', link: 'Holz · Weine aus dem Holzfass' }
+];
+W.bier.train = [
+  { ing: 'Brotkruste', how: 'Riech an der Kruste von frischem Brot.', link: 'Malz · Helles, Pils und Kellerbier' },
+  { ing: 'Reife Banane', how: 'Schäl eine reife Banane und riech daran.', link: 'Hefe · Hefeweizen' },
+  { ing: 'Gewürznelke', how: 'Riech an ein, zwei Nelken aus dem Gewürzregal.', link: 'Hefe · Hefeweizen' },
+  { ing: 'Kaffee', how: 'Riech an frisch gemahlenem Kaffee.', link: 'Röstmalz · Stout und Porter' },
+  { ing: 'Orangenschale', how: 'Reib etwas Schale ab und riech daran.', link: 'Hopfen · Pale Ale und IPA' }
+];
+// Karte der Herkunft (vereinfacht, Länge und Breite in Grad)
+W.wein.regions = [
+  { name: 'Mosel', land: 'Deutschland', lon: 7.0, lat: 49.95, items: ['Riesling trocken'], had: true },
+  { name: 'Pfalz', land: 'Deutschland', lon: 8.1, lat: 49.3, items: ['Spätburgunder'], had: true },
+  { name: 'Baden', land: 'Deutschland', lon: 7.9, lat: 48.0, items: ['Grauburgunder'], had: true },
+  { name: 'Wachau', land: 'Österreich', lon: 15.4, lat: 48.35, items: ['Grüner Veltliner'], had: true },
+  { name: 'Provence', land: 'Frankreich', lon: 6.0, lat: 43.5, items: ['Rosé'], had: true },
+  { name: 'Bordeaux', land: 'Frankreich', lon: -0.6, lat: 44.85, items: ['Merlot'], had: true },
+  { name: 'Beaujolais', land: 'Frankreich', lon: 4.6, lat: 46.1, items: ['Gamay'], had: false },
+  { name: 'Rías Baixas', land: 'Spanien', lon: -8.6, lat: 42.4, items: ['Albariño'], had: false }
+];
+W.bier.regions = [
+  { name: 'Pilsen', land: 'Tschechien', lon: 13.4, lat: 49.7, items: ['Pils'], had: true },
+  { name: 'Bayern', land: 'Deutschland', lon: 11.6, lat: 48.1, items: ['Hefeweizen'], had: true },
+  { name: 'Dublin', land: 'Irland', lon: -6.26, lat: 53.35, items: ['Stout'], had: true },
+  { name: 'Burton', land: 'England', lon: -1.6, lat: 52.8, items: ['Pale Ale'], had: true },
+  { name: 'Franken', land: 'Deutschland', lon: 10.9, lat: 49.9, items: ['Kellerbier'], had: false },
+  { name: 'Berlin', land: 'Deutschland', lon: 13.4, lat: 52.5, items: ['Berliner Weisse'], had: false },
+  { name: 'Flandern und Brabant', land: 'Belgien', lon: 4.4, lat: 50.8, items: ['Witbier'], had: false }
+];
+W.wein.mapHead = 'Woher kommen deine Weine?';
+W.bier.mapHead = 'Woher kommen deine Bierstile?';
+W.wein.mapNote = 'Beim Wein zeigt die Karte das Anbaugebiet.';
+W.bier.mapNote = 'Beim Bier zeigt die Karte, wo ein Stil herkommt. Gebraut wird er heute überall.';
+var MAP_LAND = [
+  [[-9.3, 43.0], [-8.8, 41.0], [1.0, 41.0], [2.2, 41.4], [3.2, 42.3], [3.0, 43.2], [4.8, 43.4], [7.5, 43.8], [8.8, 44.4], [10.2, 43.9], [11.2, 42.4], [12.6, 41.0], [16.9, 41.0], [15.5, 41.9], [14.2, 42.4], [13.6, 43.5], [12.3, 44.9], [12.4, 45.4], [13.7, 45.6], [14.5, 45.2], [15.5, 44.0], [16.4, 43.5], [17.5, 43.0], [18.5, 42.4], [19.4, 41.9], [19.5, 41.0], [20, 41.0], [20, 54.4], [18.6, 54.5], [16.5, 54.5], [14.2, 53.9], [12.5, 54.4], [11.0, 54.0], [10.1, 54.3], [10.3, 56.0], [8.1, 56.0], [8.1, 55.5], [8.6, 54.9], [8.8, 54.0], [8.0, 53.6], [7.0, 53.4], [6.0, 53.4], [4.8, 52.9], [4.4, 52.2], [3.6, 51.5], [2.5, 51.1], [1.6, 50.9], [1.6, 50.2], [0.2, 49.7], [-1.3, 49.6], [-1.6, 48.7], [-3.0, 48.8], [-4.7, 48.4], [-4.3, 47.8], [-2.5, 47.3], [-1.2, 46.2], [-1.2, 45.5], [-1.4, 44.0], [-1.8, 43.4], [-3.8, 43.45], [-5.8, 43.6], [-8.0, 43.7]],
+  [[-5.7, 50.0], [-3.0, 50.6], [-1.0, 50.8], [1.4, 51.2], [0.9, 51.6], [1.7, 52.6], [0.3, 53.3], [-0.1, 54.1], [-1.4, 55.0], [-2.0, 55.8], [-2.6, 56.0], [-5.5, 56.0], [-4.8, 55.4], [-5.0, 54.8], [-3.4, 54.9], [-3.0, 53.4], [-4.6, 53.3], [-4.3, 52.8], [-4.1, 52.3], [-5.2, 51.8], [-4.0, 51.6], [-3.2, 51.4], [-4.2, 51.2], [-5.5, 50.2]],
+  [[-6.0, 53.0], [-6.2, 54.0], [-5.6, 54.6], [-6.3, 55.2], [-7.4, 55.4], [-8.3, 55.2], [-8.6, 54.3], [-10.0, 54.2], [-9.9, 53.4], [-9.4, 52.6], [-10.0, 52.1], [-9.8, 51.5], [-8.4, 51.6], [-6.4, 52.2]]
+];
+var MAP_LABELS = [['Deutschland', 10.0, 51.4], ['Frankreich', 2.4, 47.2], ['Spanien', -4.6, 41.7], ['Österreich', 13.4, 46.9], ['Italien', 11.6, 44.6], ['Irland', -8.5, 52.7], ['Großbritannien', -2.8, 55.4], ['Polen', 18.0, 52.4]];
 function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
 function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
 function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }
-function emptySel() { return { color: -1, rows: {}, aromas: {}, ax: {}, fin: {}, stars: 0, face: '' }; }
+function emptySel() { return { color: -1, rows: {}, aromas: {}, ax: {}, fin: {}, stars: 0, face: '', last: '' }; }
 // DATEN-ENDE
 
 class Component extends DCLogic {
