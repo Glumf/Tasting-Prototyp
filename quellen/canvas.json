@@ -191,7 +191,7 @@
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "10b · Tasting-Abend: Freunde einladen",
+      "title": "10b · Tasting-Abend: Freunde einladen (später)",
       "is_interactive": true
     },
     "AbendBewerten.dc.html": {
@@ -215,7 +215,7 @@
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "12 · Mein Jahr",
+      "title": "12 · Mein Jahr (später)",
       "is_interactive": true
     },
     "Teilen.dc.html": {
@@ -223,7 +223,7 @@
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "13 · Als Karte teilen",
+      "title": "13 · Als Karte teilen (später)",
       "is_interactive": true
     },
     "Lernen.dc.html": {
@@ -247,7 +247,7 @@
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "15 · Karte der Herkunft",
+      "title": "15 · Karte der Herkunft (später)",
       "is_interactive": true
     },
     "Web.dc.html": {
@@ -255,7 +255,7 @@
       "y": 1324,
       "w": 1440,
       "h": 900,
-      "title": "0b · Web-Ansicht am Rechner (Premium)",
+      "title": "0b · Web-Ansicht am Rechner (Premium, später)",
       "is_interactive": true,
       "expand": "fill"
     },
@@ -264,7 +264,7 @@
       "y": 2548,
       "w": 880,
       "h": 560,
-      "title": "Farben · Kellerei (aktuell)"
+      "title": "Farben · Kellerei"
     },
     "Farben-Schiefer.dc.html": {
       "x": 960,
@@ -278,7 +278,7 @@
       "y": 2548,
       "w": 880,
       "h": 560,
-      "title": "Farben · Landgut"
+      "title": "Farben · Landgut (aktuell)"
     },
     "Farben-Dunkel.dc.html": {
       "x": 2880,

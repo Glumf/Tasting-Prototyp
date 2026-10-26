@@ -49,9 +49,9 @@ WEB = [
     ("web-4-geschmack.png", "web=taste&world=bier"),
     ("web-5-konto.png", "web=account"),
 ]
-PALS = [("Kellerei", "Warmes Creme mit Bordeaux und Bernstein", True),
+PALS = [("Kellerei", "Warmes Creme mit Bordeaux und Bernstein", False),
         ("Schiefer", "Kühles Grau mit Pflaume und Kupfer", False),
-        ("Landgut", "Heller Sand mit Weinrose und Hopfengrün", False)]
+        ("Landgut", "Heller Sand mit Weinrose und Hopfengrün", True)]
 DARK = [("standard", "Standard"), ("kraeftig", "Kräftig"), ("kerze", "Kerzenlicht"), ("tief", "Tiefschwarz")]
 
 
@@ -112,7 +112,7 @@ figcaption{{margin-top:6px;font-size:13px;font-weight:700;text-align:center}}
         for world in ("wein", "bier"):
             for ds, label in DARK:
                 f = os.path.join(tmp, f"dunkel-{world}-{ds}.png")
-                await app.goto("file://" + FILE + f"?app&screen=home&world={world}&pal=Kellerei&look=dark&ds={ds}")
+                await app.goto("file://" + FILE + f"?app&screen=home&world={world}&pal=Landgut&look=dark&ds={ds}")
                 await app.evaluate("document.fonts.ready")
                 await app.wait_for_timeout(250)
                 await app.locator("#device").screenshot(path=f)
@@ -125,7 +125,7 @@ h1{{margin:0;font-size:26px}} p{{margin:4px 0 0;font-size:15px;color:#4D535B}}
 .g{{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}}
 figure{{margin:0}} img{{width:100%;border-radius:18px;display:block;border:1px solid #E3E3E3}}
 figcaption{{margin-top:6px;font-size:13px;font-weight:700;text-align:center}}
-</style></head><body><div id='c'><h1>Dunkel-Varianten (Kellerei)</h1><p>Standard, Kräftig, Kerzenlicht und Tiefschwarz, jeweils für Wein und Bier</p><div class='g'>{figs}</div></div></body></html>"""
+</style></head><body><div id='c'><h1>Dunkel-Varianten (Landgut, entschieden: Tiefschwarz)</h1><p>Standard, Kräftig, Kerzenlicht und Tiefschwarz, jeweils für Wein und Bier</p><div class='g'>{figs}</div></div></body></html>"""
         hp = os.path.join(tmp, "dunkel.html")
         open(hp, "w", encoding="utf-8").write(html)
         await web.goto("file://" + hp)

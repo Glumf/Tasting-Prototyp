@@ -106,7 +106,7 @@ var __device = document.getElementById('device');
 var __web = document.getElementById('web');
 var __tplApp = document.getElementById('tpl-app');
 var __tplWeb = document.getElementById('tpl-web');
-var __forceApp = /[?&]app\b/.test(location.search);
+var __forceApp = !/[?&]web\b/.test(location.search);
 var __mode = null, __lastKey = {};
 function __wide() { return window.innerWidth > 900; }
 function __container() { return __mode === 'web' ? __web : __device; }
@@ -165,7 +165,7 @@ html = f"""<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Wein- &amp; Bier-App · Klick-Prototyp</title>
+<title>TastingPath · Klick-Prototyp</title>
 <style>
 {font_css}
 html, body {{ margin: 0; height: 100%; overflow: hidden; background: #E9E2DA; -webkit-text-size-adjust: 100%; }}
@@ -184,7 +184,7 @@ button {{ -webkit-appearance: none; appearance: none; margin: 0; -webkit-tap-hig
 <body>
 <div id="stage"><div id="device"></div></div>
 <div id="web"></div>
-<button type="button" id="toWeb"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path></svg>Zur Web-Ansicht</button>
+<button type="button" id="toWeb"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path></svg>Web-Ansicht (später)</button>
 <template id="tpl-app">{app_markup}</template>
 <template id="tpl-web">{web_markup}</template>
 <script>

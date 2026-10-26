@@ -32,18 +32,18 @@ SCREENS = [
     ("Premium.dc.html", "8b · Premium", "paywall", "wein"),
     ("Essen.dc.html", "9 · Was passt zum Essen?", "food", "wein"),
     ("Abend.dc.html", "10 · Tasting-Abend: Flaschen wählen", "party", "wein"),
-    ("AbendTeilen.dc.html", "10b · Tasting-Abend: Freunde einladen", "party-share", "wein"),
+    ("AbendTeilen.dc.html", "10b · Tasting-Abend: Freunde einladen (später)", "party-share", "wein"),
     ("AbendBewerten.dc.html", "10c · Tasting-Abend: gemeinsam bewerten", "party-rate", "wein"),
     ("AbendRangliste.dc.html", "10d · Tasting-Abend: Rangliste", "party-result", "wein"),
-    ("Jahr.dc.html", "12 · Mein Jahr", "year", "wein"),
-    ("Teilen.dc.html", "13 · Als Karte teilen", "share", "wein"),
+    ("Jahr.dc.html", "12 · Mein Jahr (später)", "year", "wein"),
+    ("Teilen.dc.html", "13 · Als Karte teilen (später)", "share", "wein"),
     ("Lernen.dc.html", "14 · Lernen und Abzeichen", "learn", "wein"),
     ("NasenTraining.dc.html", "14b · Nasen-Training", "train", "wein"),
-    ("Karte.dc.html", "15 · Karte der Herkunft", "map", "wein"),
+    ("Karte.dc.html", "15 · Karte der Herkunft (später)", "map", "wein"),
 ]
-PALS = [("Kellerei", "Warmes Creme mit Bordeaux und Bernstein", True),
+PALS = [("Kellerei", "Warmes Creme mit Bordeaux und Bernstein", False),
         ("Schiefer", "Kühles Grau mit Pflaume und Kupfer", False),
-        ("Landgut", "Heller Sand mit Weinrose und Hopfengrün", False)]
+        ("Landgut", "Heller Sand mit Weinrose und Hopfengrün", True)]
 
 
 def page(title, w, h, body):
@@ -86,7 +86,7 @@ for i, sc in enumerate(SCREENS):
     open(os.path.join(OUT, f), "w", encoding="utf-8").write(page(title.split(" · ", 1)[1], 390, 844, body))
     boards[f] = {"x": i * 470, "y": 0, "w": 390, "h": 844, "title": title, "is_interactive": True}
     order.append(f)
-boards["Web.dc.html"] = {"x": 0, "y": 1324, "w": 1440, "h": 900, "title": "0b · Web-Ansicht am Rechner (Premium)", "is_interactive": True, "expand": "fill"}
+boards["Web.dc.html"] = {"x": 0, "y": 1324, "w": 1440, "h": 900, "title": "0b · Web-Ansicht am Rechner (Premium, später)", "is_interactive": True, "expand": "fill"}
 order.append("Web.dc.html")
 for i, (pal, sub, current) in enumerate(PALS):
     cells = ""
@@ -105,8 +105,8 @@ cells = ""
 for world in ("wein", "bier"):
     for ds, label in (("standard", "Standard"), ("kraeftig", "Kräftig"), ("kerze", "Kerzenlicht"), ("tief", "Tiefschwarz")):
         cap = ("Wein" if world == "wein" else "Bier") + " · " + label
-        cells += f'<div style="display: flex; flex-direction: column; gap: 6px"><div style="width: 195px; height: 422px; overflow: hidden; border-radius: 18px; border: 1px solid #E3E3E3"><div style="width: 390px; height: 844px; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Prototyp" start="home" world="{world}" pal="Kellerei" look="dark" ds="{ds}" hint-size="390px,844px"></dc-import></div></div><span style="font-size: 13px; font-weight: 700; text-align: center">{cap}</span></div>'
-body = f'<div style="width: 880px; height: 1040px; box-sizing: border-box; padding: 28px; background: #FFFFFF; color: #1A1D21; font-family: \'Atkinson Hyperlegible\', sans-serif"><h1 style="margin: 0; font-size: 26px">Dunkel-Varianten (Kellerei)</h1><p style="margin: 4px 0 0; font-size: 15px; color: #4D535B">Standard, Kräftig, Kerzenlicht und Tiefschwarz, jeweils für Wein und Bier</p><div style="margin-top: 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">{cells}</div></div>'
+        cells += f'<div style="display: flex; flex-direction: column; gap: 6px"><div style="width: 195px; height: 422px; overflow: hidden; border-radius: 18px; border: 1px solid #E3E3E3"><div style="width: 390px; height: 844px; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Prototyp" start="home" world="{world}" pal="Landgut" look="dark" ds="{ds}" hint-size="390px,844px"></dc-import></div></div><span style="font-size: 13px; font-weight: 700; text-align: center">{cap}</span></div>'
+body = f'<div style="width: 880px; height: 1040px; box-sizing: border-box; padding: 28px; background: #FFFFFF; color: #1A1D21; font-family: \'Atkinson Hyperlegible\', sans-serif"><h1 style="margin: 0; font-size: 26px">Dunkel-Varianten (Landgut, entschieden: Tiefschwarz)</h1><p style="margin: 4px 0 0; font-size: 15px; color: #4D535B">Standard, Kräftig, Kerzenlicht und Tiefschwarz, jeweils für Wein und Bier</p><div style="margin-top: 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">{cells}</div></div>'
 open(os.path.join(OUT, "Farben-Dunkel.dc.html"), "w", encoding="utf-8").write(page("Dunkel-Varianten", 880, 1040, body))
 boards["Farben-Dunkel.dc.html"] = {"x": 2880, "y": 2548, "w": 880, "h": 1040, "title": "Farben · Dunkel-Varianten"}
 order.append("Farben-Dunkel.dc.html")

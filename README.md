@@ -1,10 +1,10 @@
-# Wein- & Bier-App · Klick-Prototyp
+# TastingPath · Klick-Prototyp
 
-Ein klickbarer Prototyp der Wein- & Bier-App. Er zeigt den Weg vom ersten Start über das geführte Tasting bis zum Notizbuch, zum eigenen Geschmacksprofil und zum Abo. Ein Schalter oben wechselt zwischen Wein und Bier.
+Ein klickbarer Prototyp von TastingPath, der Wein- und Bier-App. Er zeigt den Umfang von Version 1: vom ersten Start über die Vorbereitung und das geführte Tasting bis zum Notizbuch mit Keller und Merkliste, zum Geschmacksprofil, zum Tasting-Abend und zum Abo. Ein Schalter oben wechselt zwischen Wein und Bier, alkoholfreie Getränke findet man über den Filter „Alkoholfrei“.
 
-Zum Ausprobieren einfach die Seite öffnen: https://glumf.github.io/Tasting-Prototyp/ Am Handy läuft die App-Ansicht im Vollbild. Am Computer öffnet sich die Web-Ansicht für Premium-Nutzer. Über „App-Ansicht“ oben rechts sieht man dort auch die App in einem Handy-Rahmen. Mit `?app` am Ende der Adresse zeigt die Seite immer die App.
+Zum Ausprobieren einfach die Seite öffnen: https://glumf.github.io/Tasting-Prototyp/ Am Handy läuft die App im Vollbild, am Computer in einem Handy-Rahmen. Die Web-Ansicht für Premium-Nutzer kommt erst nach Version 1. Man sieht sie über den Knopf oben rechts oder mit `?web` am Ende der Adresse.
 
-App-Name, Hersteller, Preise und Texte sind Platzhalter.
+Hersteller, Preise und Texte sind Platzhalter. Bereiche für später (Karte der Herkunft, Mein Jahr, Als Karte teilen, Abend teilen) stecken noch im Code, sind in Version 1 aber ausgeblendet.
 
 ## Was wo liegt
 
@@ -36,4 +36,4 @@ Bilder für die Doku (braucht Playwright mit Chromium):
 python3 render.py ../index.html bilder
 ```
 
-Einen bestimmten Zustand direkt öffnen, zum Beispiel für Bilder: `index.html?app&screen=step2&world=bier&pal=Schiefer&look=dark`.
+Einen bestimmten Zustand direkt öffnen, zum Beispiel für Bilder: `index.html?screen=step2&world=bier&level=Erfahren&look=dark`.

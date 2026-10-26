@@ -23,7 +23,7 @@ a{color:inherit}
       <sc-if value="{{is.wein}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-.6 5.5a4.4 4.4 0 0 1-8.8 0z"></path><path d="M12 13v8"></path><path d="M8 21h8"></path></svg></sc-if>
       <sc-if value="{{is.bier}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.onPrimary}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path d="M15 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path><path d="M5 8a3 3 0 0 1 5-2 3 3 0 0 1 5 2"></path></svg></sc-if>
     </span>
-    <span style="font-weight: 700; font-size: 15px">[App-Name]</span>
+    <span style="font-weight: 700; font-size: 15px">TastingPath</span>
   </div>
   <div role="group" aria-label="Wein oder Bier" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; width: 150px; padding: 3px; border-radius: 14px; background: {{c.seg}}">
     <button type="button" aria-pressed="{{pressWein}}" onClick="{{toWein}}" style="font: inherit; font-size: 15px; height: 38px; border: 0; border-radius: 11px; cursor: pointer; {{segWein}}">Wein</button>
@@ -39,7 +39,7 @@ a{color:inherit}
       <span style="width: 64px; height: 64px; border-radius: 32px; background: {{cw.primary}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-.6 5.5a4.4 4.4 0 0 1-8.8 0z"></path><path d="M12 13v8"></path><path d="M8 21h8"></path></svg></span>
       <span style="width: 64px; height: 64px; border-radius: 32px; background: {{cb.primary}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path d="M15 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path><path d="M5 8a3 3 0 0 1 5-2 3 3 0 0 1 5 2"></path></svg></span>
     </div>
-    <span style="margin-top: 24px; font-size: 15px; font-weight: 700; color: {{c.muted}}">[App-Name]</span>
+    <span style="margin-top: 24px; font-size: 15px; font-weight: 700; color: {{c.muted}}">TastingPath</span>
     <h1 style="margin: 6px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 38px; line-height: 44px">Schmecken lernen, Schluck für Schluck.</h1>
     <p style="margin: 14px 0 0; font-size: 17px; line-height: 26px; color: {{c.muted}}">Halte fest, was dir schmeckt, lass dich durch Verkostungen führen und entdecke, was dir als Nächstes gefallen könnte. Für Wein und Bier.</p>
     <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px">
@@ -57,7 +57,7 @@ a{color:inherit}
 <sc-if value="{{is.onboard}}" hint-placeholder-val="{{ false }}">
 <div style="flex: 1; min-height: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column">
   <div style="display: flex; align-items: center; justify-content: space-between; height: 32px">
-    <span style="font-weight: 700; font-size: 15px">[App-Name]</span>
+    <span style="font-weight: 700; font-size: 15px">TastingPath</span>
     <span style="font-size: 14px; color: {{c.muted}}">Frage {{quizNo}} von 4</span>
   </div>
   <h1 style="margin: 16px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 28px; line-height: 34px">Wie gut kennst du dich aus?</h1>
@@ -87,7 +87,7 @@ a{color:inherit}
     <button type="button" onClick="{{openQuick}}" style="font: inherit; text-align: left; display: flex; flex-direction: column; gap: 6px; padding: 16px; min-height: 116px; border-radius: 20px; border: 1.5px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg><span style="margin-top: auto; font-weight: 700; font-size: 18px">Schnell notieren</span><span style="font-size: 13px; line-height: 17px; color: {{c.muted}}">Foto, Sterne, fertig</span></button>
   </div>
   <sc-if value="{{is.free}}" hint-placeholder-val="{{ true }}">
-  <button type="button" onClick="{{openPay}}" style="margin-top: 10px; width: 100%; font: inherit; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: 16px; border: 1.5px dashed {{c.primary}}; background: {{c.soft}}; color: {{c.ink}}; cursor: pointer"><span style="font-size: 14px; text-align: left">Ohne Werbung, mit Cloud und Web-Ansicht</span><span style="flex: none; font-weight: 700; font-size: 14px; color: {{c.primaryText}}">Premium holen</span></button>
+  <button type="button" onClick="{{openPay}}" style="margin-top: 10px; width: 100%; font: inherit; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: 16px; border: 1.5px dashed {{c.primary}}; background: {{c.soft}}; color: {{c.ink}}; cursor: pointer"><span style="font-size: 14px; text-align: left">Ohne Werbung und mit Cloud-Sync</span><span style="flex: none; font-weight: 700; font-size: 14px; color: {{c.primaryText}}">Premium holen</span></button>
   </sc-if>
 
   <h2 style="margin: 22px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Entdecken</h2>
@@ -156,11 +156,14 @@ a{color:inherit}
       </sc-if>
       <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Oder aus der Liste wählen</h2>
       <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-radius: 14px; background: {{c.surface}}; border: 1px solid {{c.border}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><span style="font-size: 15px; color: {{c.muted}}">{{D.searchHint}}</span></div>
+      <div role="group" aria-label="Filter" style="margin-top: 10px; display: flex; gap: 8px">
+        <sc-for list="{{bFilters}}" as="f" hint-placeholder-count="2"><button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="font: inherit; font-size: 14px; height: 40px; padding: 0 14px; border-radius: 20px; cursor: pointer; {{f.st}}">{{f.label}}</button></sc-for>
+      </div>
       <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
         <sc-for list="{{bottles}}" as="b" hint-placeholder-count="3">
         <button type="button" onClick="{{b.start}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer">
           <span style="flex: none; width: 44px; height: 52px; border-radius: 10px; background: {{c.seg}}; display: flex; align-items: flex-end; justify-content: center"><svg aria-hidden="true" width="26" height="44" viewBox="0 0 60 100"><path d="{{bottlePath}}" fill="{{b.hex}}"></path></svg></span>
-          <span style="flex: 1; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">{{b.name}}</span><span style="font-size: 13px; color: {{c.muted}}">{{b.maker}} · {{b.meta}}</span></span>
+          <span style="flex: 1; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">{{b.name}}</span><span style="font-size: 13px; color: {{c.muted}}">{{b.maker}} · {{b.meta}}</span></span><sc-if value="{{b.af}}" hint-placeholder-val="{{ false }}"><span style="flex: none; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 8px; background: {{c.soft}}; color: {{c.primaryText}}">0,0</span></sc-if>
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
         </button>
         </sc-for>
@@ -399,7 +402,7 @@ a{color:inherit}
   </div>
   <div style="flex: none; padding: 10px 20px 20px; border-top: 1px solid {{c.border}}">
     <button type="button" onClick="{{saveTasting}}" style="width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Im Notizbuch speichern</button>
-    <button type="button" onClick="{{openShareResult}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 15px; height: 44px; border: 0; background: transparent; color: {{c.primaryText}}; cursor: pointer">Als Karte teilen</button>
+<sc-if value="{{later}}" hint-placeholder-val="{{ false }}">    <button type="button" onClick="{{openShareResult}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 15px; height: 44px; border: 0; background: transparent; color: {{c.primaryText}}; cursor: pointer">Als Karte teilen</button></sc-if>
   </div>
 </div>
 </sc-if>
@@ -504,7 +507,7 @@ a{color:inherit}
       <sc-for list="{{E.traits}}" as="t" hint-placeholder-count="4"><div style="display: flex; justify-content: space-between; font-size: 15px; padding: 10px 0; border-bottom: 1px solid {{c.border}}"><span>{{t.label}}</span><span style="font-weight: 700">{{t.value}}</span></div></sc-for>
     </div>
     <button type="button" onClick="{{E.again}}" style="margin-top: 18px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Nochmal verkosten</button>
-    <button type="button" onClick="{{openShareEntry}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Als Karte teilen</button>
+<sc-if value="{{later}}" hint-placeholder-val="{{ false }}">    <button type="button" onClick="{{openShareEntry}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.border}}; background: transparent; color: {{c.ink}}; cursor: pointer">Als Karte teilen</button></sc-if>
   </div>
 </div>
 </sc-if>
@@ -566,21 +569,27 @@ a{color:inherit}
   </div>
   <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">„Automatisch“ folgt der Einstellung deines Handys.</span>
 
+  <sc-if value="{{later}}" hint-placeholder-val="{{ false }}">
   <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Dunkel-Stil (Vorschau)</h2>
   <div role="group" aria-label="Dunkel-Stil" style="margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}">
     <sc-for list="{{dsSeg}}" as="o" hint-placeholder-count="4"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for>
   </div>
   <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{dsHint}}</span>
 
+  </sc-if>
+
   <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Mehr</h2>
   <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px">
     <sc-for list="{{moreLinks}}" as="m" hint-placeholder-count="3"><button type="button" onClick="{{m.go}}" style="font: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 56px; border-radius: 16px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; cursor: pointer"><span style="flex: 1; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 15px">{{m.label}}</span><span style="font-size: 13px; color: {{c.muted}}">{{m.sub}}</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.muted}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button></sc-for>
   </div>
 
+  <sc-if value="{{later}}" hint-placeholder-val="{{ false }}">
   <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Farbwelt (Vorschau)</h2>
   <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
     <sc-for list="{{palSeg}}" as="o" hint-placeholder-count="3"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px; border-radius: 14px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{o.ring}}"><span style="display: flex"><span style="width: 22px; height: 22px; border-radius: 11px; background: {{o.a}}"></span><span style="width: 22px; height: 22px; margin-left: -6px; border-radius: 11px; background: {{o.b}}"></span></span>{{o.label}}</button></sc-for>
   </div>
+
+  </sc-if>
 
   <h2 style="margin: 20px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: {{c.muted}}">Sprachausgabe</h2>
   <div style="margin-top: 8px; border-radius: 16px; background: {{c.surface}}; border: 1px solid {{c.border}}">
@@ -649,9 +658,11 @@ a{color:inherit}
     <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">Blind oder offen?</h2>
     <div role="group" aria-label="Blind oder offen" style="margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}"><sc-for list="{{pBlindSeg}}" as="o" hint-placeholder-count="2"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for></div>
     <span style="display: block; margin-top: 6px; font-size: 13px; color: {{c.muted}}">{{pBlindHint}}</span>
+    <sc-if value="{{later}}" hint-placeholder-val="{{ false }}">
     <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">Wie wird bewertet?</h2>
     <div role="group" aria-label="Wie wird bewertet?" style="margin-top: 8px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 14px; background: {{c.seg}}"><sc-for list="{{pModeSeg}}" as="o" hint-placeholder-count="2"><button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 15px; height: 44px; border: 0; border-radius: 10px; cursor: pointer; {{o.st}}">{{o.label}}</button></sc-for></div>
     <span style="display: block; margin-top: 6px; font-size: 13px; line-height: 18px; color: {{c.muted}}">{{pModeHint}}</span>
+    </sc-if>
     <div style="margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: {{c.soft}}; font-size: 14px; line-height: 20px">Kleine Schlucke, Wasser bereitstellen, und wer fährt, probiert nur. Ausspucken ist bei Profis ganz normal.</div>
     <sc-if value="{{is.pErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="display: block; margin-top: 10px; font-size: 13px; color: {{c.danger}}">{{pErrText}}</span></sc-if>
     <button type="button" onClick="{{pStart}}" style="margin-top: 16px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">{{pStartLabel}}</button>
@@ -762,7 +773,7 @@ a{color:inherit}
       <div style="padding: 14px; border-radius: 18px; background: {{c.surface}}; border: 1px solid {{c.border}}"><span style="font-size: 13px; color: {{c.muted}}">Herkunft</span><sc-for list="{{Y.regions}}" as="t" hint-placeholder-count="3"><span style="display: block; margin-top: 4px; font-weight: 700; font-size: 15px">{{t}}</span></sc-for></div>
     </div>
     <p style="margin: 16px 0 0; font-family: 'Fraunces', serif; font-weight: 600; font-size: 19px; line-height: 26px">{{Y.line}}</p>
-    <button type="button" onClick="{{goMapFromYear}}" style="margin-top: 16px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Auf der Karte ansehen</button>
+<sc-if value="{{later}}" hint-placeholder-val="{{ false }}">    <button type="button" onClick="{{goMapFromYear}}" style="margin-top: 16px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border-radius: 25px; border: 1.5px solid {{c.primary}}; background: transparent; color: {{c.primaryText}}; cursor: pointer">Auf der Karte ansehen</button></sc-if>
     <button type="button" onClick="{{yShare}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 16px; height: 50px; border: 0; border-radius: 25px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Rückblick teilen</button>
   </div>
 </div>
@@ -938,7 +949,7 @@ a{color:inherit}
         <span style="display: block; font-size: 13px; opacity: 0.85">{{SC.maker}}</span>
         <span style="display: block; margin-top: 6px; font-size: 18px; letter-spacing: 2px">{{SC.on}}<span style="opacity: 0.35">{{SC.off}}</span></span>
         <span style="display: block; margin-top: 6px; font-size: 13px; line-height: 18px">{{SC.note}}</span>
-        <span style="display: block; margin-top: 12px; font-size: 12px; font-weight: 700; opacity: 0.85">[App-Name]</span>
+        <span style="display: block; margin-top: 12px; font-size: 12px; font-weight: 700; opacity: 0.85">TastingPath</span>
       </div>
       </sc-if>
       <sc-if value="{{is.shareYear}}" hint-placeholder-val="{{ false }}">
@@ -947,7 +958,7 @@ a{color:inherit}
         <span style="display: block; margin-top: 4px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 56px; line-height: 60px">{{Y.total}}</span>
         <span style="display: block; font-size: 15px">Verkostungen, {{Y.fresh}} neue Sorten</span>
         <sc-for list="{{Y.top}}" as="t" hint-placeholder-count="3"><span style="display: block; margin-top: 6px; font-weight: 700; font-size: 15px">{{t}}</span></sc-for>
-        <span style="display: block; margin-top: 14px; font-size: 12px; font-weight: 700; opacity: 0.85">[App-Name]</span>
+        <span style="display: block; margin-top: 14px; font-size: 12px; font-weight: 700; opacity: 0.85">TastingPath</span>
       </div>
       </sc-if>
     </div>
@@ -965,7 +976,7 @@ a{color:inherit}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["welcome","onboard","home","begin","step1","step2","step2-kurz","step3","step4","step5","prep","result","journal","detail","taste","profile","paywall","quick","food","party","party-rate","party-share","party-result","cellar","merk","train","map","year","share","learn"],"default":"welcome"},"world":{"editor":"enum","options":["wein","bier"],"default":"wein"},"pal":{"editor":"enum","options":["Kellerei","Schiefer","Landgut"],"default":"Kellerei"},"look":{"editor":"enum","options":["auto","light","dark"],"default":"auto"},"ds":{"editor":"enum","options":["standard","kraeftig","kerze","tief"],"default":"standard"},"level":{"editor":"enum","options":["Einsteiger","Erfahren","Profi"],"default":"Einsteiger"},"$preview":{"width":390,"height":844}}'>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["welcome","onboard","home","begin","step1","step2","step2-kurz","step3","step4","step5","prep","result","journal","detail","taste","profile","paywall","quick","food","party","party-rate","party-share","party-result","cellar","merk","train","map","year","share","learn"],"default":"welcome"},"world":{"editor":"enum","options":["wein","bier"],"default":"wein"},"pal":{"editor":"enum","options":["Kellerei","Schiefer","Landgut"],"default":"Landgut"},"look":{"editor":"enum","options":["auto","light","dark"],"default":"auto"},"ds":{"editor":"enum","options":["standard","kraeftig","kerze","tief"],"default":"tief"},"level":{"editor":"enum","options":["Einsteiger","Erfahren","Profi"],"default":"Einsteiger"},"$preview":{"width":390,"height":844}}'>
 // DATEN-ANFANG (gemeinsam mit Web.dc.html, Abgleich mit werkzeuge/daten_abgleichen.py)
 var PALETTES = {
   'Kellerei': {
@@ -1307,6 +1318,22 @@ var MAP_LAND = [
   [[-6.0, 53.0], [-6.2, 54.0], [-5.6, 54.6], [-6.3, 55.2], [-7.4, 55.4], [-8.3, 55.2], [-8.6, 54.3], [-10.0, 54.2], [-9.9, 53.4], [-9.4, 52.6], [-10.0, 52.1], [-9.8, 51.5], [-8.4, 51.6], [-6.4, 52.2]]
 ];
 var MAP_LABELS = [['Deutschland', 10.0, 51.4], ['Frankreich', 2.4, 47.2], ['Spanien', -4.6, 41.7], ['Österreich', 13.4, 46.9], ['Italien', 11.6, 44.6], ['Irland', -8.5, 52.7], ['Großbritannien', -2.8, 55.4], ['Polen', 18.0, 52.4]];
+// Alkoholfrei: steht bei den normalen Weinen und Bieren, ein Filter zeigt nur sie
+W.wein.bottles.push(
+  { id: 'w7', name: 'Riesling alkoholfrei', maker: '[Weingut]', meta: 'Entalkoholisiert · Weißwein', color: 0, af: true, groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Zitrone', 'Apfel'], typ: { sweet: 2, acid: 4, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Bei entalkoholisiertem Wein wird der Alkohol nach der Gärung schonend entzogen. Dabei gehen meist auch etwas Körper und Aroma verloren.' },
+  { id: 'w8', name: 'Sekt alkoholfrei', maker: '[Sektkellerei]', meta: 'Entalkoholisiert · Schaumwein', color: 0, af: true, groups: ['Gelbe Frucht', 'Blüten'], aromas: ['Apfel', 'Birne', 'Holunder'], typ: { sweet: 3, acid: 3, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Viele alkoholfreie Sekte bekommen etwas Traubensaft oder Zucker, damit sie runder schmecken. Ein Blick auf das Etikett lohnt sich.' }
+);
+W.bier.bottles.push(
+  { id: 'b7', name: 'Pils alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Untergärig', color: 0, af: true, groups: ['Kräuter und Gras', 'Getreide und Brot'], aromas: ['Gras', 'Brot', 'Honig'], typ: { bitter: 3, malt: 3, acid: 1, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Alkoholfreies Bier darf in Deutschland bis zu 0,5 Prozent Alkohol haben. Steht 0,0 auf dem Etikett, ist praktisch keiner drin.' },
+  { id: 'b8', name: 'Weizen alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Obergärig', color: 1, af: true, groups: ['Banane und Nelke', 'Getreide und Brot'], aromas: ['Banane', 'Nelke', 'Brot'], typ: { bitter: 1, malt: 3, acid: 2, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Viele alkoholfreie Weizen werden normal gebraut, danach wird der Alkohol entzogen. Banane und Nelke von der Hefe bleiben dabei oft gut erhalten.' }
+);
+W.wein.prep.w7 = [8, 10, 'Weißweinglas', 'Gut gekühlt einschenken, dann wirkt er frischer.'];
+W.wein.prep.w8 = [6, 8, 'Sektglas oder Weißweinglas', 'Ein Weißweinglas zeigt die Aromen oft besser als eine schmale Sektflöte.'];
+W.bier.prep.b7 = [6, 8, 'Pilstulpe', 'Glas vorher kalt ausspülen, dann hält der Schaum besser.'];
+W.bier.prep.b8 = [7, 9, 'Weizenglas', 'Den Rest in der Flasche schwenken und zum Schluss dazugießen.'];
+W.wein.journal.push({ name: 'Riesling alkoholfrei', maker: '[Weingut]', stars: 3, face: 'Okay', date: '13. Sep.', color: 0, af: true, note: 'Erstaunlich frisch, aber etwas dünn.', ax: { sweet: 2, acid: 4, tannin: 1, body: 1, orig: 3 }, len: 'Kurz' });
+W.bier.journal.push({ name: 'Weizen alkoholfrei', maker: '[Brauerei]', stars: 4, face: 'Nochmal', date: '21. Sep.', color: 1, af: true, note: 'Kaum ein Unterschied zum normalen Weizen.', ax: { bitter: 1, malt: 3, acid: 2, body: 2, orig: 4 }, fizz: 'Viel', len: 'Kurz' });
+var AXIS_ORIG = { k: 'orig', label: 'Wie nah am Original?', lo: 'ganz anders', hi: 'wie mit Alkohol' };
 function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
 function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
 function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }
@@ -1319,12 +1346,12 @@ class Component extends DCLogic {
     var p = props || {};
     var w = p.world === 'bier' ? 'bier' : 'wein';
     this.state = {
-      screen: 'welcome', world: w, pal: PALETTES[p.pal] ? p.pal : 'Kellerei', look: (p.look === 'light' || p.look === 'dark') ? p.look : 'auto',
+      screen: 'welcome', world: w, pal: PALETTES[p.pal] ? p.pal : 'Landgut', look: (p.look === 'light' || p.look === 'dark') ? p.look : 'auto',
       level: 'Einsteiger', premium: p.premium === true || p.premium === 'true', quizIdx: 0, quiz: {}, ageOk: false, ageErr: false,
       step: 0, bottle: W[w].bottles[0].id, sel: emptySel(), beginTab: 'own', recognized: false, sheet: '',
       quick: { stars: 0, face: '', photo: false }, quickErr: false, plan: 'year',
       jw: seed('wein'), jb: seed('bier'), detail: '', view: 'grid', filter: 'Alle', toast: '', speaking: false, timer: false,
-      ds: ['kraeftig', 'kerze', 'tief'].indexOf(p.ds) >= 0 ? p.ds : 'standard',
+      ds: ['standard', 'kraeftig', 'kerze'].indexOf(p.ds) >= 0 ? p.ds : 'tief', bfilter: 'Alle',
       food: -1, back: 'home', share: '', whyOpen: null, prepChk: {}, jtab: 'done', train: 0, mapSel: -1,
       merk: { wein: W.wein.merk.slice(), bier: W.bier.merk.slice() },
       cellar: { wein: W.wein.cellar.slice(), bier: W.bier.cellar.slice() },
@@ -1441,7 +1468,7 @@ class Component extends DCLogic {
     var starStr = function (n) { return { on: '★★★★★'.slice(0, n), off: '★★★★★'.slice(0, 5 - n) }; };
     var B = bottleOf(w, s.bottle);
     var bHex = function (b) { return D.colors[Math.max(0, b.color)][1]; };
-    var bottleVm = function (b) { return { name: b.name, maker: b.maker, meta: b.meta, hex: bHex(b), tag: b.tag, why: b.why, fact: b.fact, start: function () { self.startWith(b.id); } }; };
+    var bottleVm = function (b) { return { id: b.id, af: !!b.af, name: b.name, maker: b.maker, meta: b.meta, hex: bHex(b), tag: b.tag, why: b.why, fact: b.fact, start: function () { self.startWith(b.id); } }; };
     var jKey = this.journalKey();
     var journal = s[jKey];
     var entryVm = function (e) {
@@ -1461,9 +1488,11 @@ class Component extends DCLogic {
       sheetQuick: s.sheet === 'quick', sheetPay: s.sheet === 'pay', toast: !!s.toast
     };
     is.main = is.home || is.journal || is.taste || is.profile;
+    var LATER = false;
     is.ad = is.main && !s.premium && (is.home || is.journal);
 
     var vals = {
+      later: LATER,
       s: s, c: c, is: is, D: D, B: bottleVm(B), cw: P.wein[mode], cb: P.bier[mode],
       bottlePath: w === 'wein' ? PATH_WINE : PATH_BEER,
       pressWein: pr(is.wein), pressBier: pr(is.bier), segWein: seg(is.wein), segBier: seg(is.bier),
@@ -1504,7 +1533,8 @@ class Component extends DCLogic {
     vals.snap = function () { self.setState({ recognized: true }); };
     vals.unsnap = function () { self.setState({ recognized: false }); };
     vals.snapB = bottleVm(D.bottles[0]);
-    vals.bottles = D.bottles.map(bottleVm);
+    vals.bFilters = ['Alle', 'Alkoholfrei'].map(function (f) { var on = s.bfilter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ bfilter: f }); } }; });
+    vals.bottles = D.bottles.filter(function (b) { return s.bfilter !== 'Alkoholfrei' || b.af; }).map(bottleVm);
     vals.recs = D.recs.map(bottleVm);
 
     // Step
@@ -1581,7 +1611,7 @@ class Component extends DCLogic {
     var info = lastG ? D.aromaInfo[lastG] : null;
     if (info) vals.aromaCount += ' · Erklärung unten';
     vals.merke = { has: !!info, none: !info, show: einst || !!info, title: lastG, smell: info ? info[0] : '', from: info ? info[1] : '', merk: info ? info[2] : '' };
-    vals.axes = D.axes.map(function (ax) { return { label: ax.label, lo: ax.lo, hi: ax.hi, opts: [1, 2, 3, 4, 5].map(function (n) { var on = sel.ax[ax.k] === n; return { n: n, aria: ax.label + ' ' + n + ' von 5', pressed: pr(on), st: chip(on), pick: function () { var a = Object.assign({}, sel.ax); a[ax.k] = n; setSel({ ax: a }); } }; }) }; });
+    vals.axes = (B.af ? D.axes.concat([AXIS_ORIG]) : D.axes).map(function (ax) { return { label: ax.label, lo: ax.lo, hi: ax.hi, opts: [1, 2, 3, 4, 5].map(function (n) { var on = sel.ax[ax.k] === n; return { n: n, aria: ax.label + ' ' + n + ' von 5', pressed: pr(on), st: chip(on), pick: function () { var a = Object.assign({}, sel.ax); a[ax.k] = n; setSel({ ax: a }); } }; }) }; });
     vals.finRows = D.finRows.map(function (r) { return { label: r.label, opts: r.opts.map(function (o) { var on = sel.fin[r.k] === o; return { label: o, pressed: pr(on), st: chip(on), pick: function () { var f = Object.assign({}, sel.fin); f[r.k] = o; setSel({ fin: f }); } }; }) }; });
     var mkStars = function (cur, pick) { return [1, 2, 3, 4, 5].map(function (n) { var on = n <= cur; return { aria: n + (n === 1 ? ' Stern' : ' Sterne'), pressed: pr(n === cur), fill: on ? c.star : 'none', stroke: on ? c.star : c.off, pick: function () { pick(n); } }; }); };
     vals.stars = mkStars(sel.stars, function (n) { setSel({ stars: n }); });
@@ -1640,7 +1670,7 @@ class Component extends DCLogic {
     vals.resStars = starStr(sel.stars);
     vals.backToVerdict = function () { self.setState({ screen: 'step', step: 4 }); };
     vals.saveTasting = function () {
-      var e = { id: w + '-n' + Date.now(), name: B.name, maker: B.maker, stars: sel.stars || 3, face: sel.face || 'Okay', date: 'Heute', color: sel.color >= 0 ? sel.color : B.color, note: '', ax: Object.assign({}, sel.ax), len: sel.fin.len || '', fizz: sel.fin.fizz || '' };
+      var e = { id: w + '-n' + Date.now(), af: !!B.af, name: B.name, maker: B.maker, stars: sel.stars || 3, face: sel.face || 'Okay', date: 'Heute', color: sel.color >= 0 ? sel.color : B.color, note: '', ax: Object.assign({}, sel.ax), len: sel.fin.len || '', fizz: sel.fin.fizz || '' };
       var patch = { screen: 'journal', sel: emptySel(), filter: 'Alle' };
       patch[jKey] = [e].concat(journal);
       self.setState(patch);
@@ -1648,12 +1678,12 @@ class Component extends DCLogic {
     };
 
     // Journal
-    var fl = journal.filter(function (e) { return s.filter === 'Alle' || (s.filter === '4+ Sterne' && e.stars >= 4) || (s.filter === 'Nochmal' && e.face === 'Nochmal'); });
+    var fl = journal.filter(function (e) { return s.filter === 'Alle' || (s.filter === '4+ Sterne' && e.stars >= 4) || (s.filter === 'Nochmal' && e.face === 'Nochmal') || (s.filter === 'Alkoholfrei' && e.af); });
     vals.entries = fl.map(entryVm);
     is.noEntries = fl.length === 0;
     vals.journalLen = journal.length;
     vals.journalCount = journal.length + (journal.length === 1 ? ' Verkostung' : ' Verkostungen');
-    vals.filters = ['Alle', '4+ Sterne', 'Nochmal'].map(function (f) { var on = s.filter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ filter: f }); } }; });
+    vals.filters = ['Alle', '4+ Sterne', 'Nochmal', 'Alkoholfrei'].map(function (f) { var on = s.filter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ filter: f }); } }; });
     vals.pressGrid = pr(is.gridView); vals.pressList = pr(is.listView); vals.segGrid = seg(is.gridView); vals.segList = seg(is.listView);
     vals.viewGrid = function () { self.setState({ view: 'grid' }); };
     vals.viewList = function () { self.setState({ view: 'list' }); };
@@ -1680,13 +1710,13 @@ class Component extends DCLogic {
     // Profile
     vals.aboTitle = s.premium ? 'Premium ist aktiv' : 'Kostenlose Version';
     vals.aboTag = s.premium ? 'Premium' : 'Gratis';
-    vals.aboText = s.premium ? 'Keine Werbung, Cloud-Sync auf allen Geräten und die Web-Ansicht am Rechner.' : 'Alles zum Lernen ist frei. Mit Premium ohne Werbung, mit Cloud-Sync und Web-Ansicht.';
+    vals.aboText = s.premium ? 'Keine Werbung und Cloud-Sync auf allen Geräten.' : 'Alles zum Lernen ist frei. Mit Premium ohne Werbung und mit Cloud-Sync.';
     vals.levelSeg = LEVELS.map(function (l) { var on = s.level === l.name; return { label: l.name, pressed: pr(on), st: seg(on), pick: function () { self.setState({ level: l.name }); } }; });
     vals.lookSeg = [['auto', 'Automatisch'], ['light', 'Hell'], ['dark', 'Dunkel']].map(function (o) { var on = s.look === o[0]; return { label: o[1], pressed: pr(on), st: seg(on), pick: function () { self.setState({ look: o[0] }); } }; });
     vals.palSeg = PAL_NAMES.map(function (nm) { var on = s.pal === nm; return { label: nm, pressed: pr(on), ring: ring(on), a: PALETTES[nm].wein[mode].primary, b: PALETTES[nm].bier[mode].primary, pick: function () { self.setState({ pal: nm }); } }; });
     vals.premiumVoice = s.premium ? 'Mit Premium enthalten, folgt später' : 'Mit Premium, folgt später';
     vals.syncText = s.premium ? 'An · alle Geräte sind auf dem gleichen Stand' : 'Mit Premium. Ohne Abo bleiben die Daten nur auf diesem Handy.';
-    vals.webText = s.premium ? 'Mit deinem Konto unter [Adresse] anmelden' : 'Mit Premium';
+    vals.webText = 'Folgt später für Premium';
     vals.sample = function () { if (!self.speak('Hallo, ich führe dich durch deine Verkostung. Halte das Glas schräg vor ein weißes Blatt.')) self.say('Hörprobe: Hier spricht die Stimme deines Handys.'); };
     vals.exportData = function () { self.say('Export als Datei (Vorschau)'); };
 
@@ -1704,7 +1734,7 @@ class Component extends DCLogic {
       self.setState(patch);
       self.say('Notiert');
     };
-    vals.perks = ['Keine Werbung', 'Cloud-Sync auf allen Geräten', 'Web-Ansicht am Rechner', 'Natürlichere Stimme (später)', 'Tasting-Abend und Weinkeller (später)'];
+    vals.perks = ['Keine Werbung', 'Cloud-Sync auf allen Geräten', 'Keller und Vorrat im Notizbuch', 'Web-Ansicht am Rechner (später)', 'Natürlichere Stimme (später)'];
     vals.plans = [['month', '[Preis]', 'pro Monat'], ['year', '[Preis]', 'pro Jahr']].map(function (o) { var on = s.plan === o[0]; return { price: o[1], label: o[2], pressed: pr(on), ring: ring(on), pick: function () { self.setState({ plan: o[0] }); } }; });
     vals.buy = function () { self.setState({ premium: true, sheet: '' }); self.say('Premium ist aktiv (Vorschau)'); };
 
@@ -1725,10 +1755,10 @@ class Component extends DCLogic {
       { label: 'Was passt zum Essen?', d: 'M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 1-3 4-3 7h3v11', go: vals.goFood },
       { label: 'Tasting-Abend', d: 'M4 3h6l-.5 4a2.5 2.5 0 0 1-5 0zM7 9.5V20M5 20h4M14 3h6l-.5 4a2.5 2.5 0 0 1-5 0zM17 9.5V20M15 20h4', go: vals.goParty },
       { label: 'Lernen und Nasen-Training', d: 'M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5', go: vals.goLearn },
-      { label: 'Karte der Herkunft', d: 'M9 4 3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14', go: vals.goMap },
+      { label: 'Karte der Herkunft', d: 'M9 4 3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14', go: vals.goMap, later: true },
       { label: 'Merkliste fürs Einkaufen', d: 'M6 3h12v18l-6-4-6 4z', go: vals.goMerk },
-      { label: 'Mein Jahr', d: 'M5 20V11M11 20V5M17 20v-8M3 20h18', go: vals.goYear }
-    ];
+      { label: 'Mein Jahr', d: 'M5 20V11M11 20V5M17 20v-8M3 20h18', go: vals.goYear, later: true }
+    ].filter(function (t) { return LATER || !t.later; });
     vals.tiles.forEach(function (t) { t.hasBadge = !!t.badge; });
 
     // Notizbuch: Verkostet, Keller oder Vorrat, Merkliste
@@ -1915,8 +1945,7 @@ class Component extends DCLogic {
     vals.dsHint = dark ? 'Gilt gerade, weil die Darstellung dunkel ist.' : 'Wirkt nur, wenn die Darstellung dunkel ist. Zum Ausprobieren oben „Dunkel“ wählen.';
     vals.moreLinks = [
       { label: 'Lernen und Nasen-Training', sub: vals.badgeCount, go: vals.goLearn },
-      { label: 'Mein Jahr', sub: D.year.total + ' Verkostungen', go: vals.goYear },
-      { label: 'Karte der Herkunft', sub: D.regions.length + ' Regionen', go: vals.goMap },
+
       { label: D.cellarTitle, sub: 'Im Notizbuch · mit Premium', go: vals.goCellar }
     ];
 
