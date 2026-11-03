@@ -301,7 +301,9 @@ var W = {
   wein: {
     label: 'Wein', homeTitle: 'Was trinkst du heute?', searchHint: 'Weingut, Rebsorte oder Name …', notePh: 'Zum Beispiel: passte gut zum Fisch',
     steps: ['Aussehen', 'Nase', 'Gaumen', 'Abgang', 'Fazit'],
-    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Rosé', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426']],
+    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Lachsrosa', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426'], ['Grünlich-gelb', '#E6E8A4'], ['Strohgelb', '#EAD27A'], ['Bernstein', '#C98A2E'], ['Blassrosa', '#F6CEC6'], ['Himbeerrosa', '#E0707E'], ['Zwiebelschale', '#E2A07E'], ['Purpur', '#5C1847'], ['Ziegelrot', '#8A3A2A'], ['Blassgelb', '#F3E7B4']],
+    // Welche Farben zu welchem Typ passen. Der Typ ergibt sich aus der Grundfarbe der Flasche.
+    shades: [{ name: 'Weißwein', of: [0, 1], set: [5, 0, 6, 1, 7] }, { name: 'Roséwein', of: [2], set: [8, 2, 9, 10] }, { name: 'Rotwein', of: [3, 4], set: [11, 3, 4, 12] }, { key: 'cider', name: 'Cider und Apfelwein', of: [13], set: [13, 6, 1, 7] }],
     lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Leicht trüb'] }],
     groups: ['Zitrus', 'Gelbe Frucht', 'Rote Beeren', 'Dunkle Beeren', 'Blüten', 'Kräuter', 'Würze', 'Holz und Röstnoten'],
     aromas: {
@@ -343,7 +345,8 @@ var W = {
   bier: {
     label: 'Bier', homeTitle: 'Was trinkst du heute?', searchHint: 'Brauerei, Bierstil oder Name …', notePh: 'Zum Beispiel: schön herb, gut zum Grillen',
     steps: ['Aussehen und Schaum', 'Aroma', 'Geschmack', 'Mundgefühl', 'Fazit'],
-    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C']],
+    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C'], ['Strohgelb', '#EBC85A'], ['Kupfer', '#A2481A'], ['Dunkelbraun', '#3E1E0E']],
+    shades: [{ name: 'helle Biere', of: [0, 1], set: [0, 5, 1] }, { name: 'bernsteinfarbene Biere', of: [2], set: [1, 2, 6] }, { name: 'dunkle Biere', of: [3, 4], set: [3, 7, 4] }],
     lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Hefetrüb'] }, { k: 'foam', label: 'Schaum', opts: ['Feinporig', 'Grob', 'Kaum'] }],
     groups: ['Getreide und Brot', 'Karamell', 'Röstnoten', 'Zitrus', 'Tropenfrucht', 'Banane und Nelke', 'Kräuter und Gras', 'Harz und Kiefer'],
     aromas: {
@@ -606,6 +609,14 @@ W.wein.bottles.push(
   { id: 'w7', name: 'Riesling alkoholfrei', maker: '[Weingut]', meta: 'Entalkoholisiert · Weißwein', color: 0, af: true, groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Zitrone', 'Apfel'], typ: { sweet: 2, acid: 4, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Bei entalkoholisiertem Wein wird der Alkohol nach der Gärung schonend entzogen. Dabei gehen meist auch etwas Körper und Aroma verloren.' },
   { id: 'w8', name: 'Sekt alkoholfrei', maker: '[Sektkellerei]', meta: 'Entalkoholisiert · Schaumwein', color: 0, af: true, groups: ['Gelbe Frucht', 'Blüten'], aromas: ['Apfel', 'Birne', 'Holunder'], typ: { sweet: 3, acid: 3, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Viele alkoholfreie Sekte bekommen etwas Traubensaft oder Zucker, damit sie runder schmecken. Ein Blick auf das Etikett lohnt sich.' }
 );
+// Cider und Apfelwein: in der Wein-Welt, eigener Filter
+W.wein.bottles.push(
+  { id: 'w9', name: 'Apfelwein', maker: '[Kelterei]', meta: 'Cider & Apfelwein · still', color: 13, shade: 'cider', groups: ['Gelbe Frucht', 'Zitrus'], aromas: ['Apfel', 'Zitrone', 'Heu'], typ: { sweet: 1, acid: 5, tannin: 2, body: 2 }, fin: { len: 'Kurz' }, fact: 'Apfelwein wird aus Äpfeln vergoren, so wie Wein aus Trauben. In Hessen trinkt man ihn traditionell aus dem „Gerippten“, einem Glas mit Rautenmuster.' },
+  { id: 'w10', name: 'Cider halbtrocken', maker: '[Cider-Hersteller]', meta: 'Cider & Apfelwein · spritzig', color: 6, shade: 'cider', groups: ['Gelbe Frucht', 'Blüten'], aromas: ['Apfel', 'Birne', 'Honig'], typ: { sweet: 3, acid: 3, tannin: 2, body: 2 }, fin: { len: 'Mittel' }, fact: 'Cider ist meist spritziger und oft etwas süßer als klassischer Apfelwein. Gerbstoffe aus herben Apfelsorten geben ihm eine leicht trockene Note.' }
+);
+W.wein.prep.w9 = [8, 12, 'Geripptes oder Weißweinglas', 'Nicht eiskalt trinken, sonst gehen die Apfelaromen unter.'];
+W.wein.prep.w10 = [6, 8, 'Weißweinglas', 'Frisch geöffnet einschenken, damit die Kohlensäure erhalten bleibt.'];
+W.wein.journal.push({ name: 'Apfelwein', maker: '[Kelterei]', stars: 4, face: 'Nochmal', date: '6. Sep.', color: 13, shade: 'cider', note: 'Herb und schön sauer, sehr erfrischend.', ax: { sweet: 1, acid: 5, tannin: 2, body: 2 }, len: 'Kurz' });
 W.bier.bottles.push(
   { id: 'b7', name: 'Pils alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Untergärig', color: 0, af: true, groups: ['Kräuter und Gras', 'Getreide und Brot'], aromas: ['Gras', 'Brot', 'Honig'], typ: { bitter: 3, malt: 3, acid: 1, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Alkoholfreies Bier darf in Deutschland bis zu 0,5 Prozent Alkohol haben. Steht 0,0 auf dem Etikett, ist praktisch keiner drin.' },
   { id: 'b8', name: 'Weizen alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Obergärig', color: 1, af: true, groups: ['Banane und Nelke', 'Getreide und Brot'], aromas: ['Banane', 'Nelke', 'Brot'], typ: { bitter: 1, malt: 3, acid: 2, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Viele alkoholfreie Weizen werden normal gebraut, danach wird der Alkohol entzogen. Banane und Nelke von der Hefe bleiben dabei oft gut erhalten.' }

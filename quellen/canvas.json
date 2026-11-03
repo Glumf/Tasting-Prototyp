@@ -178,8 +178,16 @@
       "title": "8 · Profil",
       "is_interactive": true
     },
-    "Premium.dc.html": {
+    "Anmelden.dc.html": {
       "x": 9400,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "8a · Anmelden (freiwillig, für Premium)",
+      "is_interactive": true
+    },
+    "Premium.dc.html": {
+      "x": 9870,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -187,7 +195,7 @@
       "is_interactive": true
     },
     "Essen.dc.html": {
-      "x": 9870,
+      "x": 10340,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -195,7 +203,7 @@
       "is_interactive": true
     },
     "Abend.dc.html": {
-      "x": 10340,
+      "x": 10810,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -203,7 +211,7 @@
       "is_interactive": true
     },
     "AbendTeilen.dc.html": {
-      "x": 10810,
+      "x": 11280,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -211,7 +219,7 @@
       "is_interactive": true
     },
     "AbendBewerten.dc.html": {
-      "x": 11280,
+      "x": 11750,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -219,7 +227,7 @@
       "is_interactive": true
     },
     "AbendTipp.dc.html": {
-      "x": 11750,
+      "x": 12220,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -227,7 +235,7 @@
       "is_interactive": true
     },
     "AbendRangliste.dc.html": {
-      "x": 12220,
+      "x": 12690,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -235,7 +243,7 @@
       "is_interactive": true
     },
     "Jahr.dc.html": {
-      "x": 12690,
+      "x": 13160,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -243,7 +251,7 @@
       "is_interactive": true
     },
     "Teilen.dc.html": {
-      "x": 13160,
+      "x": 13630,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -251,7 +259,7 @@
       "is_interactive": true
     },
     "Lernen.dc.html": {
-      "x": 13630,
+      "x": 14100,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -259,7 +267,7 @@
       "is_interactive": true
     },
     "NasenTraining.dc.html": {
-      "x": 14100,
+      "x": 14570,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -267,7 +275,7 @@
       "is_interactive": true
     },
     "Karte.dc.html": {
-      "x": 14570,
+      "x": 15040,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -334,6 +342,7 @@
     "Merkliste.dc.html",
     "Geschmack.dc.html",
     "Profil.dc.html",
+    "Anmelden.dc.html",
     "Premium.dc.html",
     "Essen.dc.html",
     "Abend.dc.html",
@@ -358,7 +367,7 @@
       "y": -300,
       "text": "Wein- & Bier-App · Klick-Prototyp und Hauptbildschirme",
       "kind": "title1",
-      "maxW": 15510
+      "maxW": 15980
     },
     "web": {
       "x": 0,

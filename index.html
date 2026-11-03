@@ -299,7 +299,7 @@ button { -webkit-appearance: none; appearance: none; margin: 0; -webkit-tap-high
     </div>
 
     <sc-if value="{{st.look}}" hint-placeholder-val="{{ true }}">
-      <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">Farbe</h2>
+      <h2 style="margin: 18px 0 0; font-size: 15px; font-weight: 700">{{colorHead}}</h2>
       <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
         <sc-for list="{{lookColors}}" as="o" hint-placeholder-count="5">
         <button type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}" style="font: inherit; font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px; border-radius: 14px; cursor: pointer; background: {{c.surface}}; color: {{c.ink}}; {{o.ring}}"><span style="width: 36px; height: 36px; border-radius: 18px; background: {{o.hex}}; border: 1px solid rgba(0, 0, 0, 0.12)"></span>{{o.label}}</button>
@@ -574,6 +574,12 @@ button { -webkit-appearance: none; appearance: none; margin: 0; -webkit-tap-high
 <sc-if value="{{is.profile}}" hint-placeholder-val="{{ false }}">
 <div style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 4px 20px 20px">
   <h1 style="margin: 8px 0 0; font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; line-height: 36px">Profil</h1>
+
+  <div style="margin-top: 12px; padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}; display: flex; align-items: center; gap: 12px">
+    <span aria-hidden="true" style="flex: none; width: 48px; height: 48px; border-radius: 24px; background: {{c.soft}}; color: {{c.primaryText}}; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px">{{acct.initial}}</span>
+    <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 16px">{{acct.title}}</span><span style="font-size: 13px; line-height: 18px; color: {{c.muted}}">{{acct.sub}}</span></span>
+    <button type="button" onClick="{{acct.act}}" style="flex: none; font: inherit; font-weight: 700; font-size: 14px; height: 40px; padding: 0 16px; border-radius: 20px; cursor: pointer; {{acct.st}}">{{acct.label}}</button>
+  </div>
 
   <div style="margin-top: 12px; padding: 16px; border-radius: 20px; background: {{c.surface}}; border: 1px solid {{c.border}}">
     <div style="display: flex; align-items: center; justify-content: space-between"><span style="font-weight: 700; font-size: 16px">{{aboTitle}}</span><span style="font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: {{c.soft}}; color: {{c.primaryText}}">{{aboTag}}</span></div>
@@ -939,6 +945,29 @@ button { -webkit-appearance: none; appearance: none; margin: 0; -webkit-tap-high
     </div>
     <sc-if value="{{s.quickErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="display: block; margin-top: 8px; font-size: 13px; color: {{c.danger}}">Bitte vergib mindestens einen Stern.</span></sc-if>
     <button type="button" onClick="{{saveQuick}}" style="margin-top: 14px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Speichern</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{is.sheetLogin}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: rgba(0, 0, 0, 0.45); display: flex; flex-direction: column; justify-content: flex-end">
+  <div role="dialog" aria-label="Anmelden" style="box-sizing: border-box; padding: 20px 20px 24px; border-radius: 28px 28px 0 0; background: {{c.bg}}">
+    <div style="display: flex; align-items: center; justify-content: space-between"><span style="font-family: 'Fraunces', serif; font-weight: 700; font-size: 26px">Anmelden</span><button type="button" aria-label="Schließen" onClick="{{closeSheet}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{c.surface}}; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+    <p style="margin: 4px 0 0; font-size: 15px; line-height: 22px; color: {{c.muted}}">{{loginIntro}}</p>
+    <sc-if value="{{is.loginPick}}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px">
+      <button type="button" onClick="{{loginApple}}" style="font: inherit; font-weight: 700; font-size: 16px; height: 52px; border: 0; border-radius: 26px; background: #000000; color: #FFFFFF; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.8-.8-3-.8C7 7.3 5.5 8.2 4.7 9.6c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 3 2.4 1.2 0 1.6-.8 3-.8s1.8.8 3 .8c1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7 0 0-2.6-1-2.7-4zM14.1 5.6c.6-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"></path></svg>Mit Apple anmelden</button>
+      <button type="button" onClick="{{loginGoogle}}" style="font: inherit; font-weight: 700; font-size: 16px; height: 52px; border: 1.5px solid {{c.border}}; border-radius: 26px; background: {{c.surface}}; color: {{c.ink}}; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><span aria-hidden="true" style="font-weight: 700; font-size: 18px; color: #4285F4">G</span>Mit Google anmelden</button>
+      <button type="button" onClick="{{loginMailStart}}" style="font: inherit; font-weight: 700; font-size: 16px; height: 52px; border: 1.5px solid {{c.border}}; border-radius: 26px; background: {{c.surface}}; color: {{c.ink}}; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{c.ink}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>Mit E-Mail anmelden</button>
+    </div>
+    </sc-if>
+    <sc-if value="{{is.loginMail}}" hint-placeholder-val="{{ false }}">
+    <label style="display: block; margin-top: 14px; font-weight: 700; font-size: 15px">E-Mail-Adresse
+      <input type="email" autocomplete="email" placeholder="name@beispiel.de" style="display: block; box-sizing: border-box; width: 100%; margin-top: 6px; height: 52px; padding: 0 14px; border-radius: 14px; border: 1.5px solid {{c.border}}; background: {{c.surface}}; color: {{c.ink}}; font: inherit; font-weight: 400; font-size: 16px"></label>
+    <button type="button" onClick="{{loginMailSend}}" style="margin-top: 12px; width: 100%; font: inherit; font-weight: 700; font-size: 17px; height: 54px; border: 0; border-radius: 27px; background: {{c.primary}}; color: {{c.onPrimary}}; cursor: pointer">Weiter (Vorschau)</button>
+    <button type="button" onClick="{{loginBack}}" style="margin-top: 8px; width: 100%; font: inherit; font-weight: 700; font-size: 15px; height: 46px; border: 0; background: transparent; color: {{c.primaryText}}; cursor: pointer">Andere Anmeldung wählen</button>
+    </sc-if>
+    <p style="margin: 14px 0 0; font-size: 13px; line-height: 19px; color: {{c.muted}}">Ohne Konto funktioniert alles auf diesem Handy. Mit dem Anmelden gelten [Nutzungsbedingungen] und [Datenschutzerklärung].</p>
   </div>
 </div>
 </sc-if>
@@ -1358,7 +1387,9 @@ var W = {
   wein: {
     label: 'Wein', homeTitle: 'Was trinkst du heute?', searchHint: 'Weingut, Rebsorte oder Name …', notePh: 'Zum Beispiel: passte gut zum Fisch',
     steps: ['Aussehen', 'Nase', 'Gaumen', 'Abgang', 'Fazit'],
-    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Rosé', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426']],
+    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Lachsrosa', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426'], ['Grünlich-gelb', '#E6E8A4'], ['Strohgelb', '#EAD27A'], ['Bernstein', '#C98A2E'], ['Blassrosa', '#F6CEC6'], ['Himbeerrosa', '#E0707E'], ['Zwiebelschale', '#E2A07E'], ['Purpur', '#5C1847'], ['Ziegelrot', '#8A3A2A'], ['Blassgelb', '#F3E7B4']],
+    // Welche Farben zu welchem Typ passen. Der Typ ergibt sich aus der Grundfarbe der Flasche.
+    shades: [{ name: 'Weißwein', of: [0, 1], set: [5, 0, 6, 1, 7] }, { name: 'Roséwein', of: [2], set: [8, 2, 9, 10] }, { name: 'Rotwein', of: [3, 4], set: [11, 3, 4, 12] }, { key: 'cider', name: 'Cider und Apfelwein', of: [13], set: [13, 6, 1, 7] }],
     lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Leicht trüb'] }],
     groups: ['Zitrus', 'Gelbe Frucht', 'Rote Beeren', 'Dunkle Beeren', 'Blüten', 'Kräuter', 'Würze', 'Holz und Röstnoten'],
     aromas: {
@@ -1400,7 +1431,8 @@ var W = {
   bier: {
     label: 'Bier', homeTitle: 'Was trinkst du heute?', searchHint: 'Brauerei, Bierstil oder Name …', notePh: 'Zum Beispiel: schön herb, gut zum Grillen',
     steps: ['Aussehen und Schaum', 'Aroma', 'Geschmack', 'Mundgefühl', 'Fazit'],
-    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C']],
+    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C'], ['Strohgelb', '#EBC85A'], ['Kupfer', '#A2481A'], ['Dunkelbraun', '#3E1E0E']],
+    shades: [{ name: 'helle Biere', of: [0, 1], set: [0, 5, 1] }, { name: 'bernsteinfarbene Biere', of: [2], set: [1, 2, 6] }, { name: 'dunkle Biere', of: [3, 4], set: [3, 7, 4] }],
     lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Hefetrüb'] }, { k: 'foam', label: 'Schaum', opts: ['Feinporig', 'Grob', 'Kaum'] }],
     groups: ['Getreide und Brot', 'Karamell', 'Röstnoten', 'Zitrus', 'Tropenfrucht', 'Banane und Nelke', 'Kräuter und Gras', 'Harz und Kiefer'],
     aromas: {
@@ -1663,6 +1695,14 @@ W.wein.bottles.push(
   { id: 'w7', name: 'Riesling alkoholfrei', maker: '[Weingut]', meta: 'Entalkoholisiert · Weißwein', color: 0, af: true, groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Zitrone', 'Apfel'], typ: { sweet: 2, acid: 4, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Bei entalkoholisiertem Wein wird der Alkohol nach der Gärung schonend entzogen. Dabei gehen meist auch etwas Körper und Aroma verloren.' },
   { id: 'w8', name: 'Sekt alkoholfrei', maker: '[Sektkellerei]', meta: 'Entalkoholisiert · Schaumwein', color: 0, af: true, groups: ['Gelbe Frucht', 'Blüten'], aromas: ['Apfel', 'Birne', 'Holunder'], typ: { sweet: 3, acid: 3, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Viele alkoholfreie Sekte bekommen etwas Traubensaft oder Zucker, damit sie runder schmecken. Ein Blick auf das Etikett lohnt sich.' }
 );
+// Cider und Apfelwein: in der Wein-Welt, eigener Filter
+W.wein.bottles.push(
+  { id: 'w9', name: 'Apfelwein', maker: '[Kelterei]', meta: 'Cider & Apfelwein · still', color: 13, shade: 'cider', groups: ['Gelbe Frucht', 'Zitrus'], aromas: ['Apfel', 'Zitrone', 'Heu'], typ: { sweet: 1, acid: 5, tannin: 2, body: 2 }, fin: { len: 'Kurz' }, fact: 'Apfelwein wird aus Äpfeln vergoren, so wie Wein aus Trauben. In Hessen trinkt man ihn traditionell aus dem „Gerippten“, einem Glas mit Rautenmuster.' },
+  { id: 'w10', name: 'Cider halbtrocken', maker: '[Cider-Hersteller]', meta: 'Cider & Apfelwein · spritzig', color: 6, shade: 'cider', groups: ['Gelbe Frucht', 'Blüten'], aromas: ['Apfel', 'Birne', 'Honig'], typ: { sweet: 3, acid: 3, tannin: 2, body: 2 }, fin: { len: 'Mittel' }, fact: 'Cider ist meist spritziger und oft etwas süßer als klassischer Apfelwein. Gerbstoffe aus herben Apfelsorten geben ihm eine leicht trockene Note.' }
+);
+W.wein.prep.w9 = [8, 12, 'Geripptes oder Weißweinglas', 'Nicht eiskalt trinken, sonst gehen die Apfelaromen unter.'];
+W.wein.prep.w10 = [6, 8, 'Weißweinglas', 'Frisch geöffnet einschenken, damit die Kohlensäure erhalten bleibt.'];
+W.wein.journal.push({ name: 'Apfelwein', maker: '[Kelterei]', stars: 4, face: 'Nochmal', date: '6. Sep.', color: 13, shade: 'cider', note: 'Herb und schön sauer, sehr erfrischend.', ax: { sweet: 1, acid: 5, tannin: 2, body: 2 }, len: 'Kurz' });
 W.bier.bottles.push(
   { id: 'b7', name: 'Pils alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Untergärig', color: 0, af: true, groups: ['Kräuter und Gras', 'Getreide und Brot'], aromas: ['Gras', 'Brot', 'Honig'], typ: { bitter: 3, malt: 3, acid: 1, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Alkoholfreies Bier darf in Deutschland bis zu 0,5 Prozent Alkohol haben. Steht 0,0 auf dem Etikett, ist praktisch keiner drin.' },
   { id: 'b8', name: 'Weizen alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Obergärig', color: 1, af: true, groups: ['Banane und Nelke', 'Getreide und Brot'], aromas: ['Banane', 'Nelke', 'Brot'], typ: { bitter: 1, malt: 3, acid: 2, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Viele alkoholfreie Weizen werden normal gebraut, danach wird der Alkohol entzogen. Banane und Nelke von der Hefe bleiben dabei oft gut erhalten.' }
@@ -1691,6 +1731,7 @@ class Component extends DCLogic {
       level: 'Einsteiger', premium: p.premium === true || p.premium === 'true', quizIdx: 0, quiz: {}, ageOk: false, ageErr: false,
       step: 0, bottle: W[w].bottles[0].id, sel: emptySel(), beginTab: 'own', recognized: false, sheet: '',
       quick: { stars: 0, face: '', photo: false }, quickErr: false, plan: 'year',
+      loggedIn: p.login === true || p.login === 'true' || p.premium === true || p.premium === 'true', loginWith: '', loginMail: false, loginFor: '',
       jw: seed('wein'), jb: seed('bier'), detail: '', view: 'grid', filter: 'Alle', toast: '', speaking: false, timer: false,
       ds: ['standard', 'kraeftig', 'kerze'].indexOf(p.ds) >= 0 ? p.ds : 'tief', bfilter: 'Alle',
       food: -1, back: 'home', share: '', whyOpen: null, zoom: -1, readIdx: 0, prepChk: {}, jtab: 'done', train: 0, mapSel: -1,
@@ -1734,6 +1775,7 @@ class Component extends DCLogic {
     if (st === 'result') { s.screen = 'result'; s.bottle = b.id; s.sel = this.demoSel(w, b); return; }
     if (st === 'detail') { s.screen = 'detail'; s.detail = (w === 'wein' ? s.jw : s.jb)[0].id; return; }
     if (st === 'paywall') { s.screen = 'home'; s.sheet = 'pay'; return; }
+    if (st === 'login') { s.screen = 'profile'; s.sheet = 'login'; return; }
     if (st === 'quick') { s.screen = 'home'; s.sheet = 'quick'; return; }
     if (st === 'begin-rec') { s.screen = 'begin'; s.beginTab = 'rec'; return; }
     if (st === 'begin-snap') { s.screen = 'begin'; s.recognized = true; return; }
@@ -1832,7 +1874,7 @@ class Component extends DCLogic {
       wein: w === 'wein', bier: w === 'bier', free: !s.premium,
       tabOwn: s.beginTab === 'own', tabRec: s.beginTab === 'rec', recognized: s.recognized, notRecognized: !s.recognized,
       gridView: s.view === 'grid', listView: s.view === 'list',
-      sheetQuick: s.sheet === 'quick', sheetPay: s.sheet === 'pay', toast: !!s.toast
+      sheetQuick: s.sheet === 'quick', sheetPay: s.sheet === 'pay', sheetLogin: s.sheet === 'login', loginPick: !s.loginMail, loginMail: !!s.loginMail, toast: !!s.toast
     };
     is.main = is.home || is.journal || is.taste || is.profile;
     var LATER = false;
@@ -1843,8 +1885,8 @@ class Component extends DCLogic {
       s: s, c: c, is: is, D: D, B: bottleVm(B), cw: P.wein[mode], cb: P.bier[mode],
       bottlePath: w === 'wein' ? PATH_WINE : PATH_BEER,
       pressWein: pr(is.wein), pressBier: pr(is.bier), segWein: seg(is.wein), segBier: seg(is.bier),
-      toWein: function () { self.setState({ world: 'wein', bottle: W.wein.bottles[0].id, filter: 'Alle', detail: '', screen: s.screen === 'detail' ? 'journal' : s.screen }); },
-      toBier: function () { self.setState({ world: 'bier', bottle: W.bier.bottles[0].id, filter: 'Alle', detail: '', screen: s.screen === 'detail' ? 'journal' : s.screen }); },
+      toWein: function () { self.setState({ world: 'wein', bottle: W.wein.bottles[0].id, filter: 'Alle', bfilter: 'Alle', detail: '', screen: s.screen === 'detail' ? 'journal' : s.screen }); },
+      toBier: function () { self.setState({ world: 'bier', bottle: W.bier.bottles[0].id, filter: 'Alle', bfilter: 'Alle', detail: '', screen: s.screen === 'detail' ? 'journal' : s.screen }); },
       goHome: go('home'), goJournal: go('journal'), goTaste: go('taste'), goProfile: go('profile'),
       goBegin: function () { self.setState({ screen: 'begin', beginTab: 'own', recognized: false, sheet: '' }); },
       tab: { home: pr(is.home), journal: pr(is.journal || is.detail), taste: pr(is.taste), profile: pr(is.profile) },
@@ -1853,7 +1895,7 @@ class Component extends DCLogic {
       startOnboard: function () { if (!s.ageOk) { self.setState({ ageErr: true }); return; } self.setState({ screen: 'level', ageErr: false }); },
       openQuick: function () { self.setState({ sheet: 'quick', quick: { stars: 0, face: '', photo: false }, quickErr: false }); },
       openPay: function () { self.setState({ sheet: 'pay' }); },
-      closeSheet: function () { self.setState({ sheet: '', quickErr: false }); }
+      closeSheet: function () { self.setState({ sheet: '', quickErr: false, loginMail: false, loginFor: '' }); }
     };
 
     // Onboarding
@@ -1884,8 +1926,8 @@ class Component extends DCLogic {
     vals.snap = function () { self.setState({ recognized: true }); };
     vals.unsnap = function () { self.setState({ recognized: false }); };
     vals.snapB = bottleVm(D.bottles[0]);
-    vals.bFilters = ['Alle', 'Alkoholfrei'].map(function (f) { var on = s.bfilter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ bfilter: f }); } }; });
-    vals.bottles = D.bottles.filter(function (b) { return s.bfilter !== 'Alkoholfrei' || b.af; }).map(bottleVm);
+    vals.bFilters = (w === 'wein' ? ['Alle', 'Alkoholfrei', 'Cider & Apfelwein'] : ['Alle', 'Alkoholfrei']).map(function (f) { var on = s.bfilter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ bfilter: f }); } }; });
+    vals.bottles = D.bottles.filter(function (b) { return s.bfilter === 'Alle' || (s.bfilter === 'Alkoholfrei' && b.af) || (s.bfilter === 'Cider & Apfelwein' && b.shade === 'cider'); }).map(bottleVm);
     vals.recs = D.recs.map(bottleVm);
 
     // Step
@@ -1942,8 +1984,10 @@ class Component extends DCLogic {
       icon: s.speaking ? 'M6 5h4v14H6zM14 5h4v14h-4z' : 'M7 4v16l13-8z'
     };
     vals.learn = D.learn[key];
-    vals.lookColors = D.colors.map(function (col, i) { var on = sel.color === i; return { label: col[0], hex: col[1], pressed: pr(on), ring: ring(on), pick: function () { setSel({ color: i }); } }; });
-    vals.lookRows = D.lookRows.map(function (r) { return { label: r.label, opts: r.opts.map(function (o) { var on = sel.rows[r.k] === o; return { label: o, pressed: pr(on), st: chip(on), pick: function () { var rows = Object.assign({}, sel.rows); rows[r.k] = o; setSel({ rows: rows }); } }; }) }; });
+    var shade = D.shades.filter(function (sh) { return B.shade ? sh.key === B.shade : sh.of.indexOf(B.color) >= 0; })[0] || D.shades[0];
+    vals.colorHead = 'Farbe · typisch für ' + shade.name;
+    vals.lookColors = shade.set.map(function (i) { var col = D.colors[i], on = sel.color === i; return { label: col[0], hex: col[1], pressed: pr(on), ring: ring(on), pick: function () { setSel({ color: i }); } }; });
+    vals.lookRows = (B.shade === 'cider' ? D.lookRows.concat([{ k: 'fizz', label: 'Perlage', opts: ['Still', 'Leicht perlend', 'Spritzig'] }]) : D.lookRows).map(function (r) { return { label: r.label, opts: r.opts.map(function (o) { var on = sel.rows[r.k] === o; return { label: o, pressed: pr(on), st: chip(on), pick: function () { var rows = Object.assign({}, sel.rows); rows[r.k] = o; setSel({ rows: rows }); } }; }) }; });
     var nAr = Object.keys(sel.aromas).length;
     vals.aromaCount = nAr === 0 ? 'Noch nichts gewählt. Das ist auch in Ordnung.' : nAr + (nAr === 1 ? ' Aroma gewählt' : ' Aromen gewählt');
     vals.aromaHead = 'Woran erinnert dich der Duft?';
@@ -2065,7 +2109,7 @@ class Component extends DCLogic {
     vals.resStars = starStr(sel.stars);
     vals.backToVerdict = function () { self.setState({ screen: 'step', step: 4 }); };
     vals.saveTasting = function () {
-      var e = { id: w + '-n' + Date.now(), af: !!B.af, name: B.name, maker: B.maker, stars: sel.stars || 3, face: sel.face || 'Okay', date: 'Heute', color: sel.color >= 0 ? sel.color : B.color, note: '', ax: Object.assign({}, sel.ax), len: sel.fin.len || '', fizz: sel.fin.fizz || '' };
+      var e = { id: w + '-n' + Date.now(), af: !!B.af, shade: B.shade || '', name: B.name, maker: B.maker, stars: sel.stars || 3, face: sel.face || 'Okay', date: 'Heute', color: sel.color >= 0 ? sel.color : B.color, note: '', ax: Object.assign({}, sel.ax), len: sel.fin.len || '', fizz: sel.fin.fizz || '' };
       var patch = { screen: 'journal', sel: emptySel(), filter: 'Alle' };
       patch[jKey] = [e].concat(journal);
       self.setState(patch);
@@ -2073,12 +2117,12 @@ class Component extends DCLogic {
     };
 
     // Journal
-    var fl = journal.filter(function (e) { return s.filter === 'Alle' || (s.filter === '4+ Sterne' && e.stars >= 4) || (s.filter === 'Nochmal' && e.face === 'Nochmal') || (s.filter === 'Alkoholfrei' && e.af); });
+    var fl = journal.filter(function (e) { return s.filter === 'Alle' || (s.filter === '4+ Sterne' && e.stars >= 4) || (s.filter === 'Nochmal' && e.face === 'Nochmal') || (s.filter === 'Alkoholfrei' && e.af) || (s.filter === 'Cider' && e.shade === 'cider'); });
     vals.entries = fl.map(entryVm);
     is.noEntries = fl.length === 0;
     vals.journalLen = journal.length;
     vals.journalCount = journal.length + (journal.length === 1 ? ' Verkostung' : ' Verkostungen');
-    vals.filters = ['Alle', '4+ Sterne', 'Nochmal', 'Alkoholfrei'].map(function (f) { var on = s.filter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ filter: f }); } }; });
+    vals.filters = ['Alle', '4+ Sterne', 'Nochmal', 'Alkoholfrei'].concat(w === 'wein' ? ['Cider'] : []).map(function (f) { var on = s.filter === f; return { label: f, pressed: pr(on), st: chip(on), pick: function () { self.setState({ filter: f }); } }; });
     vals.pressGrid = pr(is.gridView); vals.pressList = pr(is.listView); vals.segGrid = seg(is.gridView); vals.segList = seg(is.listView);
     vals.viewGrid = function () { self.setState({ view: 'grid' }); };
     vals.viewList = function () { self.setState({ view: 'list' }); };
@@ -2131,7 +2175,31 @@ class Component extends DCLogic {
     };
     vals.perks = ['Keine Werbung', 'Cloud-Sync auf allen Geräten', 'Keller und Vorrat im Notizbuch', 'Web-Ansicht am Rechner (später)', 'Natürlichere Stimme (später)'];
     vals.plans = [['month', '[Preis]', 'pro Monat'], ['year', '[Preis]', 'pro Jahr']].map(function (o) { var on = s.plan === o[0]; return { price: o[1], label: o[2], pressed: pr(on), ring: ring(on), pick: function () { self.setState({ plan: o[0] }); } }; });
-    vals.buy = function () { self.setState({ premium: true, sheet: '' }); self.say('Premium ist aktiv (Vorschau)'); };
+    vals.buy = function () {
+      if (!s.loggedIn) { self.setState({ sheet: 'login', loginFor: 'pay', loginMail: false }); return; }
+      self.setState({ premium: true, sheet: '' }); self.say('Premium ist aktiv (Vorschau)');
+    };
+    // Konto: freiwillig, gebraucht nur für Premium mit Cloud-Sync
+    var doLogin = function (how) {
+      var back = s.loginFor === 'pay' ? 'pay' : '';
+      self.setState({ loggedIn: true, loginWith: how, sheet: back, loginMail: false, loginFor: '' });
+      self.say(back ? 'Angemeldet. Jetzt kannst du Premium abschließen.' : 'Angemeldet (Vorschau)');
+    };
+    vals.loginIntro = s.loginFor === 'pay' ? 'Für Premium brauchst du ein Konto. Darüber laufen Abo und Cloud-Sync.' : 'Ein Konto brauchst du nur für Premium mit Cloud-Sync.';
+    vals.loginApple = function () { doLogin('Apple'); };
+    vals.loginGoogle = function () { doLogin('Google'); };
+    vals.loginMailStart = function () { self.setState({ loginMail: true }); };
+    vals.loginMailSend = function () { doLogin('E-Mail'); };
+    vals.loginBack = function () { self.setState({ loginMail: false }); };
+    vals.acct = s.loggedIn ? {
+      initial: '[N]', title: '[Dein Name]', sub: 'Angemeldet' + (s.loginWith ? ' mit ' + s.loginWith : '') + ' · [deine E-Mail]', label: 'Abmelden',
+      st: 'border: 1.5px solid ' + c.border + '; background: transparent; color: ' + c.ink,
+      act: function () { self.setState({ loggedIn: false, loginWith: '', premium: false }); self.say('Abgemeldet. Deine Daten bleiben auf diesem Handy.'); }
+    } : {
+      initial: '?', title: 'Nicht angemeldet', sub: 'Alles bleibt auf diesem Handy. Ein Konto brauchst du nur für Premium.', label: 'Anmelden',
+      st: 'border: 0; background: ' + c.primary + '; color: ' + c.onPrimary,
+      act: function () { self.setState({ sheet: 'login', loginMail: false, loginFor: '' }); }
+    };
 
     // Navigation zu den Bereichen
     var goSub = function (scr, extra) { return function () { self.setState(Object.assign({ screen: scr, back: is.main ? s.screen : 'home', sheet: '' }, extra || {})); }; };
@@ -2408,7 +2476,9 @@ var W = {
   wein: {
     label: 'Wein', homeTitle: 'Was trinkst du heute?', searchHint: 'Weingut, Rebsorte oder Name …', notePh: 'Zum Beispiel: passte gut zum Fisch',
     steps: ['Aussehen', 'Nase', 'Gaumen', 'Abgang', 'Fazit'],
-    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Rosé', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426']],
+    colors: [['Hellgelb', '#F1E3A0'], ['Goldgelb', '#DDB24B'], ['Lachsrosa', '#EFA79C'], ['Rubinrot', '#9E1F33'], ['Granatrot', '#6A1426'], ['Grünlich-gelb', '#E6E8A4'], ['Strohgelb', '#EAD27A'], ['Bernstein', '#C98A2E'], ['Blassrosa', '#F6CEC6'], ['Himbeerrosa', '#E0707E'], ['Zwiebelschale', '#E2A07E'], ['Purpur', '#5C1847'], ['Ziegelrot', '#8A3A2A'], ['Blassgelb', '#F3E7B4']],
+    // Welche Farben zu welchem Typ passen. Der Typ ergibt sich aus der Grundfarbe der Flasche.
+    shades: [{ name: 'Weißwein', of: [0, 1], set: [5, 0, 6, 1, 7] }, { name: 'Roséwein', of: [2], set: [8, 2, 9, 10] }, { name: 'Rotwein', of: [3, 4], set: [11, 3, 4, 12] }, { key: 'cider', name: 'Cider und Apfelwein', of: [13], set: [13, 6, 1, 7] }],
     lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Leicht trüb'] }],
     groups: ['Zitrus', 'Gelbe Frucht', 'Rote Beeren', 'Dunkle Beeren', 'Blüten', 'Kräuter', 'Würze', 'Holz und Röstnoten'],
     aromas: {
@@ -2450,7 +2520,8 @@ var W = {
   bier: {
     label: 'Bier', homeTitle: 'Was trinkst du heute?', searchHint: 'Brauerei, Bierstil oder Name …', notePh: 'Zum Beispiel: schön herb, gut zum Grillen',
     steps: ['Aussehen und Schaum', 'Aroma', 'Geschmack', 'Mundgefühl', 'Fazit'],
-    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C']],
+    colors: [['Hellgelb', '#F2DC7A'], ['Gold', '#E2A93B'], ['Bernstein', '#B8651E'], ['Kastanie', '#6B3414'], ['Schwarz', '#1E120C'], ['Strohgelb', '#EBC85A'], ['Kupfer', '#A2481A'], ['Dunkelbraun', '#3E1E0E']],
+    shades: [{ name: 'helle Biere', of: [0, 1], set: [0, 5, 1] }, { name: 'bernsteinfarbene Biere', of: [2], set: [1, 2, 6] }, { name: 'dunkle Biere', of: [3, 4], set: [3, 7, 4] }],
     lookRows: [{ k: 'clear', label: 'Klarheit', opts: ['Klar', 'Hefetrüb'] }, { k: 'foam', label: 'Schaum', opts: ['Feinporig', 'Grob', 'Kaum'] }],
     groups: ['Getreide und Brot', 'Karamell', 'Röstnoten', 'Zitrus', 'Tropenfrucht', 'Banane und Nelke', 'Kräuter und Gras', 'Harz und Kiefer'],
     aromas: {
@@ -2713,6 +2784,14 @@ W.wein.bottles.push(
   { id: 'w7', name: 'Riesling alkoholfrei', maker: '[Weingut]', meta: 'Entalkoholisiert · Weißwein', color: 0, af: true, groups: ['Zitrus', 'Gelbe Frucht'], aromas: ['Zitrone', 'Apfel'], typ: { sweet: 2, acid: 4, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Bei entalkoholisiertem Wein wird der Alkohol nach der Gärung schonend entzogen. Dabei gehen meist auch etwas Körper und Aroma verloren.' },
   { id: 'w8', name: 'Sekt alkoholfrei', maker: '[Sektkellerei]', meta: 'Entalkoholisiert · Schaumwein', color: 0, af: true, groups: ['Gelbe Frucht', 'Blüten'], aromas: ['Apfel', 'Birne', 'Holunder'], typ: { sweet: 3, acid: 3, tannin: 1, body: 1 }, fin: { len: 'Kurz' }, fact: 'Viele alkoholfreie Sekte bekommen etwas Traubensaft oder Zucker, damit sie runder schmecken. Ein Blick auf das Etikett lohnt sich.' }
 );
+// Cider und Apfelwein: in der Wein-Welt, eigener Filter
+W.wein.bottles.push(
+  { id: 'w9', name: 'Apfelwein', maker: '[Kelterei]', meta: 'Cider & Apfelwein · still', color: 13, shade: 'cider', groups: ['Gelbe Frucht', 'Zitrus'], aromas: ['Apfel', 'Zitrone', 'Heu'], typ: { sweet: 1, acid: 5, tannin: 2, body: 2 }, fin: { len: 'Kurz' }, fact: 'Apfelwein wird aus Äpfeln vergoren, so wie Wein aus Trauben. In Hessen trinkt man ihn traditionell aus dem „Gerippten“, einem Glas mit Rautenmuster.' },
+  { id: 'w10', name: 'Cider halbtrocken', maker: '[Cider-Hersteller]', meta: 'Cider & Apfelwein · spritzig', color: 6, shade: 'cider', groups: ['Gelbe Frucht', 'Blüten'], aromas: ['Apfel', 'Birne', 'Honig'], typ: { sweet: 3, acid: 3, tannin: 2, body: 2 }, fin: { len: 'Mittel' }, fact: 'Cider ist meist spritziger und oft etwas süßer als klassischer Apfelwein. Gerbstoffe aus herben Apfelsorten geben ihm eine leicht trockene Note.' }
+);
+W.wein.prep.w9 = [8, 12, 'Geripptes oder Weißweinglas', 'Nicht eiskalt trinken, sonst gehen die Apfelaromen unter.'];
+W.wein.prep.w10 = [6, 8, 'Weißweinglas', 'Frisch geöffnet einschenken, damit die Kohlensäure erhalten bleibt.'];
+W.wein.journal.push({ name: 'Apfelwein', maker: '[Kelterei]', stars: 4, face: 'Nochmal', date: '6. Sep.', color: 13, shade: 'cider', note: 'Herb und schön sauer, sehr erfrischend.', ax: { sweet: 1, acid: 5, tannin: 2, body: 2 }, len: 'Kurz' });
 W.bier.bottles.push(
   { id: 'b7', name: 'Pils alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Untergärig', color: 0, af: true, groups: ['Kräuter und Gras', 'Getreide und Brot'], aromas: ['Gras', 'Brot', 'Honig'], typ: { bitter: 3, malt: 3, acid: 1, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Alkoholfreies Bier darf in Deutschland bis zu 0,5 Prozent Alkohol haben. Steht 0,0 auf dem Etikett, ist praktisch keiner drin.' },
   { id: 'b8', name: 'Weizen alkoholfrei', maker: '[Brauerei]', meta: 'Alkoholfrei · Obergärig', color: 1, af: true, groups: ['Banane und Nelke', 'Getreide und Brot'], aromas: ['Banane', 'Nelke', 'Brot'], typ: { bitter: 1, malt: 3, acid: 2, body: 2 }, fin: { fizz: 'Viel', len: 'Kurz' }, fact: 'Viele alkoholfreie Weizen werden normal gebraut, danach wird der Alkohol entzogen. Banane und Nelke von der Hefe bleiben dabei oft gut erhalten.' }

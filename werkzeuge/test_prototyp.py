@@ -57,6 +57,10 @@ async def main():
         await expect(pg, "1 von 4 erledigt", "Checkliste")
         await click(pg, "Kühl-Erinnerung stellen")
         await click(pg, "Tasting beginnen")
+        await expect(pg, "typisch für Weißwein", "Farben passend zum Weißwein")
+        for wrong in ["Rubinrot", "Granatrot", "Lachsrosa"]:
+            if await pg.get_by_role("button", name=wrong, exact=True).count():
+                problems.append(f"{wrong} wird beim Weißwein angeboten")
         await click(pg, "Hellgelb"); await click(pg, "Klar")
         await click(pg, "Warum macht man das?")
         await expect(pg, "Die Farbe verrät viel", "Warum-Text")
@@ -82,7 +86,7 @@ async def main():
         await expect(pg, "Gut gerochen!", "Auflösung")
         await pg.screenshot(path=f"{OUT}/a2-aufloesung.png")
         await click(pg, "Im Notizbuch speichern")
-        await expect(pg, "7 Verkostungen", "Notizbuch nach Speichern")
+        await expect(pg, "8 Verkostungen", "Notizbuch nach Speichern")
         await click(pg, "Liste"); await click(pg, "4+ Sterne")
         await click(pg, "Riesling trocken [Weingut] · Heute · Nochmal ★★★★★", exact=False)
         await expect(pg, "Nochmal verkosten", "Detail")
@@ -107,9 +111,15 @@ async def main():
         await click(pg, "Profil", exact=True)
         if await pg.get_by_text("Tasting-Stil").count():
             problems.append("Tasting-Stil-Auswahl ist noch im Profil")
+        await expect(pg, "Nicht angemeldet", "Konto im Profil")
         await click(pg, "Premium holen")
         await click(pg, "Abo abschließen (Vorschau)")
+        await expect(pg, "Für Premium brauchst du ein Konto", "Login vor dem Abo")
+        await click(pg, "Mit E-Mail anmelden")
+        await click(pg, "Weiter (Vorschau)")
+        await click(pg, "Abo abschließen (Vorschau)")
         await expect(pg, "Premium ist aktiv", "Abo")
+        await expect(pg, "Angemeldet mit E-Mail", "Konto angemeldet")
         if await pg.get_by_text("[Werbebanner]").count():
             problems.append("Werbung trotz Premium sichtbar")
         await click(pg, "Dunkel")
@@ -168,7 +178,7 @@ async def main():
         if await pg.get_by_text("Abend teilen").count():
             problems.append("Abend teilen ist in Version 1 sichtbar")
         await click(pg, "Ins Notizbuch übernehmen")
-        await expect(pg, "10 Verkostungen", "Abend im Notizbuch")
+        await expect(pg, "11 Verkostungen", "Abend im Notizbuch")
         await click(pg, "Alkoholfrei")
         await expect(pg, "Riesling alkoholfrei", "Notizbuch-Filter Alkoholfrei")
         await click(pg, "Alle")
@@ -183,6 +193,14 @@ async def main():
         for gone in ["Karte der Herkunft", "Mein Jahr"]:
             if await pg.get_by_role("button", name=gone, exact=True).count():
                 problems.append(f"{gone} ist in Version 1 sichtbar")
+        # Cider und Apfelwein in der Wein-Welt
+        await click(pg, "Verkosten Geführt, Schritt für Schritt")
+        await click(pg, "Cider & Apfelwein")
+        await click(pg, "Apfelwein", exact=False, nth=1)
+        await click(pg, "Tasting beginnen")
+        await expect(pg, "typisch für Cider und Apfelwein", "Cider-Farben")
+        await expect(pg, "Perlage", "Cider Perlage")
+        await click(pg, "Zurück"); await click(pg, "Zurück"); await click(pg, "Zurück")
         # Alkoholfrei beim Verkosten
         await click(pg, "Verkosten Geführt, Schritt für Schritt")
         await click(pg, "Alkoholfrei")

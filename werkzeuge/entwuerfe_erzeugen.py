@@ -31,6 +31,7 @@ SCREENS = [
     ("Merkliste.dc.html", "6c · Notizbuch: Merkliste", "merk", "wein"),
     ("Geschmack.dc.html", "7 · Mein Geschmack", "taste", "wein"),
     ("Profil.dc.html", "8 · Profil", "profile", "wein"),
+    ("Anmelden.dc.html", "8a · Anmelden (freiwillig, für Premium)", "login", "wein"),
     ("Premium.dc.html", "8b · Premium", "paywall", "wein"),
     ("Essen.dc.html", "9 · Was passt zum Essen?", "food", "wein"),
     ("Abend.dc.html", "10 · Tasting-Abend: Flaschen wählen", "party", "wein"),

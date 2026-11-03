@@ -32,6 +32,7 @@ APP = [
     ("06c-notizbuch-merkliste.png", "screen=merk"),
     ("07-geschmack.png", "screen=taste"),
     ("08-profil.png", "screen=profile"),
+    ("08a-anmelden.png", "screen=login"),
     ("08b-premium.png", "screen=paywall"),
     ("09-essen.png", "screen=food"),
     ("10-tasting-abend.png", "screen=party"),
