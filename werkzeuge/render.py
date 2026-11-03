@@ -13,6 +13,7 @@ OUT = os.path.abspath(sys.argv[2])
 
 APP = [
     ("01-erster-start.png", "screen=welcome"),
+    ("01a-erfahrung.png", "screen=level"),
     ("01b-geschmacksfrage.png", "screen=onboard"),
     ("02-start-wein.png", "screen=home"),
     ("02b-start-bier.png", "screen=home&world=bier"),
@@ -22,6 +23,7 @@ APP = [
     ("03c-vorbereitung.png", "screen=prep"),
     ("04-tasting-aussehen.png", "screen=step1"),
     ("04b-tasting-nase-einsteiger.png", "screen=step2-kurz"),
+    ("04b2-aromarad-zoom.png", "screen=step2-zoom#rad"),
     ("04c-tasting-nase-erfahren-bier.png", "screen=step2-kurz&world=bier&level=Erfahren"),
     ("04d-tasting-gaumen-bier.png", "screen=step3&world=bier"),
     ("05-aufloesung.png", "screen=result"),
@@ -35,6 +37,7 @@ APP = [
     ("10-tasting-abend.png", "screen=party"),
     ("10b-tasting-abend-einladen.png", "screen=party-share"),
     ("10c-tasting-abend-bewerten.png", "screen=party-rate"),
+    ("10c2-tasting-abend-tipp.png", "screen=party-guess"),
     ("10d-tasting-abend-rangliste.png", "screen=party-result"),
     ("12-mein-jahr.png", "screen=year"),
     ("13-teilen.png", "screen=share"),
@@ -56,9 +59,13 @@ DARK = [("standard", "Standard"), ("kraeftig", "Kräftig"), ("kerze", "Kerzenlic
 
 
 async def shot_app(page, query, path):
+    query, _, anchor = query.partition("#")
     await page.goto("file://" + FILE + "?app&look=light&" + query)
     await page.evaluate("document.fonts.ready")
     await page.wait_for_timeout(300)
+    if anchor == "rad":  # bis zum Aromarad scrollen
+        await page.get_by_text("Woran erinnert dich der Duft?").first.evaluate("e => e.scrollIntoView({block: 'start'})")
+        await page.wait_for_timeout(200)
     await page.locator("#device").screenshot(path=path)
 
 

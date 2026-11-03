@@ -41,10 +41,10 @@ async def main():
         await pg.get_by_label("Ich bin mindestens 18 Jahre alt.").check()
         await click(pg, "Los geht's")
         await click(pg, "Erfahren Regler für alle Merkmale, rund 40 Aromen")
+        await click(pg, "Weiter")
+        await expect(pg, "Geschmacksfrage 1 von 4", "Eine Frage pro Seite")
         for ans in ["Schwarz", "Grapefruit", "Zartbitter", "Zitronenlimo"]:
             await click(pg, ans)
-            nxt = "Fertig" if ans == "Zitronenlimo" else "Nächste Frage"
-            await click(pg, nxt)
         await expect(pg, "Was trinkst du heute?", "Start")
         await pg.screenshot(path=f"{OUT}/a1-start.png")
         await click(pg, "Verkosten Geführt, Schritt für Schritt")
@@ -61,10 +61,15 @@ async def main():
         await click(pg, "Warum macht man das?")
         await expect(pg, "Die Farbe verrät viel", "Warum-Text")
         await click(pg, "Weiter")
-        await expect(pg, "Innen grob, außen genau", "Nase (Erfahren, volles Rad)")
+        await expect(pg, "Tippe eine Gruppe an", "Zoom-Rad")
+        await pg.get_by_role("button", name="Zitrus", exact=True).first.click(); await pg.wait_for_timeout(120)
+        await expect(pg, "Genauer bei Zitrus", "Zoom in die Gruppe")
         await pg.get_by_role("button", name="Zitrone", exact=True).first.click(); await pg.wait_for_timeout(120)
+        await click(pg, "Alle Gruppen")
+        await pg.get_by_role("button", name="Gelbe Frucht", exact=True).first.click(); await pg.wait_for_timeout(120)
         await pg.get_by_role("button", name="Apfel", exact=True).first.click(); await pg.wait_for_timeout(120)
-        await expect(pg, "2 Aromen gewählt", "Aromarad")
+        await pg.get_by_role("button", name="Zurück zu allen Gruppen", exact=True).first.click(); await pg.wait_for_timeout(120)
+        await expect(pg, "4 Aromen gewählt", "Aromarad")
         await expect(pg, "So merkst du es dir", "Merke-Karte")
         await click(pg, "Weiter")
         for ax in ["Süße 1 von 5", "Säure 5 von 5", "Tannin 1 von 5", "Körper 2 von 5"]:
@@ -132,6 +137,8 @@ async def main():
         await pg.get_by_role("button", name="Zitrus", exact=True).first.click(); await pg.wait_for_timeout(120)
         await expect(pg, "Reib eine Zitrone an der Schale", "Merke Zitrus")
         await pg.screenshot(path=f"{OUT}/a4-nase-einsteiger.png")
+        await expect(pg, "Gut zu wissen", "Mehr Erklärung für Einsteiger")
+        await expect(pg, "4 Abschnitte, stoppt nach jedem", "Vorlesen in Abschnitten")
         await click(pg, "Vorlesen")
         await click(pg, "Zurück"); await click(pg, "Zurück"); await click(pg, "Zurück"); await click(pg, "Zurück")
 
@@ -146,11 +153,15 @@ async def main():
         await click(pg, "Abend starten"); await expect(pg, "mindestens 2 Flaschen", "Abend Auswahl-Pflicht")
         await click(pg, "Riesling trocken", role="checkbox"); await click(pg, "Albariño", role="checkbox")
         await click(pg, "Abend starten")
-        await click(pg, "Nächstes Glas"); await expect(pg, "Bitte vergebt zuerst Sterne", "Abend Sterne-Pflicht")
+        await expect(pg, "Glas 1 von 3", "Abend geführt wie das Tasting")
         for g in range(3):
-            await click(pg, "4 Sterne"); await click(pg, "Süße 2 von 5"); await click(pg, "Zitrus")
+            for k in range(4):
+                await click(pg, "Weiter")
+            if g == 0:
+                await click(pg, "Nächstes Glas"); await expect(pg, "Bitte vergib noch Sterne", "Abend Sterne-Pflicht")
+            await click(pg, "4 Sterne")
             await click(pg, "Tipp: Albariño")
-            await click(pg, "Nächstes Glas" if g < 2 else "Ergebnis zeigen")
+            await click(pg, "Nächstes Glas" if g < 2 else "Rangliste zeigen")
         await expect(pg, "Die Rangliste", "Abend Ergebnis")
         await expect(pg, "richtig erraten", "Treffsicherheit")
         await pg.screenshot(path=f"{OUT}/a5-rangliste.png")

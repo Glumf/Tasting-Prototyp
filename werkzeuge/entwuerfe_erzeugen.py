@@ -12,7 +12,8 @@ FONTS = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=A
 
 SCREENS = [
     ("Main.dc.html", "1 · Erster Start", "welcome", "wein"),
-    ("Geschmacksfrage.dc.html", "1b · Erfahrung und Geschmacksfrage", "onboard", "wein"),
+    ("Erfahrung.dc.html", "1a · Erster Start: Erfahrung", "level", "wein"),
+    ("Geschmacksfrage.dc.html", "1b · Erster Start: eine Frage pro Seite", "onboard", "wein"),
     ("Start.dc.html", "2 · Start (Wein)", "home", "wein"),
     ("StartBier.dc.html", "2b · Start (Bier)", "home", "bier"),
     ("Schnellnotiz.dc.html", "2c · Schnell notieren", "quick", "wein"),
@@ -21,6 +22,7 @@ SCREENS = [
     ("Vorbereitung.dc.html", "3c · Vorbereitung: Temperatur und Glas", "prep", "wein"),
     ("Aussehen.dc.html", "4 · Tasting: Aussehen mit „Warum?“", "step1", "wein"),
     ("Nase.dc.html", "4b · Tasting: Nase (Einsteiger)", "step2-kurz", "wein"),
+    ("AromaradZoom.dc.html", "4b2 · Aromarad: in eine Gruppe gezoomt", "step2-zoom", "wein"),
     ("NaseErfahren.dc.html", "4c · Tasting: Aroma (Bier, Erfahren)", "step2-kurz", "bier", "Erfahren"),
     ("GaumenBier.dc.html", "4d · Tasting: Geschmack (Bier)", "step3", "bier"),
     ("Aufloesung.dc.html", "5 · Auflösung", "result", "wein"),
@@ -33,7 +35,8 @@ SCREENS = [
     ("Essen.dc.html", "9 · Was passt zum Essen?", "food", "wein"),
     ("Abend.dc.html", "10 · Tasting-Abend: Flaschen wählen", "party", "wein"),
     ("AbendTeilen.dc.html", "10b · Tasting-Abend: Freunde einladen (später)", "party-share", "wein"),
-    ("AbendBewerten.dc.html", "10c · Tasting-Abend: gemeinsam bewerten", "party-rate", "wein"),
+    ("AbendBewerten.dc.html", "10c · Tasting-Abend: Glas für Glas geführt", "party-rate", "wein"),
+    ("AbendTipp.dc.html", "10c2 · Tasting-Abend: Urteil und Tipp", "party-guess", "wein"),
     ("AbendRangliste.dc.html", "10d · Tasting-Abend: Rangliste", "party-result", "wein"),
     ("Jahr.dc.html", "12 · Mein Jahr (später)", "year", "wein"),
     ("Teilen.dc.html", "13 · Als Karte teilen (später)", "share", "wein"),

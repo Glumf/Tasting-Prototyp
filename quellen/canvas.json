@@ -26,16 +26,24 @@
       "title": "1 · Erster Start",
       "is_interactive": true
     },
-    "Geschmacksfrage.dc.html": {
+    "Erfahrung.dc.html": {
       "x": 470,
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "1b · Erfahrung und Geschmacksfrage",
+      "title": "1a · Erster Start: Erfahrung",
+      "is_interactive": true
+    },
+    "Geschmacksfrage.dc.html": {
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1b · Erster Start: eine Frage pro Seite",
       "is_interactive": true
     },
     "Start.dc.html": {
-      "x": 940,
+      "x": 1410,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -43,7 +51,7 @@
       "is_interactive": true
     },
     "StartBier.dc.html": {
-      "x": 1410,
+      "x": 1880,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -51,7 +59,7 @@
       "is_interactive": true
     },
     "Schnellnotiz.dc.html": {
-      "x": 1880,
+      "x": 2350,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -59,7 +67,7 @@
       "is_interactive": true
     },
     "Verkosten.dc.html": {
-      "x": 2350,
+      "x": 2820,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -67,7 +75,7 @@
       "is_interactive": true
     },
     "Empfehlungen.dc.html": {
-      "x": 2820,
+      "x": 3290,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -75,7 +83,7 @@
       "is_interactive": true
     },
     "Vorbereitung.dc.html": {
-      "x": 3290,
+      "x": 3760,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -83,7 +91,7 @@
       "is_interactive": true
     },
     "Aussehen.dc.html": {
-      "x": 3760,
+      "x": 4230,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -91,15 +99,23 @@
       "is_interactive": true
     },
     "Nase.dc.html": {
-      "x": 4230,
+      "x": 4700,
       "y": 0,
       "w": 390,
       "h": 844,
       "title": "4b · Tasting: Nase (Einsteiger)",
       "is_interactive": true
     },
+    "AromaradZoom.dc.html": {
+      "x": 5170,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "4b2 · Aromarad: in eine Gruppe gezoomt",
+      "is_interactive": true
+    },
     "NaseErfahren.dc.html": {
-      "x": 4700,
+      "x": 5640,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -107,7 +123,7 @@
       "is_interactive": true
     },
     "GaumenBier.dc.html": {
-      "x": 5170,
+      "x": 6110,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -115,7 +131,7 @@
       "is_interactive": true
     },
     "Aufloesung.dc.html": {
-      "x": 5640,
+      "x": 6580,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -123,7 +139,7 @@
       "is_interactive": true
     },
     "Notizbuch.dc.html": {
-      "x": 6110,
+      "x": 7050,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -131,7 +147,7 @@
       "is_interactive": true
     },
     "Keller.dc.html": {
-      "x": 6580,
+      "x": 7520,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -139,7 +155,7 @@
       "is_interactive": true
     },
     "Merkliste.dc.html": {
-      "x": 7050,
+      "x": 7990,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -147,7 +163,7 @@
       "is_interactive": true
     },
     "Geschmack.dc.html": {
-      "x": 7520,
+      "x": 8460,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -155,7 +171,7 @@
       "is_interactive": true
     },
     "Profil.dc.html": {
-      "x": 7990,
+      "x": 8930,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -163,7 +179,7 @@
       "is_interactive": true
     },
     "Premium.dc.html": {
-      "x": 8460,
+      "x": 9400,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -171,7 +187,7 @@
       "is_interactive": true
     },
     "Essen.dc.html": {
-      "x": 8930,
+      "x": 9870,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -179,7 +195,7 @@
       "is_interactive": true
     },
     "Abend.dc.html": {
-      "x": 9400,
+      "x": 10340,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -187,7 +203,7 @@
       "is_interactive": true
     },
     "AbendTeilen.dc.html": {
-      "x": 9870,
+      "x": 10810,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -195,15 +211,23 @@
       "is_interactive": true
     },
     "AbendBewerten.dc.html": {
-      "x": 10340,
+      "x": 11280,
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "10c · Tasting-Abend: gemeinsam bewerten",
+      "title": "10c · Tasting-Abend: Glas für Glas geführt",
+      "is_interactive": true
+    },
+    "AbendTipp.dc.html": {
+      "x": 11750,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "10c2 · Tasting-Abend: Urteil und Tipp",
       "is_interactive": true
     },
     "AbendRangliste.dc.html": {
-      "x": 10810,
+      "x": 12220,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -211,7 +235,7 @@
       "is_interactive": true
     },
     "Jahr.dc.html": {
-      "x": 11280,
+      "x": 12690,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -219,7 +243,7 @@
       "is_interactive": true
     },
     "Teilen.dc.html": {
-      "x": 11750,
+      "x": 13160,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -227,7 +251,7 @@
       "is_interactive": true
     },
     "Lernen.dc.html": {
-      "x": 12220,
+      "x": 13630,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -235,7 +259,7 @@
       "is_interactive": true
     },
     "NasenTraining.dc.html": {
-      "x": 12690,
+      "x": 14100,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -243,7 +267,7 @@
       "is_interactive": true
     },
     "Karte.dc.html": {
-      "x": 13160,
+      "x": 14570,
       "y": 0,
       "w": 390,
       "h": 844,
@@ -291,6 +315,7 @@
   "order": [
     "Prototyp.dc.html",
     "Main.dc.html",
+    "Erfahrung.dc.html",
     "Geschmacksfrage.dc.html",
     "Start.dc.html",
     "StartBier.dc.html",
@@ -300,6 +325,7 @@
     "Vorbereitung.dc.html",
     "Aussehen.dc.html",
     "Nase.dc.html",
+    "AromaradZoom.dc.html",
     "NaseErfahren.dc.html",
     "GaumenBier.dc.html",
     "Aufloesung.dc.html",
@@ -313,6 +339,7 @@
     "Abend.dc.html",
     "AbendTeilen.dc.html",
     "AbendBewerten.dc.html",
+    "AbendTipp.dc.html",
     "AbendRangliste.dc.html",
     "Jahr.dc.html",
     "Teilen.dc.html",
@@ -331,7 +358,7 @@
       "y": -300,
       "text": "Wein- & Bier-App · Klick-Prototyp und Hauptbildschirme",
       "kind": "title1",
-      "maxW": 14100
+      "maxW": 15510
     },
     "web": {
       "x": 0,

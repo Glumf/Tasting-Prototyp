@@ -493,6 +493,20 @@ W.bier.tip = {
   finish: 'Achte darauf, ob die Bittere nach dem Schlucken bleibt oder schnell verschwindet.',
   verdict: 'Es gibt kein Richtig oder Falsch. Wenn es dir nicht schmeckt, ist das auch ein Ergebnis.'
 };
+W.wein.learn = {
+  look: 'Weißwein bekommt seine Farbe aus dem Saft, Rotwein aus den Schalen der Trauben. Je länger die Schalen im Saft liegen, desto dunkler wird der Wein.',
+  nose: 'Ein Duft erinnert uns oft an etwas Erlebtes. Darum gibt es kein Falsch: Erinnert dich ein Wein an Apfelkuchen, ist das eine gute Beschreibung.',
+  palate: 'Süße merkst du sofort, Säure lässt das Wasser im Mund zusammenlaufen, und Tannin fühlt sich trocken an, wie nach starkem schwarzem Tee.',
+  finish: 'Profis zählen den Nachhall in Sekunden. Bei einfachen Weinen sind es oft nur wenige, bei sehr guten deutlich mehr.',
+  verdict: 'Notier ruhig, wozu du ihn getrunken hast. So siehst du später, was dir in welcher Situation schmeckt.'
+};
+W.bier.learn = {
+  look: 'Die Farbe kommt fast nur vom Malz: Helles Malz ergibt helles Bier, stark geröstetes Malz dunkles Bier.',
+  nose: 'Bier duftet nach drei Zutaten: Malz riecht nach Brot und Karamell, Hopfen nach Zitrus, Kräutern oder Harz, und die Hefe bringt fruchtige oder würzige Noten.',
+  palate: 'Der Hopfen sorgt für die Bittere, das Malz für Süße und Körper. Ein gutes Bier hat beides im Gleichgewicht.',
+  finish: 'Rezenz heißt das Prickeln der Kohlensäure. Ein Weizen hat viel davon, ein Stout eher wenig und fühlt sich darum weicher an.',
+  verdict: 'Notier ruhig, wozu du es getrunken hast. So siehst du später, was dir in welcher Situation schmeckt.'
+};
 // Aromen erklärt: was man riecht, woher es kommt, wie man es sich merkt
 W.wein.aromaInfo = {
   'Zitrus': ['Zitrone, Limette, Grapefruit', 'Typisch für frische Weißweine mit viel Säure, zum Beispiel Riesling oder Sauvignon Blanc.', 'Reib eine Zitrone an der Schale und riech daran. Genau dieser helle, spritzige Duft ist gemeint.'],
@@ -602,11 +616,12 @@ W.bier.prep.b7 = [6, 8, 'Pilstulpe', 'Glas vorher kalt ausspülen, dann hält de
 W.bier.prep.b8 = [7, 9, 'Weizenglas', 'Den Rest in der Flasche schwenken und zum Schluss dazugießen.'];
 W.wein.journal.push({ name: 'Riesling alkoholfrei', maker: '[Weingut]', stars: 3, face: 'Okay', date: '13. Sep.', color: 0, af: true, note: 'Erstaunlich frisch, aber etwas dünn.', ax: { sweet: 2, acid: 4, tannin: 1, body: 1, orig: 3 }, len: 'Kurz' });
 W.bier.journal.push({ name: 'Weizen alkoholfrei', maker: '[Brauerei]', stars: 4, face: 'Nochmal', date: '21. Sep.', color: 1, af: true, note: 'Kaum ein Unterschied zum normalen Weizen.', ax: { bitter: 1, malt: 3, acid: 2, body: 2, orig: 4 }, fizz: 'Viel', len: 'Kurz' });
+var GROUP_TINT = [['#FAEEDA', '#633806', '#633806', '#FAEEDA'], ['#FAC775', '#633806', '#854F0B', '#FAEEDA'], ['#FCEBEB', '#791F1F', '#791F1F', '#FCEBEB'], ['#EEEDFE', '#3C3489', '#3C3489', '#EEEDFE'], ['#FBEAF0', '#72243E', '#72243E', '#FBEAF0'], ['#EAF3DE', '#27500A', '#27500A', '#EAF3DE'], ['#FAECE7', '#712B13', '#712B13', '#FAECE7'], ['#D3D1C7', '#444441', '#444441', '#F1EFE8']];
 var AXIS_ORIG = { k: 'orig', label: 'Wie nah am Original?', lo: 'ganz anders', hi: 'wie mit Alkohol' };
 function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
 function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
 function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }
-function emptySel() { return { color: -1, rows: {}, aromas: {}, ax: {}, fin: {}, stars: 0, face: '', last: '' }; }
+function emptySel() { return { color: -1, rows: {}, aromas: {}, ax: {}, fin: {}, stars: 0, face: '', last: '', guess: '' }; }
 // DATEN-ENDE
 
 class Component extends DCLogic {
