@@ -106,22 +106,26 @@ async def main():
         await click(pg, "Schnell notieren Foto, Sterne, fertig")
         await click(pg, "Speichern")
         await expect(pg, "mindestens einen Stern", "Schnell notieren Pflicht")
+        await click(pg, "Dunkel", role="button", nth=0)
         await click(pg, "3 Sterne"); await click(pg, "Speichern")
         await expect(pg, "6 Verkostungen", "Schnell notieren gespeichert")
+        await expect(pg, "Unbenannt · Dunkel", "Schnell notieren mit Typ")
+        if await pg.get_by_text("[Werbebanner]").count():
+            problems.append("Werbung ist in Version 1 sichtbar")
         await click(pg, "Profil", exact=True)
         if await pg.get_by_text("Tasting-Stil").count():
             problems.append("Tasting-Stil-Auswahl ist noch im Profil")
         await expect(pg, "Nicht angemeldet", "Konto im Profil")
-        await click(pg, "Premium holen")
-        await click(pg, "Abo abschließen (Vorschau)")
-        await expect(pg, "Für Premium brauchst du ein Konto", "Login vor dem Abo")
+        for gone in ["Premium holen", "Kostenlose Version"]:
+            if await pg.get_by_text(gone).count():
+                problems.append(f"{gone} ist in Version 1 sichtbar")
+        await click(pg, "Anmelden")
+        await expect(pg, "Kostenlos.", "Login-Text Version 1")
         await click(pg, "Mit E-Mail anmelden")
-        await click(pg, "Weiter (Vorschau)")
-        await click(pg, "Abo abschließen (Vorschau)")
-        await expect(pg, "Premium ist aktiv", "Abo")
+        await expect(pg, "Passwort vergessen?", "E-Mail mit Passwort")
+        await click(pg, "Anmelden (Vorschau)")
         await expect(pg, "Angemeldet mit E-Mail", "Konto angemeldet")
-        if await pg.get_by_text("[Werbebanner]").count():
-            problems.append("Werbung trotz Premium sichtbar")
+        await expect(pg, "alle Geräte sind auf dem gleichen Stand", "Cloud-Sync mit Konto")
         await click(pg, "Dunkel")
         for gone in ["Dunkel-Stil (Vorschau)", "Farbwelt (Vorschau)"]:
             if await pg.get_by_text(gone).count():
@@ -200,7 +204,17 @@ async def main():
         await click(pg, "Tasting beginnen")
         await expect(pg, "typisch für Cider und Apfelwein", "Cider-Farben")
         await expect(pg, "Perlage", "Cider Perlage")
-        await click(pg, "Zurück"); await click(pg, "Zurück"); await click(pg, "Zurück")
+        await click(pg, "Weiter")
+        await expect(pg, "Typisch für Cider und Apfelwein", "Cider-Aromen")
+        # Bei der Nase steht das Rad vor der Warum-Karte
+        y_rad = await pg.get_by_text("Woran erinnert dich der Duft?").first.bounding_box()
+        y_why = await pg.get_by_role("button", name="Warum macht man das?").first.bounding_box()
+        if not (y_rad and y_why and y_rad["y"] < y_why["y"]):
+            problems.append("Aromarad steht nicht über der Warum-Karte")
+        await click(pg, "Weiter")
+        await expect(pg, "Gerbstoff", "Cider Gerbstoff statt Tannin")
+        for i in range(5):
+            await click(pg, "Zurück")
         # Alkoholfrei beim Verkosten
         await click(pg, "Verkosten Geführt, Schritt für Schritt")
         await click(pg, "Alkoholfrei")

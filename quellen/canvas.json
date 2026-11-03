@@ -183,7 +183,7 @@
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "8a · Anmelden (freiwillig, für Premium)",
+      "title": "8a · Anmelden (freiwillig, mit Cloud-Sync)",
       "is_interactive": true
     },
     "Premium.dc.html": {
@@ -191,7 +191,7 @@
       "y": 0,
       "w": 390,
       "h": 844,
-      "title": "8b · Premium",
+      "title": "8b · Premium (später)",
       "is_interactive": true
     },
     "Essen.dc.html": {

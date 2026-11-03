@@ -510,6 +510,70 @@ W.bier.learn = {
   finish: 'Rezenz heißt das Prickeln der Kohlensäure. Ein Weizen hat viel davon, ein Stout eher wenig und fühlt sich darum weicher an.',
   verdict: 'Notier ruhig, wozu du es getrunken hast. So siehst du später, was dir in welcher Situation schmeckt.'
 };
+// Abwechslung beim Verkosten: weitere Fassungen von Anleitung, Tipp und Gut zu wissen.
+// Die erste Fassung steht oben in W.*.hints, W.*.tip und W.*.learn. Gewechselt wird reihum, pro Verkostung eine weiter.
+var MORE = {
+  wein: {
+    hints: {
+      look: { Einsteiger: ['Kipp das Glas leicht über einem hellen Untergrund. Ist die Farbe eher hell wie Stroh oder kräftig und tief?', 'Schau dir den Wein im Licht an. Welche Farbe passt am besten? Achte auch darauf, ob er klar ist.'], Erfahren: ['Farbton, Tiefe und Aufhellung zum Rand hin beurteilen.'] },
+      nose: { Einsteiger: ['Riech zuerst, ohne zu schwenken. Dann schwenk das Glas ein paar Mal und riech noch einmal. Was fällt dir ein?', 'Halte die Nase kurz ins Glas. Woran erinnert dich der Duft: Obst, Blumen, Kräuter? Tippe an, was passt.'], Erfahren: ['Ruhend und geschwenkt riechen, dann Frucht, Blüten, Würze und Holz trennen.'] },
+      palate: { Einsteiger: ['Nimm einen kleinen Schluck. Ist der Wein eher süß oder trocken, frisch oder mild?', 'Lass den Schluck einen Moment im Mund. Spürst du Säure an den Zungenrändern oder ein pelziges Gefühl am Zahnfleisch?'], Erfahren: ['Struktur prüfen: Süße, Säure, Tannin und Körper.'] },
+      finish: { Einsteiger: ['Schluck hinunter und warte. Wie lange schmeckst du noch etwas: kurz, mittel oder lang?', 'Achte nach dem Schlucken darauf, was im Mund bleibt und wie lange.'], Erfahren: ['Wie lange und wie angenehm hallt er nach?'] },
+      verdict: { Einsteiger: ['Wie fandest du ihn insgesamt? Sag ehrlich, ob du ihn wieder trinken würdest.', 'Vergib Sterne nach deinem Gefühl. Dein Eindruck zählt, nicht der Preis.'], Erfahren: ['Balance, Länge und Trinkfreude zusammenfassen.'] }
+    },
+    tip: {
+      look: ['Bei Tageslicht siehst du Farben am besten. Kerzenlicht färbt alles wärmer.', 'Halte das Glas am Stiel. Dann bleibt der Kelch sauber und der Wein wird nicht warm.'],
+      nose: ['Riech zwischendurch kurz an deinem Handrücken. Das macht die Nase wieder neutral.', 'Dir fällt ein Duft ein, der nicht im Rad steht? Schreib ihn in die Notiz. Jede eigene Beschreibung zählt.'],
+      palate: ['Ein Schluck Wasser zwischendurch macht den Mund wieder neutral.', 'Der erste Schluck ist oft ungewohnt. Der zweite zeigt den Wein meist besser.'],
+      finish: ['Atme nach dem Schlucken langsam durch die Nase aus. So schmeckst du den Nachhall besser.', 'Achte darauf, ob der Nachhall angenehm bleibt oder bitter wird.'],
+      verdict: ['Eine kurze Notiz hilft dir später mehr als viele Worte.', 'Passt er zu einem bestimmten Essen? Das ist ein guter Hinweis für die Notiz.']
+    },
+    learn: {
+      look: ['Mit dem Alter werden Weißweine goldener und Rotweine heller und bräunlicher.', 'Ist ein Rotwein am Rand heller und wässrig, ist er oft älter oder leichter.'],
+      nose: ['Aromen aus der Traube heißen primär, aus der Gärung sekundär und aus der Reifung tertiär.', 'Viele Duftstoffe im Wein sind dieselben wie in Obst und Blumen. Darum kann Wein wirklich nach Pfirsich riechen.'],
+      palate: ['Säure macht Wein frisch und hilft ihm, lange zu reifen.', 'Alkohol spürst du als Wärme im Hals und als Gewicht im Mund.'],
+      finish: ['Ein langer Abgang gilt oft als Zeichen für Qualität.', 'Den Nachhall nennt man auch Abgang.'],
+      verdict: ['Je mehr Verkostungen du notierst, desto genauer werden die Vorschläge der App.', 'Sterne sagen, wie er dir schmeckt, nicht wie gut er für andere ist.']
+    }
+  },
+  bier: {
+    hints: {
+      look: { Einsteiger: ['Schau durch das Glas ins Licht. Ist das Bier hell, bernsteinfarben oder dunkel? Und wie fest ist der Schaum?', 'Achte auf Farbe und Schaum: Bleibt die Schaumkrone stehen oder fällt sie schnell zusammen?'], Erfahren: ['Farbe, Klarheit, Schaumbild und wie lange der Schaum hält.'] },
+      nose: { Einsteiger: ['Riech kurz und kräftig. Erinnert dich der Duft eher an Brot, an Früchte oder an Kräuter?', 'Schwenk das Glas leicht und riech noch einmal. Tippe an, was dir einfällt.'], Erfahren: ['Malz, Hopfen und Hefe getrennt suchen.'] },
+      palate: { Einsteiger: ['Nimm einen guten Schluck. Ist es eher bitter oder eher malzig-süß?', 'Lass das Bier über die ganze Zunge laufen. Wo spürst du Süße, wo Bittere?'], Erfahren: ['Antrunk, Bittere, Malzkörper und Balance einordnen.'] },
+      finish: { Einsteiger: ['Wie stark prickelt es? Und bleibt die Bittere nach dem Schlucken noch eine Weile?', 'Achte nach dem Schlucken darauf, was bleibt: Bittere, Süße oder Röstnoten.'], Erfahren: ['Rezenz und Nachtrunk beurteilen.'] },
+      verdict: { Einsteiger: ['Wie fandest du es insgesamt? Sag ehrlich, ob du es wieder trinken würdest.', 'Vergib Sterne nach deinem Gefühl. Dein Eindruck zählt, nicht der Preis.'], Erfahren: ['Stiltreue und Trinkfreude zusammenfassen.'] }
+    },
+    tip: {
+      look: ['Ein sauberes, fettfreies Glas hält den Schaum länger.', 'Bei hefetrüben Bieren ist die Trübung gewollt und kein Fehler.'],
+      nose: ['Riech direkt nach dem Einschenken. Dann sind die Hopfenaromen am stärksten.', 'Wird das Bier etwas wärmer, duftet es oft stärker. Riech später ruhig noch einmal.'],
+      palate: ['Ein Stück Brot zwischendurch macht den Mund wieder neutral.', 'Sehr kaltes Bier schmeckt flacher. Wird es etwas wärmer, kommt mehr Geschmack.'],
+      finish: ['Atme nach dem Schlucken durch die Nase aus. So merkst du Malz und Hopfen im Nachtrunk.', 'Eine Bittere, die lange bleibt, ist typisch für stark gehopfte Biere.'],
+      verdict: ['Eine kurze Notiz hilft dir später mehr als viele Worte.', 'Passt es zu einem bestimmten Essen? Das ist ein guter Hinweis für die Notiz.']
+    },
+    learn: {
+      look: ['Untergärige Biere wie Pils sind meist klar. Viele Weizenbiere bleiben durch die Hefe trüb.', 'Der Schaum entsteht aus Kohlensäure und Eiweiß aus dem Malz.'],
+      nose: ['Hopfen für die Bittere kommt früh in den Sud, Hopfen für das Aroma erst spät.', 'Banane und Nelke im Weizenbier stammen von der Hefe, nicht von Obst oder Gewürzen.'],
+      palate: ['Die Bittere wird in IBU gemessen, in Bittereinheiten. Ein Pils hat meist deutlich mehr als ein Helles.', 'Geröstetes Malz bringt Kaffee- und Schokoladennoten, ganz ohne Kaffee oder Schokolade.'],
+      finish: ['Die Kohlensäure trägt die Aromen nach oben und macht Bier erfrischend.', 'Ein trockener Nachtrunk macht Lust auf den nächsten Schluck.'],
+      verdict: ['Je mehr Verkostungen du notierst, desto genauer werden die Vorschläge der App.', 'Sterne sagen, wie es dir schmeckt, nicht wie gut es für andere ist.']
+    }
+  }
+};
+// Texte passend zur Flasche. Sie kommen bei der ersten Verkostung zuerst.
+var BOTTLE_TXT = {
+  w1: { tip: { nose: 'Riesling duftet oft nach Zitrus, Apfel oder Pfirsich. Such zuerst danach.' }, learn: { palate: 'Riesling hat meist viel Säure. Achte darauf, wie frisch er dadurch wirkt.' } },
+  w2: { tip: { nose: 'Typisch für Spätburgunder sind rote Früchte wie Kirsche und Erdbeere.' }, learn: { look: 'Spätburgunder ist meist heller als andere Rotweine, weil seine Schalen dünn sind.' } },
+  w9: { tip: { palate: 'Apfelwein ist oft deutlich sauer. Das ist typisch und kein Fehler.' } },
+  b1: { tip: { look: 'Ein gutes Pils hat oft eine feste, weiße Schaumkrone.' }, learn: { palate: 'Pils ist kräftig gehopft. Die Bittere ist hier gewollt.' } },
+  b2: { tip: { look: 'Schwenk den Rest in der Flasche und gieß ihn zum Schluss dazu. So kommt die Hefe ins Glas.' } },
+  b3: { learn: { nose: 'Die Kaffee- und Schokoladennoten im Stout kommen vom stark gerösteten Malz.' } }
+};
+// Wählt reihum eine Fassung: erst die passende zur Flasche, dann die allgemeinen
+function pickTxt(first, more, special, round) {
+  var list = [].concat(special ? [special] : [], [first], more || []);
+  return list[((round % list.length) + list.length) % list.length];
+}
 // Aromen erklärt: was man riecht, woher es kommt, wie man es sich merkt
 W.wein.aromaInfo = {
   'Zitrus': ['Zitrone, Limette, Grapefruit', 'Typisch für frische Weißweine mit viel Säure, zum Beispiel Riesling oder Sauvignon Blanc.', 'Reib eine Zitrone an der Schale und riech daran. Genau dieser helle, spritzige Duft ist gemeint.'],
@@ -629,6 +693,9 @@ W.wein.journal.push({ name: 'Riesling alkoholfrei', maker: '[Weingut]', stars: 3
 W.bier.journal.push({ name: 'Weizen alkoholfrei', maker: '[Brauerei]', stars: 4, face: 'Nochmal', date: '21. Sep.', color: 1, af: true, note: 'Kaum ein Unterschied zum normalen Weizen.', ax: { bitter: 1, malt: 3, acid: 2, body: 2, orig: 4 }, fizz: 'Viel', len: 'Kurz' });
 var GROUP_TINT = [['#FAEEDA', '#633806', '#633806', '#FAEEDA'], ['#FAC775', '#633806', '#854F0B', '#FAEEDA'], ['#FCEBEB', '#791F1F', '#791F1F', '#FCEBEB'], ['#EEEDFE', '#3C3489', '#3C3489', '#EEEDFE'], ['#FBEAF0', '#72243E', '#72243E', '#FBEAF0'], ['#EAF3DE', '#27500A', '#27500A', '#EAF3DE'], ['#FAECE7', '#712B13', '#712B13', '#FAECE7'], ['#D3D1C7', '#444441', '#444441', '#F1EFE8']];
 var AXIS_ORIG = { k: 'orig', label: 'Wie nah am Original?', lo: 'ganz anders', hi: 'wie mit Alkohol' };
+// Bei Cider heißt Tannin Gerbstoff
+function axLabel(ax, b) { return b && b.shade === 'cider' && ax.k === 'tannin' ? 'Gerbstoff' : ax.label; }
+var CIDER_AROMAS = ['Apfelschale', 'Bratapfel', 'Hefe', 'Essigstich', 'Stall'];
 function allBottles(w) { return W[w].bottles.concat(W[w].recs); }
 function bottleOf(w, id) { return allBottles(w).filter(function (b) { return b.id === id; })[0] || W[w].bottles[0]; }
 function seed(w) { return W[w].journal.map(function (e, i) { return Object.assign({ id: w + '-j' + i }, e); }); }
