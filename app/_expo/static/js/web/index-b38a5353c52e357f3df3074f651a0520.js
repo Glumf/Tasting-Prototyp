@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0}),Object.defineProperty(e,"default",{enumerable:!0,get:function(){return c}});var t=r(d[0]),n=r(d[1]),u=r(d[2]);function c(){const{ersterStartFertig:c}=(0,n.useApp)();return(0,u.jsx)(t.Redirect,{href:c?'/start':'/willkommen'})}},772,[795,791,6]);
