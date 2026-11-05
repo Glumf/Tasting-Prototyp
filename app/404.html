@@ -108,6 +108,44 @@
       html, body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
       * { -webkit-tap-highlight-color: transparent; }
     </style>
+  
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="TastingPath" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="/Tasting-Prototyp/app/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/Tasting-Prototyp/app/icon-180.png" />
+    <script>
+      // Vor dem Laden: Hintergrund in der gespeicherten Darstellung, damit nichts weiß aufblitzt.
+      (function () {
+        var dunkel = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        try { var e = JSON.parse(localStorage.getItem('tastingpath.einstellung') || '{}'); if (e.darstellung === 'dunkel') dunkel = true; if (e.darstellung === 'hell') dunkel = false; } catch (x) {}
+        var bg = dunkel ? '#000000' : '#F2F3EA';
+        document.documentElement.style.backgroundColor = bg;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', bg);
+        // Feste Statusleiste (nicht durchscheinend): Die App beginnt darunter. So legt iOS keine Unschärfe über
+        // die Kopfzeile, und die Höhe stimmt (kein Balken unten). Dunkel: schwarze Leiste, hell: helle Leiste.
+        document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').setAttribute('content', dunkel ? 'black' : 'default');
+      })();
+    </script>
+    <script>
+      // Vom Home-Bildschirm gestartet (Vollbild): Adresse nie ändern. Sonst blendet iOS beim Wechsel der Seite
+      // wieder die Safari-Leiste ein. Die App merkt sich die Seiten intern, Zurück funktioniert weiter.
+      (function () {
+        var vollbild = window.navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+        if (!vollbild) return;
+        var fest = window.location.href;
+        var push = history.pushState.bind(history);
+        var ersetze = history.replaceState.bind(history);
+        history.pushState = function (zustand, titel) { return push(zustand, titel, fest); };
+        history.replaceState = function (zustand, titel) { return ersetze(zustand, titel, fest); };
+      })();
+    </script>
+    <style>
+      html, body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+      * { -webkit-tap-highlight-color: transparent; }
+    </style>
   </head>
 
   <body>
