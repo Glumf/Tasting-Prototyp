@@ -80,6 +80,25 @@
         });
       })();
     </script>
+    <script>
+      // Neue Version da? Startseite ohne Zwischenspeicher holen und vergleichen; wenn anders, neu laden.
+      // So kommen Updates auch in der Web-App vom Home-Bildschirm sofort an.
+      (function () {
+        function pruefe() {
+          var jetzt = document.querySelector('script[src*="/entry-"]');
+          if (!jetzt || !window.fetch) return;
+          fetch('/Tasting-Prototyp/app/index.html?t=' + Date.now(), { cache: 'no-store' })
+            .then(function (r) { return r.ok ? r.text() : ''; })
+            .then(function (html) {
+              var m = html.match(/entry-[a-f0-9]+[.]js/);
+              if (m && jetzt.getAttribute('src').indexOf(m[0]) < 0) window.location.replace('/Tasting-Prototyp/app/?v=' + Date.now());
+            })
+            .catch(function () {});
+        }
+        window.addEventListener('load', function () { setTimeout(pruefe, 1500); });
+        document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') pruefe(); });
+      })();
+    </script>
     <style>
       html, body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
       * { -webkit-tap-highlight-color: transparent; }
@@ -91,6 +110,6 @@
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/Tasting-Prototyp/app/_expo/static/js/web/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/__common-3ac6827a4148a063434edcaf150f39b8.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/entry-17dce2e14269503f6ff6644b65ba49b0.js" defer></script>
+  <script src="/Tasting-Prototyp/app/_expo/static/js/web/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/__common-07d83f9f6a96c94584d309ab79621fad.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/entry-1a77c7119e54fa4062d9008be9ad0c45.js" defer></script>
 </body>
 </html>
