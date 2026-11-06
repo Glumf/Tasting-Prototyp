@@ -57,6 +57,29 @@
         history.replaceState = function (zustand, titel) { return ersetze(zustand, titel, fest); };
       })();
     </script>
+    <script>
+      // Falls ein Programmteil nicht geladen werden kann (z. B. alte, zwischengespeicherte Version nach einem Update):
+      // Seite einmal neu laden statt einer weißen Seite.
+      (function () {
+        var KEY = 'tastingpath.neugeladen';
+        function neu() {
+          try {
+            var zuletzt = Number(sessionStorage.getItem(KEY) || 0);
+            if (Date.now() - zuletzt < 15000) return;
+            sessionStorage.setItem(KEY, String(Date.now()));
+          } catch (x) {}
+          window.location.reload();
+        }
+        window.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (t && t.tagName === 'SCRIPT') neu();
+        }, true);
+        window.addEventListener('unhandledrejection', function (e) {
+          var m = String((e && e.reason && (e.reason.message || e.reason)) || '');
+          if (/load|chunk|fetch|import|module/i.test(m)) neu();
+        });
+      })();
+    </script>
     <style>
       html, body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
       * { -webkit-tap-highlight-color: transparent; }
@@ -68,6 +91,6 @@
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/Tasting-Prototyp/app/_expo/static/js/web/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/__common-e6b3a957ac10f3c4736f83cb701e00c8.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/entry-b46626a9efd36f625caff0f65dfc50ac.js" defer></script>
+  <script src="/Tasting-Prototyp/app/_expo/static/js/web/__expo-metro-runtime-8c088df87a31e4e6accd81c554ec290d.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/__common-3ac6827a4148a063434edcaf150f39b8.js" defer></script><script src="/Tasting-Prototyp/app/_expo/static/js/web/entry-17dce2e14269503f6ff6644b65ba49b0.js" defer></script>
 </body>
 </html>
